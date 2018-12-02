@@ -7,6 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 @Entity
 @SequenceGenerator(name="sequencia_filial", sequenceName="seq_filial", initialValue=1, allocationSize=1)
 public class Filial implements EntidadeBase{
@@ -16,6 +19,7 @@ public class Filial implements EntidadeBase{
 	@Column(length=75, unique=true)
 	private String nome;
 	@ManyToOne
+	@Cascade(CascadeType.ALL)
 	private Endereco endereco;
 	public Filial() {
 		super();
@@ -26,6 +30,12 @@ public class Filial implements EntidadeBase{
 	public Filial(Integer id, String nome, Endereco endereco) {
 		super();
 		this.id = id;
+		this.nome = nome;
+		this.endereco = endereco;
+	}
+	
+	public Filial(String nome, Endereco endereco) {
+		super();
 		this.nome = nome;
 		this.endereco = endereco;
 	}

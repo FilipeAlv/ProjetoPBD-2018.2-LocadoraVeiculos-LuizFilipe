@@ -9,11 +9,17 @@ public class PessoaJuridica extends Pessoa{
 	public PessoaJuridica() {
 		super();
 	}
-	public PessoaJuridica(int id, String codigo, String nome, String login, String senha, Endereco endereco) {
+	public PessoaJuridica(Integer id, String codigo, String nome, String login, String senha, Endereco endereco) {
 		super(id, codigo, nome, login, senha, endereco);
 	}
-	public PessoaJuridica(int id, String codigo, String nome, String login, String senha, Endereco endereco, String cnpj, String inscricaoEstadual) {
+	public PessoaJuridica(Integer id, String codigo, String nome, String login, String senha, Endereco endereco, String cnpj, String inscricaoEstadual) {
 		super(id, codigo, nome, login, senha, endereco);
+		this.cnpj = cnpj;
+		this.inscricaoEstadual = inscricaoEstadual;
+	}
+	
+	public PessoaJuridica(String codigo, String nome, String login, String senha, Endereco endereco, String cnpj, String inscricaoEstadual) {
+		super(codigo, nome, login, senha, endereco);
 		this.cnpj = cnpj;
 		this.inscricaoEstadual = inscricaoEstadual;
 	}

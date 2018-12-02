@@ -8,6 +8,7 @@ import br.com.util.ConnectionFactory;
 public class DaoGenerico<T extends EntidadeBase> {
 	private static EntityManager manager = ConnectionFactory.getInstance().getConnection();
 
+	@SuppressWarnings("unchecked")
 	public T findById(Class<T> classe, Integer id){
 		return manager.find(classe, id);
 	}

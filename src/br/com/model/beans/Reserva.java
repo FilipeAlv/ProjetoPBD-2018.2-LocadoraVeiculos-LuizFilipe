@@ -30,12 +30,18 @@ public class Reserva implements EntidadeBase{
 	@ManyToOne
 	private Filial filial;
 	@ManyToOne
+	private Filial filialEntrega;
+	@ManyToOne
 	private Categoria categoria;
 	public Reserva() {
 		super();
 	}
+	
+	
+	
 	public Reserva(Integer id, Date dataReserva, Date dataInicial, Date dataFinalPrevista, String tipoLocacao,
-			double valorPrevisto, Pessoa cliente, Pessoa motorista, Filial filial, Categoria categoria) {
+			double valorPrevisto, Pessoa cliente, Pessoa motorista, Filial filial, Filial filialEntrega,
+			Categoria categoria) {
 		super();
 		this.id = id;
 		this.dataReserva = dataReserva;
@@ -46,8 +52,29 @@ public class Reserva implements EntidadeBase{
 		this.cliente = cliente;
 		this.motorista = motorista;
 		this.filial = filial;
+		this.filialEntrega = filialEntrega;
 		this.categoria = categoria;
 	}
+
+	
+
+	public Reserva(Date dataReserva, Date dataInicial, Date dataFinalPrevista, String tipoLocacao, double valorPrevisto,
+			Pessoa cliente, Pessoa motorista, Filial filial, Filial filialEntrega, Categoria categoria) {
+		super();
+		this.dataReserva = dataReserva;
+		this.dataInicial = dataInicial;
+		this.dataFinalPrevista = dataFinalPrevista;
+		this.tipoLocacao = tipoLocacao;
+		this.valorPrevisto = valorPrevisto;
+		this.cliente = cliente;
+		this.motorista = motorista;
+		this.filial = filial;
+		this.filialEntrega = filialEntrega;
+		this.categoria = categoria;
+	}
+
+
+
 	public Integer getId() {
 		return id;
 	}
@@ -108,6 +135,21 @@ public class Reserva implements EntidadeBase{
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
+
+
+
+	public Filial getFilialEntrega() {
+		return filialEntrega;
+	}
+
+
+
+	public void setFilialEntrega(Filial filialEntrega) {
+		this.filialEntrega = filialEntrega;
+	}
+
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -118,6 +160,7 @@ public class Reserva implements EntidadeBase{
 		result = prime * result + ((dataInicial == null) ? 0 : dataInicial.hashCode());
 		result = prime * result + ((dataReserva == null) ? 0 : dataReserva.hashCode());
 		result = prime * result + ((filial == null) ? 0 : filial.hashCode());
+		result = prime * result + ((filialEntrega == null) ? 0 : filialEntrega.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((motorista == null) ? 0 : motorista.hashCode());
 		result = prime * result + ((tipoLocacao == null) ? 0 : tipoLocacao.hashCode());
@@ -126,6 +169,9 @@ public class Reserva implements EntidadeBase{
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
+
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -165,6 +211,11 @@ public class Reserva implements EntidadeBase{
 				return false;
 		} else if (!filial.equals(other.filial))
 			return false;
+		if (filialEntrega == null) {
+			if (other.filialEntrega != null)
+				return false;
+		} else if (!filialEntrega.equals(other.filialEntrega))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -184,6 +235,8 @@ public class Reserva implements EntidadeBase{
 			return false;
 		return true;
 	}
+	
+	
 	
 	
 	

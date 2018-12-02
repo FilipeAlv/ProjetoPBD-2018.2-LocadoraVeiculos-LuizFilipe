@@ -38,5 +38,15 @@ public class DAOPessoa extends DaoGenerico<Pessoa>{
         Integer id = em.createQuery(SQLUtil.Pessoa.SELECT_MAX_ID, Integer.class).getSingleResult();
         return id;
     }
+    
+    public Pessoa findByLoginSenha(String login, String senha) {
+        EntityManager em = ConnectionFactory.getInstance().getConnection();
+        TypedQuery<Pessoa> query = em.createQuery(SQLUtil.Pessoa.SELECT_LOGIN_SENHA, Pessoa.class);
+        query.setParameter("login", login);
+        query.setParameter("senha", senha);
+        return query.getSingleResult();
+    }
+
+
 
 }

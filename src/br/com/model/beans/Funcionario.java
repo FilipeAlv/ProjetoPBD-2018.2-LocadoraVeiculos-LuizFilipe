@@ -28,6 +28,14 @@ public class Funcionario extends PessoaFisica{
 		this.cargo = cargo;
 		this.permissao = permissao;
 	}
+	
+	public Funcionario(String codigo, String nome, String login, String senha, Endereco endereco, String cpf,
+			String rg, Date dataNascimento, String sexo, String cargo, String permissao) {
+		super(codigo, nome, login, senha, endereco, cpf, rg, dataNascimento, sexo);
+		this.cargo = cargo;
+		this.permissao = permissao;
+	}
+	
 	public String getCargo() {
 		return cargo;
 	}

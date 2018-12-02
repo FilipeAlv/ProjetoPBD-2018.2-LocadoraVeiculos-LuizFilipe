@@ -26,6 +26,15 @@ public class PessoaFisica extends Pessoa{
 		this.dataNascimento = dataNascimento;
 		this.sexo = sexo;
 	}
+	
+	public PessoaFisica( String codigo, String nome, String login, String senha, Endereco endereco, String cpf, String rg, Date dataNascimento, String sexo) {
+		super(codigo, nome, login, senha, endereco);
+		this.cpf = cpf;
+		this.rg = rg;
+		this.dataNascimento = dataNascimento;
+		this.sexo = sexo;
+	}
+	
 	public String getCpf() {
 		return cpf;
 	}

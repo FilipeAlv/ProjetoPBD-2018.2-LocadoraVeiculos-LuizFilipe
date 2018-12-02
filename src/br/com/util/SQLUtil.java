@@ -5,6 +5,7 @@ public class SQLUtil {
 		public static final String SELECT_ALL = "SELECT p FROM Pessoa p";
 		public static final String SELECT_MAX_COD = "SELECT MAX(codigo) FROM Pessoa";
 		public static final String SELECT_MAX_ID = "SELECT MAX(id) FROM Pessoa";
+		public static final String SELECT_LOGIN_SENHA = "SELECT p FROM Pessoa p WHERE p.login = :login AND p.senha = :senha";
 	}
 	
 	public class PessoaFisica{

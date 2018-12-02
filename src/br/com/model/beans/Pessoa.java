@@ -8,13 +8,16 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 @Entity
 @SequenceGenerator(name="sequencia_pessoa", sequenceName="seq_pessoa", initialValue=1, allocationSize=1)
 public abstract class Pessoa implements EntidadeBase{
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequencia_pessoa")
 	private Integer id;
-	@Column(length=50)
+	@Column(length=50, unique=true)
 	private String codigo;
 	@Column(length=150)
 	private String nome;
@@ -23,6 +26,7 @@ public abstract class Pessoa implements EntidadeBase{
 	@Column(length=16)
 	private String senha;
 	@OneToOne
+	@Cascade(CascadeType.ALL)
 	private Endereco endereco;
 	
 	public Pessoa() {		
@@ -31,6 +35,15 @@ public abstract class Pessoa implements EntidadeBase{
 	public Pessoa(Integer id, String codigo, String nome, String login, String senha, Endereco endereco) {
 		super();
 		this.id = id;
+		this.codigo = codigo;
+		this.nome = nome;
+		this.login = login;
+		this.senha = senha;
+		this.endereco = endereco;
+	}
+	
+	public Pessoa(String codigo, String nome, String login, String senha, Endereco endereco) {
+		super();
 		this.codigo = codigo;
 		this.nome = nome;
 		this.login = login;

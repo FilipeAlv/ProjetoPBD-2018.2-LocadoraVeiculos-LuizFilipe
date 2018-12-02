@@ -47,6 +47,20 @@ public class Categoria implements EntidadeBase{
 		this.radio = radio;
 		this.mp3 = mp3;
 	}
+	
+	public Categoria(String nome, String tamanho, String tipoCambio, double valorDiaria, boolean arCondicionado,
+			boolean direcaoHidraulica, boolean cameraRe, boolean radio, boolean mp3) {
+		super();
+		this.nome = nome;
+		this.tamanho = tamanho;
+		this.tipoCambio = tipoCambio;
+		this.valorDiaria = valorDiaria;
+		this.arCondicionado = arCondicionado;
+		this.direcaoHidraulica = direcaoHidraulica;
+		this.cameraRe = cameraRe;
+		this.radio = radio;
+		this.mp3 = mp3;
+	}
 
 
 	public Integer getId() {

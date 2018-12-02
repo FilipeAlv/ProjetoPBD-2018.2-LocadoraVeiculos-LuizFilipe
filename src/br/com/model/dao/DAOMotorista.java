@@ -1,11 +1,8 @@
 package br.com.model.dao;
 
-import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-
-import br.com.model.beans.Locacao;
 import br.com.model.beans.Motorista;
 import br.com.model.beans.Pessoa;
 import br.com.util.ConnectionFactory;
@@ -36,6 +33,11 @@ public class DAOMotorista extends DaoGenerico<Motorista>{
 		TypedQuery<Motorista> tp = em.createQuery(SQLUtil.Motorista.SELECT_HABILITACAO, Motorista.class);
 		tp.setParameter("habilitacao", habilitacao);
 		return tp.getResultList();
+	}
+
+	@Override
+	public void remove(Class<Motorista> classe, Integer id) {
+		super.remove(classe, id);
 	}
     
 

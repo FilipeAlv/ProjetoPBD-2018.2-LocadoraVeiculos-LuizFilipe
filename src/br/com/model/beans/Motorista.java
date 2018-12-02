@@ -10,23 +10,30 @@ public class Motorista extends PessoaFisica{
 	private Date validadeHabilitacao;
 	public Motorista() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
-	public Motorista(int id, String codigo, String nome, String login, String senha, Endereco endereco, String cpf,
+	public Motorista(Integer id, String codigo, String nome, String login, String senha, Endereco endereco, String cpf,
 			String rg, Date dataNascimento, String sexo) {
 		super(id, codigo, nome, login, senha, endereco, cpf, rg, dataNascimento, sexo);
 
 	}
-	public Motorista(int id, String codigo, String nome, String login, String senha, Endereco endereco) {
+	public Motorista(Integer id, String codigo, String nome, String login, String senha, Endereco endereco) {
 		super(id, codigo, nome, login, senha, endereco);
 
 
 	}
 
-	public Motorista(int id, String codigo, String nome, String login, String senha, Endereco endereco, String cpf,
+	public Motorista(Integer id, String codigo, String nome, String login, String senha, Endereco endereco, String cpf,
 			String rg, Date dataNascimento, String sexo, int idade, String habilitacao, Date validadeHabilitacao) {
 		super(id, codigo, nome, login, senha, endereco, cpf, rg, dataNascimento, sexo);
+		this.idade = idade;
+		this.habilitacao = habilitacao;
+		this.validadeHabilitacao = validadeHabilitacao;
+	}
+	
+	public Motorista(String codigo, String nome, String login, String senha, Endereco endereco, String cpf,
+			String rg, Date dataNascimento, String sexo, int idade, String habilitacao, Date validadeHabilitacao) {
+		super(codigo, nome, login, senha, endereco, cpf, rg, dataNascimento, sexo);
 		this.idade = idade;
 		this.habilitacao = habilitacao;
 		this.validadeHabilitacao = validadeHabilitacao;

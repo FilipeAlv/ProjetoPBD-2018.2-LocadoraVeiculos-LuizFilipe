@@ -1,6 +1,7 @@
 package br.com.model.beans;
 
 import javax.persistence.Entity;
+
 @Entity
 public class CaminhonetaCarga extends Categoria{
 	private int capacidade;
@@ -18,7 +19,7 @@ public class CaminhonetaCarga extends Categoria{
 		super(id, nome, tamanho, tipoCambio, valorDiaria, arCondicionado, direcaoHidraulica, cameraRe, radio, mp3);
 		
 	}
-	public CaminhonetaCarga(int id, String nome, String tamanho, String tipoCambio, double valorDiaria,
+	public CaminhonetaCarga(Integer id, String nome, String tamanho, String tipoCambio, double valorDiaria,
 			boolean arCondicionado, boolean direcaoHidraulica, boolean cameraRe, boolean radio, boolean mp3, int capacidade, String desempenho, int volumeTanque, int distanciaEixo, float potenciaMotor,
 			String tipoEmbreagem) {
 		super(id, nome, tamanho, tipoCambio, valorDiaria, arCondicionado, direcaoHidraulica, cameraRe, radio, mp3);
@@ -29,6 +30,19 @@ public class CaminhonetaCarga extends Categoria{
 		this.potenciaMotor = potenciaMotor;
 		this.tipoEmbreagem = tipoEmbreagem;
 	}
+	
+	public CaminhonetaCarga(String nome, String tamanho, String tipoCambio, double valorDiaria,
+			boolean arCondicionado, boolean direcaoHidraulica, boolean cameraRe, boolean radio, boolean mp3, int capacidade, String desempenho, int volumeTanque, int distanciaEixo, float potenciaMotor,
+			String tipoEmbreagem) {
+		super(nome, tamanho, tipoCambio, valorDiaria, arCondicionado, direcaoHidraulica, cameraRe, radio, mp3);
+		this.capacidade = capacidade;
+		this.desempenho = desempenho;
+		this.volumeTanque = volumeTanque;
+		this.distanciaEixo = distanciaEixo;
+		this.potenciaMotor = potenciaMotor;
+		this.tipoEmbreagem = tipoEmbreagem;
+	}
+	
 	public int getCapacidade() {
 		return capacidade;
 	}

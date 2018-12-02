@@ -16,17 +16,29 @@ public class CaminhonetaPassageiro extends Categoria{
 	}
 
 
-	public CaminhonetaPassageiro(int id, String nome, String tamanho, String tipoCambio, double valorDiaria,
+	public CaminhonetaPassageiro(Integer id, String nome, String tamanho, String tipoCambio, double valorDiaria,
 			boolean arCondicionado, boolean direcaoHidraulica, boolean cameraRe, boolean radio, boolean mp3) {
 		super(id, nome, tamanho, tipoCambio, valorDiaria, arCondicionado, direcaoHidraulica, cameraRe, radio, mp3);
 	}
 
 
-	public CaminhonetaPassageiro(int id, String nome, String tamanho, String tipoCambio, double valorDiaria,
+	public CaminhonetaPassageiro(Integer id, String nome, String tamanho, String tipoCambio, double valorDiaria,
 			boolean arCondicionado, boolean direcaoHidraulica, boolean cameraRe, boolean radio, boolean mp3,
 			boolean airBag, boolean direcaoAssistida, boolean ligaLeve,
 			boolean cintosTrasRetrateis, boolean contrPol) {
 		super(id, nome, tamanho, tipoCambio, valorDiaria, arCondicionado, direcaoHidraulica, cameraRe, radio, mp3);
+		this.airBag = airBag;
+		this.direcaoAssistida = direcaoAssistida;
+		this.ligaLeve = ligaLeve;
+		this.cintosTrasRetrateis = cintosTrasRetrateis;
+		this.contrPol = contrPol;
+	}
+	
+	public CaminhonetaPassageiro(String nome, String tamanho, String tipoCambio, double valorDiaria,
+			boolean arCondicionado, boolean direcaoHidraulica, boolean cameraRe, boolean radio, boolean mp3,
+			boolean airBag, boolean direcaoAssistida, boolean ligaLeve,
+			boolean cintosTrasRetrateis, boolean contrPol) {
+		super(nome, tamanho, tipoCambio, valorDiaria, arCondicionado, direcaoHidraulica, cameraRe, radio, mp3);
 		this.airBag = airBag;
 		this.direcaoAssistida = direcaoAssistida;
 		this.ligaLeve = ligaLeve;

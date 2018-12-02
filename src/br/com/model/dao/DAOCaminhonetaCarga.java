@@ -5,7 +5,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import br.com.model.beans.CaminhonetaCarga;
-import br.com.model.beans.Pessoa;
 import br.com.util.ConnectionFactory;
 import br.com.util.SQLUtil;
 
@@ -34,6 +33,11 @@ public class DAOCaminhonetaCarga extends DaoGenerico<CaminhonetaCarga>{
         TypedQuery<CaminhonetaCarga> tq = em.createQuery(SQLUtil.CaminhonetaCarga.SELECT_POTENCIA, CaminhonetaCarga.class);
         List<CaminhonetaCarga> caminhonetasCarga = tq.getResultList();
         return caminhonetasCarga;
+    }
+    
+    @Override
+    public void remove(Class<CaminhonetaCarga> classe, Integer id) {
+    	super.remove(classe, id);
     }
 
 }

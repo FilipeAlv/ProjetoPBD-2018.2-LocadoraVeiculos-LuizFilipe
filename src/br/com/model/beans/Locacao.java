@@ -36,6 +36,15 @@ public class Locacao implements EntidadeBase{
 		this.veiculo = veiculo;
 		this.reserva = reserva;
 	}
+	
+	public Locacao(Date dataFinal, double valorFinal, String statusVeiculo, Veiculo veiculo, Reserva reserva) {
+		super();
+		this.dataFinal = dataFinal;
+		this.valorFinal = valorFinal;
+		this.statusVeiculo = statusVeiculo;
+		this.veiculo = veiculo;
+		this.reserva = reserva;
+	}
 	public Integer getId() {
 		return id;
 	}

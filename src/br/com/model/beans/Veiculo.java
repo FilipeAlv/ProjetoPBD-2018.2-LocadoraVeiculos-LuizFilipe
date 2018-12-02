@@ -61,6 +61,28 @@ public class Veiculo implements EntidadeBase{
 		this.cor = cor;
 		this.categoria = categoria;
 	}
+	
+	public Veiculo(String placa, String chassi, double kmAtual, int numMotor, String fabricante,
+			float torqueMotor, String modelo, String combustivel, int tempoLimpeza, int numPassageiro, int numPorta,
+			int anoFabricacao, int anoModelo, String cor, Categoria categoria) {
+		super();
+		this.placa = placa;
+		this.chassi = chassi;
+		this.kmAtual = kmAtual;
+		this.numMotor = numMotor;
+		this.fabricante = fabricante;
+		this.torqueMotor = torqueMotor;
+		this.modelo = modelo;
+		this.combustivel = combustivel;
+		this.tempoLimpeza = tempoLimpeza;
+		this.numPassageiro = numPassageiro;
+		this.numPorta = numPorta;
+		this.anoFabricacao = anoFabricacao;
+		this.anoModelo = anoModelo;
+		this.cor = cor;
+		this.categoria = categoria;
+	}
+	
 	public Integer getId() {
 		return id;
 	}

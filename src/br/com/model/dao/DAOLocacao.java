@@ -2,13 +2,8 @@ package br.com.model.dao;
 
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-
-import br.com.model.beans.Categoria;
-import br.com.model.beans.Filial;
 import br.com.model.beans.Locacao;
 import br.com.util.ConnectionFactory;
 import br.com.util.SQLUtil;
