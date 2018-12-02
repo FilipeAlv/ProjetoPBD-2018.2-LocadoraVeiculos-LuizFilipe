@@ -23,7 +23,7 @@ public class DaoGenerico<T extends EntidadeBase> {
 			manager.getTransaction().commit();
 		}catch(Exception e){
 			System.out.println(e.getMessage());
-			//manager.getTransaction().rollback();
+			manager.getTransaction().rollback();
 		}
 	}
 

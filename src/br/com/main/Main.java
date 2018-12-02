@@ -1,17 +1,28 @@
 package br.com.main;
 
-import br.com.model.beans.Pessoa;
-import br.com.model.beans.PessoaFisica;
-import br.com.model.dao.DaoGenerico;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 
-public class Main {
+
+public class Main extends Application {
+	@Override
+	public void start(Stage primaryStage) {
+		try {
+			Pane telaLogin = FXMLLoader.load(getClass().getResource("../view/En.fxml"));
+			Scene scene = new Scene(telaLogin);
+			primaryStage.setScene(scene);
+			primaryStage.initStyle(StageStyle.UNDECORATED);
+			primaryStage.show();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static void main(String[] args) {
-		DaoGenerico<Pessoa> daoPessoa = new DaoGenerico<Pessoa>();
-		Pessoa pessoa = new PessoaFisica();
-		pessoa.setNome("Luiz Filipe Alves da Silva");
-		pessoa.setLogin("filipe");
-		pessoa.setSenha("filipe");
-		daoPessoa.saveOrUpdate(pessoa);
-		
+		launch(args);
 	}
 }

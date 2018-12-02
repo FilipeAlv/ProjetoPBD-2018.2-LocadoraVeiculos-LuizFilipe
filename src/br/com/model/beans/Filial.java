@@ -11,7 +11,7 @@ import javax.persistence.SequenceGenerator;
 @SequenceGenerator(name="sequencia_filial", sequenceName="seq_filial", initialValue=1, allocationSize=1)
 public class Filial implements EntidadeBase{
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence_filial")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequencia_filial")
 	private Integer id;
 	@Column(length=75, unique=true)
 	private String nome;
