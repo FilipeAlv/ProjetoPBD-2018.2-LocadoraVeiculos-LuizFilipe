@@ -4,7 +4,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import br.com.model.beans.Motorista;
-import br.com.model.beans.Pessoa;
 import br.com.util.ConnectionFactory;
 import br.com.util.SQLUtil;
 

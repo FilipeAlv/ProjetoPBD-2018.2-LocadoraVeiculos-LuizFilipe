@@ -23,10 +23,10 @@ public class DAOPessoaJuridica extends DaoGenerico<Pessoa>{
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<PessoaFisica> findAll(){
+	public List<PessoaJuridica> findAll(){
 		EntityManager em = ConnectionFactory.getInstance().getConnection();
-		List<PessoaFisica>pessoasFisicas = em.createQuery(SQLUtil.PessoaFisica.SELECT_ALL).getResultList();
-		return pessoasFisicas;
+		List<PessoaJuridica>pessoasJuridicas = em.createQuery(SQLUtil.PessoaJuridica.SELECT_ALL).getResultList();
+		return pessoasJuridicas;
 	}
 
 

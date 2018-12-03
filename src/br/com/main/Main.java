@@ -1,5 +1,6 @@
 package br.com.main;
 
+import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import br.com.model.beans.Pessoa;
@@ -15,22 +16,21 @@ import javafx.scene.layout.Pane;
 
 
 public class Main extends Application {
-	private static Scene scene;
+	private static Scene sceneLogin, scenePrincipal;
 	private static Stage stage;
-	private static Pane telaPrincipal;
+	private static Pane telaPrincipal, telaLogin;
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			stage = primaryStage;
-			Pane telaLogin = FXMLLoader.load(getClass().getResource("../view/Login.fxml"));
+			telaLogin = FXMLLoader.load(getClass().getResource("../view/Login.fxml"));
 			telaPrincipal = FXMLLoader.load(getClass().getResource("../view/Principal.fxml"));
+			sceneLogin = new Scene(telaLogin);
+			scenePrincipal = new Scene(telaPrincipal);
 			
-			
-			
-			scene = new Scene(telaLogin);
-			primaryStage.setScene(scene);
+			primaryStage.setScene(sceneLogin);
 			primaryStage.initStyle(StageStyle.UNDECORATED);
-			primaryStage.show();
+			stage = primaryStage;
+			stage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -46,14 +46,24 @@ public class Main extends Application {
 		launch(args);
 	}
 	
-	public static void alterarTela(String tela) {
-		stage.setWidth(Toolkit.getDefaultToolkit().getScreenSize().getWidth());
-		stage.setHeight(Toolkit.getDefaultToolkit().getScreenSize().getHeight());
-		stage.setX(0);
-		stage.setY(0);
-		
-		scene.setRoot(telaPrincipal);
-		stage.setScene(scene);
-		stage.show();
+	public static void alterarTela(String tela) {	
+		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+		switch(tela) {
+		case "Principal":
+			stage.setWidth(d.getWidth());
+			stage.setHeight(d.getHeight());
+			stage.setX(0);
+			stage.setY(0);
+			stage.setScene(scenePrincipal);
+			break;
+			
+		case "Login":
+			stage.setWidth(500);
+			stage.setHeight(400);
+			stage.setX((d.getWidth()-500)/2);
+			stage.setY((d.getHeight()-400)/2);
+			stage.setScene(sceneLogin);
+			break;
+		}
 	}
 }

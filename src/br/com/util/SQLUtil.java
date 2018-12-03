@@ -40,9 +40,9 @@ public class SQLUtil {
 	}
 	
 	public class Filial{
-		public static final String SELECT_NOME = "SELECT f FROM Filial f WHERE f.nome = :nome";
+		public static final String SELECT_NOME = "SELECT fl FROM Filial fl WHERE fl.nome = :nome";
 		public static final String SELECT_MAX_ID = "SELECT MAX(id) FROM Filial";
-		public static final String SELECT_ALL = "SELECT f FROM Filial";
+		public static final String SELECT_ALL = "SELECT f FROM Filial f";
 	}
 	
 	public class Funcionario{

@@ -34,7 +34,7 @@
                   <Image url="@../resources/config.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="16.0" fitWidth="25.0" layoutX="544.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="17.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="17.0">
+            <ImageView fitHeight="16.0" fitWidth="25.0" layoutX="544.0" layoutY="17.0" onMouseClicked="#actionLogout" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="17.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="17.0">
                <image>
                   <Image url="@../resources/logout.png" />
                </image>
@@ -55,7 +55,7 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Reserva">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem fx:id="menuNovaReserva" mnemonicParsing="false" onAction="#actionAddReserva" text="Nova Reserva" />
               </items>
             </Menu>
          </menus>

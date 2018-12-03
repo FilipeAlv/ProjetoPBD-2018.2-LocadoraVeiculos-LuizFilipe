@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="393.0" prefWidth="594.0" style="-fx-background-color: #9c9c9c; -fx-border-color: #000000;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.controller.ControllerNovaReserva">
+   <children>
+      <AnchorPane layoutX="1.0" prefHeight="39.0" prefWidth="600.0" style="-fx-background-color: #333333;" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label layoutX="246.0" layoutY="7.0" text="Nova Reserva" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="17.0" fitWidth="15.0" layoutX="569.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/close_icon.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Pane accessibleRole="LIST_VIEW" cache="true" layoutX="20.0" layoutY="57.0" prefHeight="143.0" prefWidth="548.0" style="-fx-border-color: #ffffff;" AnchorPane.bottomAnchor="193.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="57.0">
+         <children>
+            <DatePicker fx:id="fdData" focusTraversable="false" layoutX="36.0" layoutY="37.0" prefHeight="25.0" prefWidth="170.0" promptText="Data" />
+            <TextField fx:id="fdHora" focusTraversable="false" layoutX="222.0" layoutY="37.0" prefHeight="25.0" prefWidth="135.0" promptText="Hora" />
+            <DatePicker fx:id="fdDataEntrega" focusTraversable="false" layoutX="36.0" layoutY="82.0" prefHeight="25.0" prefWidth="170.0" promptText="Data de Entrega" />
+            <TextField fx:id="fdHoraEntrega" focusTraversable="false" layoutX="222.0" layoutY="82.0" prefHeight="25.0" prefWidth="135.0" promptText=" Hora de Entrega" />
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="-12.0" prefHeight="25.0" prefWidth="163.0" style="-fx-background-color: #9c9c9c;" text="Dados de Entrada e Saida" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS" />
+            <ComboBox fx:id="cbFilial" focusTraversable="false" layoutX="378.0" layoutY="37.0" prefHeight="25.0" prefWidth="135.0" promptText="Filial" />
+            <ComboBox fx:id="cbFilialEntrega" focusTraversable="false" layoutX="376.0" layoutY="79.0" prefHeight="25.0" prefWidth="135.0" promptText="Filial Entrega" />
+         </children>
+      </Pane>
+      <Pane layoutX="14.0" layoutY="230.0" prefHeight="143.0" prefWidth="548.0" style="-fx-border-color: #ffffff;" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
+         <children>
+            <ComboBox fx:id="cbMotorista" focusTraversable="false" layoutX="359.0" layoutY="37.0" prefHeight="25.0" prefWidth="135.0" promptText="Motorista" />
+            <ComboBox fx:id="cbCliente" focusTraversable="false" layoutX="28.0" layoutY="82.0" prefHeight="25.0" prefWidth="494.0" promptText="Cliente" />
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="-11.0" prefHeight="25.0" prefWidth="122.0" style="-fx-background-color: #9c9c9c;" text="Outras Informações" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS" />
+            <TextField fx:id="fdValor" focusTraversable="false" layoutX="28.0" layoutY="37.0" prefHeight="25.0" prefWidth="103.0" promptText="Valor" />
+            <ComboBox fx:id="cbTipo" focusTraversable="false" layoutX="164.0" layoutY="37.0" prefHeight="25.0" prefWidth="163.0" promptText="Tipo de Locação" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

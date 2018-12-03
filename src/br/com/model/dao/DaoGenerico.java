@@ -2,13 +2,14 @@ package br.com.model.dao;
 
 import javax.persistence.EntityManager;
 
+import org.hibernate.exception.ConstraintViolationException;
+
 import br.com.model.beans.EntidadeBase;
 import br.com.util.ConnectionFactory;
 
 public class DaoGenerico<T extends EntidadeBase> {
 	private static EntityManager manager = ConnectionFactory.getInstance().getConnection();
 
-	@SuppressWarnings("unchecked")
 	public T findById(Class<T> classe, Integer id){
 		return manager.find(classe, id);
 	}
@@ -23,7 +24,6 @@ public class DaoGenerico<T extends EntidadeBase> {
 			}
 			manager.getTransaction().commit();
 		}catch(Exception e){
-			System.out.println(e.getMessage());
 			manager.getTransaction().rollback();
 		}
 	}
@@ -35,7 +35,11 @@ public class DaoGenerico<T extends EntidadeBase> {
 			manager.getTransaction().begin();
 			manager.remove(t);
 			manager.getTransaction().commit();
-		}catch (Exception e) {
+		}catch (ConstraintViolationException e) {
+			System.out.println("Usuario com esse nome");
+			manager.getTransaction().rollback();
+		}catch (Exception ex) {
+			System.out.println("Erro desconhecido");
 			manager.getTransaction().rollback();
 		}
 	}
