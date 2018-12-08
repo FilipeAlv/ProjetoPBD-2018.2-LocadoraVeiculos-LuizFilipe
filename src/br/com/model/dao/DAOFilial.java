@@ -25,11 +25,11 @@ public class DAOFilial extends DaoGenerico<Filial>{
 		return filial;
 	}
 	
-	public List<Filial> findByNome(String nome){
+	public Filial findByNome(String nome){
 		EntityManager em = ConnectionFactory.getInstance().getConnection();
 		TypedQuery<Filial> tp = em.createQuery(SQLUtil.Filial.SELECT_NOME, Filial.class);
 		tp.setParameter("nome", nome);
-		return tp.getResultList();
+		return tp.getSingleResult();
 	}
 	
 	public Filial findMaxId() {

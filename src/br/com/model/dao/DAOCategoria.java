@@ -37,4 +37,11 @@ public class DAOCategoria extends DaoGenerico<Categoria>{
 		return categoria;
 	}
 
+	public Categoria findByNome(String nome) {
+		EntityManager em = ConnectionFactory.getInstance().getConnection();
+		TypedQuery<Categoria> tp = em.createQuery(SQLUtil.Categoria.SELECT_NOME, Categoria.class);
+		tp.setParameter("nome", nome);
+		return tp.getSingleResult();
+	}
+
 }

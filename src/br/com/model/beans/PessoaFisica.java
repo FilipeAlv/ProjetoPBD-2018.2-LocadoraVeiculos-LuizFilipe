@@ -2,12 +2,16 @@ package br.com.model.beans;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 @Entity
 public class PessoaFisica extends Pessoa{
+	@Column(length=15, unique=true)
 	private String cpf;
+	@Column(length=25)
 	private String rg;
 	private Date dataNascimento;
+	@Column(length=10)
 	private String sexo;
 	
 	public PessoaFisica() {

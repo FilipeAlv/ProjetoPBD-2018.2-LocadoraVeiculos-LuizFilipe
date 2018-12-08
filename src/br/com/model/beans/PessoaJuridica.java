@@ -1,10 +1,13 @@
 package br.com.model.beans;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
 public class PessoaJuridica extends Pessoa{
+	@Column(length=19, unique=true)
 	private String cnpj;
+	@Column(length=25, unique=true)
 	private String inscricaoEstadual;
 	public PessoaJuridica() {
 		super();

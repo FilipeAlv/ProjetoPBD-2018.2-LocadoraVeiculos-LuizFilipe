@@ -36,5 +36,12 @@ public class DAOPessoaFisica extends DaoGenerico<Pessoa>{
 		PessoaFisica pessoa = tq.getSingleResult();
 		return pessoa;
 	}
+	
+	public List<PessoaFisica> findByFind(String str){
+		EntityManager em = ConnectionFactory.getInstance().getConnection();
+		TypedQuery<PessoaFisica> tq = em.createQuery(SQLUtil.PessoaFisica.SELECT, PessoaFisica.class);
+		tq.setParameter("str", "%" + str + "%");
+		return tq.getResultList();
+	}
 
 }

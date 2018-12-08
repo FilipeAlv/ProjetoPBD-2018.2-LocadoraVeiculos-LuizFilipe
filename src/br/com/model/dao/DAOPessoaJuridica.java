@@ -4,7 +4,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import br.com.model.beans.Pessoa;
-import br.com.model.beans.PessoaFisica;
+import br.com.model.beans.PessoaJuridica;
 import br.com.model.beans.PessoaJuridica;
 import br.com.util.ConnectionFactory;
 import br.com.util.SQLUtil;
@@ -37,5 +37,12 @@ public class DAOPessoaJuridica extends DaoGenerico<Pessoa>{
 		PessoaJuridica pessoa = tq.getSingleResult();
 		return pessoa;
 	}
-
+	
+	
+	public List<PessoaJuridica> findByFind(String str){
+		EntityManager em = ConnectionFactory.getInstance().getConnection();
+		TypedQuery<PessoaJuridica> tq = em.createQuery(SQLUtil.PessoaJuridica.SELECT, PessoaJuridica.class);
+		tq.setParameter("str", str);
+		return tq.getResultList();
+	}
 }

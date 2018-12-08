@@ -51,6 +51,7 @@ public abstract class Pessoa implements EntidadeBase{
 		this.endereco = endereco;
 	}
 	
+	
 	public Integer getId() {
 		return id;
 	}

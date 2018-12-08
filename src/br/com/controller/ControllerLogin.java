@@ -22,7 +22,6 @@ import br.com.model.beans.Veiculo;
 import br.com.model.dao.DAOCaminhonetaCarga;
 import br.com.model.dao.DAOCaminhonetaPassageiro;
 import br.com.model.dao.DAOCategoria;
-import br.com.model.dao.DAOEndereco;
 import br.com.model.dao.DAOFilial;
 import br.com.model.dao.DAOFuncionario;
 import br.com.model.dao.DAOLocacao;
@@ -32,6 +31,7 @@ import br.com.model.dao.DAOPessoaFisica;
 import br.com.model.dao.DAOPessoaJuridica;
 import br.com.model.dao.DAOReserva;
 import br.com.model.dao.DAOVeiculo;
+import br.com.util.Util.Criptografia;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -62,16 +62,27 @@ public class ControllerLogin {
     	System.exit(0);
     }
     
-    @FXML
-    void ectionEntrar(ActionEvent event) {
+    @SuppressWarnings("unused")
+	@FXML
+    void ectionEntrar(ActionEvent event){
+    	Alert alert = new Alert (AlertType.INFORMATION);
+		alert.setTitle("Erro ao fazer login");
+		alert.setHeaderText("Erro ao fazer login");
     	String login = loginField.getText().toString();
     	String senha = new String(senhaField.getText());
-    	Pessoa pessoa = DAOPessoa.getInstace().findByLoginSenha(login, senha);
-    	if (pessoa != null) {
-    		//script();
-    		telas();
-		}else {
-			System.out.println("Quen");
+    	try {
+    		Pessoa pessoa = DAOPessoa.getInstace().findByLogin(login);
+    		String senhaDec = Criptografia.decriptografa(pessoa.getSenha().toCharArray());
+    		if(senhaDec.equals(senha)){
+    			//script();
+    			telas();
+    		}else {
+    			alert.setContentText("Senha Incorreta!");
+    			alert.show();
+    		}
+		}catch (Exception e) {
+			alert.setContentText("Usuario Incorreto!");
+			alert.show();
 		}
     	
     }
@@ -121,20 +132,20 @@ public class ControllerLogin {
 		Optional<ButtonType> result = dialog.showAndWait();
 		
 		if (result.get() == ButtonType.OK){
-			pessoaFisica = new PessoaFisica(
-					"C01", "Luiz Filipe Alves da Silva", "login1", "senha1", endereco, "123.456.789-10", "99999999", data, "masculino");
+			pessoaFisica = new PessoaFisica( 
+					"C012", "Luiz Filipe Alves da Silva", "loginss",new String (Criptografia.criptografa("senha1".toCharArray())), endereco, "123.456.789-10", "99999999", data, "masculino");
 			daoPF.saveOrUpdate(pessoaFisica);
 		}
 		dialog.setContentText("Deseja Persistir pessoa juridica?");
 		result = dialog.showAndWait();
 		if (result.get() == ButtonType.OK){
-			pessoaJuridica = new PessoaJuridica("C02", "Luiz Filipe Alves da Silva", "login2", "senha2", endereco,"12.456.789.0001-10", "12345678");
+			pessoaJuridica = new PessoaJuridica("C02", "Luiz Filipe Alves da Silva", "login2",new String (Criptografia.criptografa("senha2".toCharArray())), endereco,"12.456.789.0001-10", "12345678");
 			daoPJ.saveOrUpdate(pessoaJuridica);
 		}
 		dialog.setContentText("Deseja Persistir motorista?");
 		result = dialog.showAndWait();
 		if (result.get() == ButtonType.OK){
-			motorista = new Motorista("C03", "Luiz Filipe Alves da Silva", "login3", "senha3", endereco, "123.456.789-11", "99999998", data, "masculino", 19, "1237854", data);
+			motorista = new Motorista("C03", "Luiz Filipe Alves da Silva", "login3", new String (Criptografia.criptografa("senha3".toCharArray())), endereco, "123.456.789-11", "99999998", data, "masculino", 19, "1237854", data);
 			daoM.saveOrUpdate(motorista);
 		}
 		dialog.setContentText("Deseja Persistir categoria?");
@@ -164,7 +175,7 @@ public class ControllerLogin {
 		dialog.setContentText("Deseja Persistir funcionario?");
 		result = dialog.showAndWait();
 		if (result.get() == ButtonType.OK){
-			funcionario = new Funcionario("C04", "Luiz Filipe Alves da Silva", "login4", "senha4", endereco, "123.456.789-11", "99999998", data, "masculino", "gerente", "full");  			
+			funcionario = new Funcionario("C04", "Luiz Filipe Alves da Silva", "login4",new String (Criptografia.criptografa("senha4".toCharArray())), endereco, "123.456.789-11", "99999998", data, "masculino", "gerente", "full");  			
 			daoFU.saveOrUpdate(funcionario);
 		}
 		dialog.setContentText("Deseja Persistir veiculo?");

@@ -1,11 +1,15 @@
 package br.com.model.dao;
 
 import java.util.List;
+
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import br.com.model.beans.Pessoa;
 import br.com.util.ConnectionFactory;
 import br.com.util.SQLUtil;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 
 public class DAOPessoa extends DaoGenerico<Pessoa>{
@@ -46,7 +50,20 @@ public class DAOPessoa extends DaoGenerico<Pessoa>{
         query.setParameter("senha", senha);
         return query.getSingleResult();
     }
+    
+    public Pessoa findByLogin(String login) {
+        EntityManager em = ConnectionFactory.getInstance().getConnection();
+        TypedQuery<Pessoa> query = em.createQuery(SQLUtil.Pessoa.SELECT_LOGIN, Pessoa.class);
+        query.setParameter("login", login);
+        return query.getSingleResult();
+    }
 
-
-
+	public Pessoa findByCPF(String cpf) {
+		EntityManager em = ConnectionFactory.getInstance().getConnection();
+        TypedQuery<Pessoa> query = em.createQuery(SQLUtil.Pessoa.SELECT_CPF, Pessoa.class);
+        query.setParameter("cpf", cpf);
+        return query.getSingleResult();
+	}
+	
+	
 }

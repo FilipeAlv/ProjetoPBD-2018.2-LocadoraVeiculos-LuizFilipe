@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="404.0" prefWidth="594.0" style="-fx-background-color: #9c9c9c; -fx-border-color: #000000;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.controller.ControllerNovaReserva">
+   <children>
+      <AnchorPane layoutX="1.0" prefHeight="39.0" prefWidth="600.0" style="-fx-background-color: #333333;" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label layoutX="246.0" layoutY="7.0" text="Nova Reserva" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="btnClose" fitHeight="17.0" fitWidth="15.0" layoutX="569.0" layoutY="11.0" onMouseClicked="#actionClose" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="7.5416669845581055" AnchorPane.topAnchor="11.0">
+               <image>
+                  <Image url="@../resources/close_icon.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Pane accessibleRole="LIST_VIEW" cache="true" layoutX="28.0" layoutY="60.0" prefHeight="126.0" prefWidth="540.0" style="-fx-border-color: #ffffff;" AnchorPane.bottomAnchor="219.0" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="59.0">
+         <children>
+            <DatePicker fx:id="fdData" layoutX="31.0" layoutY="27.0" prefHeight="25.0" prefWidth="170.0" promptText="Data" />
+            <TextField fx:id="fdHora" layoutX="217.0" layoutY="27.0" prefHeight="25.0" prefWidth="135.0" promptText="Hora" />
+            <DatePicker fx:id="fdDataEntrega" layoutX="31.0" layoutY="72.0" prefHeight="25.0" prefWidth="170.0" promptText="Data de Entrega" />
+            <TextField fx:id="fdHoraEntrega" layoutX="217.0" layoutY="72.0" prefHeight="25.0" prefWidth="135.0" promptText=" Hora de Entrega" />
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="-12.0" prefHeight="25.0" prefWidth="163.0" style="-fx-background-color: #9c9c9c;" text="Dados de Entrada e Saida" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS" />
+            <ComboBox fx:id="cbFilial" layoutX="373.0" layoutY="27.0" prefHeight="25.0" prefWidth="135.0" promptText="Filial" />
+            <ComboBox fx:id="cbFilialEntrega" layoutX="371.0" layoutY="69.0" prefHeight="25.0" prefWidth="135.0" promptText="Filial Entrega" />
+         </children>
+      </Pane>
+      <Pane layoutX="28.0" layoutY="202.0" prefHeight="143.0" prefWidth="548.0" style="-fx-border-color: #ffffff;" AnchorPane.bottomAnchor="59.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0">
+         <children>
+            <ComboBox fx:id="cbMotorista" layoutX="352.0" layoutY="37.0" prefHeight="25.0" prefWidth="135.0" promptText="Motorista" />
+            <ComboBox fx:id="cbCliente" editable="true" layoutX="21.0" layoutY="82.0" prefHeight="25.0" prefWidth="271.0" promptText="Cliente" />
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="-11.0" prefHeight="25.0" prefWidth="122.0" style="-fx-background-color: #9c9c9c;" text="Outras Informações" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS" />
+            <TextField fx:id="fdValor" layoutX="21.0" layoutY="37.0" prefHeight="25.0" prefWidth="103.0" promptText="Valor" />
+            <ComboBox fx:id="cbTipo" layoutX="157.0" layoutY="37.0" prefHeight="25.0" prefWidth="163.0" promptText="Tipo de Locação" />
+            <ComboBox fx:id="cbCategoria" layoutX="352.0" layoutY="82.0" prefHeight="25.0" prefWidth="170.0" promptText="Categoria" />
+            <Button fx:id="btnBuscarCliente" layoutX="294.0" layoutY="82.0" mnemonicParsing="false" onAction="#actionBuscarCliente" prefHeight="25.0" prefWidth="25.0">
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/iconBusca.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button layoutX="492.0" layoutY="37.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" />
+         </children>
+      </Pane>
+      <Button fx:id="btnSalvar" layoutX="478.0" layoutY="356.0" mnemonicParsing="false" onAction="#actionSalvar" prefHeight="25.0" prefWidth="88.0" text="Salvar" />
+   </children>
+</AnchorPane>

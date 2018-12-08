@@ -6,22 +6,29 @@ public class SQLUtil {
 		public static final String SELECT_MAX_COD = "SELECT MAX(codigo) FROM Pessoa";
 		public static final String SELECT_MAX_ID = "SELECT MAX(id) FROM Pessoa";
 		public static final String SELECT_LOGIN_SENHA = "SELECT p FROM Pessoa p WHERE p.login = :login AND p.senha = :senha";
+		public static final String SELECT_LOGIN = "SELECT p FROM Pessoa p WHERE p.login = :login";
+		public static final String SELECT_CPF = "SELECT p FROM Pessoa p WHERE p.cpf = :cpf";
+		
+
 	}
 	
 	public class PessoaFisica{
 		public static final String SELECT_ALL = "SELECT p FROM PessoaFisica p";
 		public static final String SELECT_CPF = "SELECT p FROM PessoaFisica p WEHERE p.cpf = :cpf";
+		public static final String SELECT = "SELECT p FROM PessoaFisica p WHERE LOWER(p.nome) LIKE :str or LOWER(p.cpf) LIKE :str";
 	}
 	
 	public class PessoaJuridica{
 		public static final String SELECT_ALL = "SELECT p FROM PessoaJuridica p";
 		public static final String SELECT_CNPJ = "SELECT p FROM PessoaJuridica p WEHERE p.cnpj = :cnpj";
+		public static final String SELECT = "SELECT p FROM PessoaFisica p WHERE LOWER(p.nome) LIKE :str or LOWER(p.cnpj) LIKE :str";
 	}
 	
 	public class Categoria{
 		public static final String SELECT_ALL = "SELECT c FROM Categoria c";
 		public static final String SELECT_MAX_ID = "SELECT MAX(id) FROM Categoria";
 		public static final String SELECT_TAMANHO = "SELECT c FROM Categoria c WHERE c.tamanho = :tamanho";
+		public static final String SELECT_NOME = "SELECT c FROM Categoria c WHERE c.nome = :nome";
 		
 	}
 	
@@ -68,5 +75,9 @@ public class SQLUtil {
 	
 	public class Veiculo{
 		public static final String SELECT_ALL = "SELECT v FROM Veiculo v";
+	}
+	
+	public class DaoGenerico{
+		public static final String EXISTE = "SELECT :objeto FROM :tabela :objeto WHERE :campo = :atributo";
 	}
 }
