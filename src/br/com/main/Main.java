@@ -2,16 +2,12 @@ package br.com.main;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-
-import com.sun.javafx.stage.StagePeerListener;
-
 import br.com.model.beans.Pessoa;
 import br.com.model.beans.PessoaFisica;
-import br.com.model.dao.DAOPessoaFisica;
-import br.com.model.dao.DaoGenerico;
 import br.com.util.Util.Criptografia;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.Scene;
@@ -19,19 +15,25 @@ import javafx.scene.layout.Pane;
 
 
 public class Main extends Application {
-	public static Scene sceneLogin, scenePrincipal, sceneNovaReserva;
+	public static Scene sceneLogin, scenePrincipal, sceneNovaReserva, sceneConfigLocacao, sceneAddValorLocacao, sceneAlterarSenha;
 	private static Stage stage;
-	public static Stage stageNovaReserva;
-	private static Pane telaPrincipal, telaLogin, telaNovaReserva;
+	public static Stage stageNovaReserva, stageConfigLocacao, stageAddValorLocacao, stageAlterarSenha;
+	private static Pane telaPrincipal, telaLogin, telaNovaReserva, telaConfigLocacao, telaAddValorLocacao, telaAlterarSenha;
 	@Override
 	public void start(Stage primaryStage) {
 		try {
 			telaLogin = FXMLLoader.load(getClass().getResource("../view/Login.fxml"));
 			telaPrincipal = FXMLLoader.load(getClass().getResource("../view/Principal.fxml"));
 			telaNovaReserva = FXMLLoader.load(getClass().getResource("../view/NovaReserva.fxml"));
+			telaConfigLocacao = FXMLLoader.load(getClass().getResource("../view/ConfigLocacao.fxml"));
+			telaAddValorLocacao =  FXMLLoader.load(getClass().getResource("../view/AddValorLocacao.fxml"));
+			telaAlterarSenha = FXMLLoader.load(getClass().getResource("../view/AlterarSenha.fxml"));
 			sceneLogin = new Scene(telaLogin);
 			scenePrincipal = new Scene(telaPrincipal);
 			sceneNovaReserva = new Scene(telaNovaReserva);
+			sceneConfigLocacao = new Scene(telaConfigLocacao);
+			sceneAddValorLocacao = new Scene(telaAddValorLocacao);
+			sceneAlterarSenha = new Scene(telaAlterarSenha);
 			
 			primaryStage.setScene(sceneLogin);
 			primaryStage.initStyle(StageStyle.UNDECORATED);
@@ -47,20 +49,44 @@ public class Main extends Application {
 		Pessoa pessoa = new PessoaFisica();
 		pessoa.setLogin("admin");
 		pessoa.setSenha(new String(Criptografia.criptografa("admin".toCharArray())));
-		DaoGenerico<Pessoa> dao = new DAOPessoaFisica();
+		//DaoGenerico<Pessoa> dao = new DAOPessoaFisica();
 		//dao.saveOrUpdate(pessoa);		
 		launch(args);
 	}
 	
 	public static void novaTela(String tela) {	
-		stageNovaReserva = new Stage();
-		stageNovaReserva.initStyle(StageStyle.UNDECORATED);
 		switch(tela) {
 		case "NovaReserva":
+			stageNovaReserva = new Stage();
+			stageNovaReserva.initModality(Modality.APPLICATION_MODAL);
+			stageNovaReserva.initStyle(StageStyle.UNDECORATED);
 			stageNovaReserva.setScene(sceneNovaReserva);
+			stageNovaReserva.show();
+			break;
+		case "ConfigLocacao":
+			stageConfigLocacao = new Stage();
+			stageConfigLocacao.initModality(Modality.APPLICATION_MODAL);
+			stageConfigLocacao.initStyle(StageStyle.UNDECORATED);
+			stageConfigLocacao.setScene(sceneConfigLocacao);
+			stageConfigLocacao.show();
+			break;
+		case "AddValorLocacao":
+			stageAddValorLocacao = new Stage();
+			stageAddValorLocacao.initModality(Modality.APPLICATION_MODAL);
+			stageAddValorLocacao.initStyle(StageStyle.UNDECORATED);
+			stageAddValorLocacao.setScene(sceneAddValorLocacao);
+			stageAddValorLocacao.show();
+			break;
+		case "AlterarSenha":
+			stageAlterarSenha = new Stage();
+			stageAlterarSenha.initModality(Modality.APPLICATION_MODAL);
+			stageAlterarSenha.initStyle(StageStyle.UNDECORATED);
+			stageAlterarSenha.setScene(sceneAlterarSenha);
+			stageAlterarSenha.show();
 			break;
 		}
-		stageNovaReserva.show();
+		
+		
 	}
 	
 	public static void alterarTela(String tela) {	

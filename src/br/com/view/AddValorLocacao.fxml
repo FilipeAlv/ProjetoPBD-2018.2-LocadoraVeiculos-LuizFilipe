@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="214.0" prefWidth="287.0" style="-fx-background-color: #9c9c9c; -fx-border-color: #000000;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.controller.ControllerNovoValor">
+   <children>
+      <AnchorPane layoutX="5.0" layoutY="4.0" prefHeight="25.0" prefWidth="279.0" style="-fx-background-color: #333333;" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="3.0">
+         <children>
+            <Label layoutX="100.0" layoutY="7.0" prefHeight="17.0" prefWidth="103.0" text="Novo Valor" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="btnClose" fitHeight="17.0" fitWidth="15.0" layoutX="569.0" layoutY="11.0" onKeyPressed="#actionClose" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="7.5416669845581055" AnchorPane.topAnchor="11.0">
+               <image>
+                  <Image url="@../resources/close_icon.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Pane accessibleRole="LIST_VIEW" cache="true" layoutX="30.0" layoutY="63.0" prefHeight="109.0" prefWidth="224.0" style="-fx-border-color: #ffffff;">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="-12.0" prefHeight="25.0" prefWidth="130.0" style="-fx-background-color: #9c9c9c;" text="Dados Valor Locação" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS" />
+            <Button fx:id="btnAdd" layoutX="181.0" layoutY="63.0" mnemonicParsing="false" onAction="#actionAddCategoria" prefHeight="25.0" prefWidth="25.0">
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/iconAdd.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <TextField fx:id="fdValor" layoutX="152.0" layoutY="26.0" prefHeight="25.0" prefWidth="59.0" promptText="Valor" />
+            <ComboBox fx:id="cbTipoLocacao" layoutX="14.0" layoutY="26.0" prefHeight="25.0" prefWidth="130.0" promptText="Tipo de Locação" />
+            <ComboBox fx:id="cbCategoria" layoutX="14.0" layoutY="63.0" prefHeight="25.0" prefWidth="163.0" promptText="Categoria" />
+         </children>
+      </Pane>
+      <Button fx:id="btnSalvar" layoutX="206.0" layoutY="177.0" mnemonicParsing="false" onAction="#actionSalvar" text="Salvar" />
+   </children>
+</AnchorPane>

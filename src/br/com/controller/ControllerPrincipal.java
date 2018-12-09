@@ -10,11 +10,27 @@ import javafx.scene.input.MouseEvent;
 
 public class ControllerPrincipal {
 
-    @FXML
+	@FXML
     private ImageView btnClose;
+	
+	@FXML
+    private ImageView btnConfigSis;
     
     @FXML
     private MenuItem menuNovaReserva;
+    
+    @FXML
+    private MenuItem menuConfigLocacao;
+    
+    @FXML
+    void actionConfigLocacao(ActionEvent event)  {
+    	Main.novaTela("ConfigLocacao");
+    }
+    
+    @FXML
+    void actionConfigSis(MouseEvent event) {
+    	Main.novaTela("AlterarSenha");
+    }
 
     @FXML
     void actionAddReserva(ActionEvent event) {

@@ -8,6 +8,7 @@ public class SQLUtil {
 		public static final String SELECT_LOGIN_SENHA = "SELECT p FROM Pessoa p WHERE p.login = :login AND p.senha = :senha";
 		public static final String SELECT_LOGIN = "SELECT p FROM Pessoa p WHERE p.login = :login";
 		public static final String SELECT_CPF = "SELECT p FROM Pessoa p WHERE p.cpf = :cpf";
+		public static final String UPDADTE_SENHA = "UPDATE Pessoa p SET p.senha = :novaSenha WHERE p.login = :login AND p.senha = :senha";
 		
 
 	}
@@ -21,7 +22,7 @@ public class SQLUtil {
 	public class PessoaJuridica{
 		public static final String SELECT_ALL = "SELECT p FROM PessoaJuridica p";
 		public static final String SELECT_CNPJ = "SELECT p FROM PessoaJuridica p WEHERE p.cnpj = :cnpj";
-		public static final String SELECT = "SELECT p FROM PessoaFisica p WHERE LOWER(p.nome) LIKE :str or LOWER(p.cnpj) LIKE :str";
+		public static final String SELECT = "SELECT p FROM PessoaJuridica p WHERE LOWER(p.nome) LIKE :str or LOWER(p.cnpj) LIKE :str";
 	}
 	
 	public class Categoria{
@@ -79,5 +80,10 @@ public class SQLUtil {
 	
 	public class DaoGenerico{
 		public static final String EXISTE = "SELECT :objeto FROM :tabela :objeto WHERE :campo = :atributo";
+	}
+	
+	public class ValorLocacao{
+		public static final String SELECT_ALL = "SELECT v FROM ValorLocacao v";
+		public static final String SELECT_TIPO_CAT = "SELECT v.valor FROM ValorLocacao v WHERE v.tipoLocacao = :tipo and v.categoria = :categoria";
 	}
 }

@@ -5,7 +5,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.ResourceBundle;
 import br.com.main.Main;
@@ -23,6 +25,7 @@ import br.com.model.dao.DAOPessoa;
 import br.com.model.dao.DAOPessoaFisica;
 import br.com.model.dao.DAOPessoaJuridica;
 import br.com.model.dao.DAOReserva;
+import br.com.model.dao.DAOValorLocacao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -36,8 +39,11 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent.HorizontalTextScrollUnits;
 
 public class ControllerNovaReserva implements Initializable{
+
+	Alert alert = new Alert(AlertType.INFORMATION);
 
 	@FXML
 	private ImageView btnClose;
@@ -74,20 +80,39 @@ public class ControllerNovaReserva implements Initializable{
 
 	@FXML
 	private Button btnSalvar;
-	
+
 	@FXML
 	private ComboBox<String> cbCategoria;
-	
+
 	@FXML
 	private Button btnBuscarCliente;
 
 	@FXML
-    void actionBuscarCliente(ActionEvent event) {
+	void calcValor(ActionEvent event) {
+		if(cbCategoria.getValue()!=null && cbTipo.getValue() != null) {
+			Categoria categoria = DAOCategoria.getInstance().findByNome(cbCategoria.getValue());
+			try{
+				Double valor = DAOValorLocacao.getInstance().findByTipoCategoria(cbTipo.getValue(), categoria);
+				fdValor.setText(valor.toString());
+			}catch (Exception e) {
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("CADASTRO RESERVA");
+				alert.setContentText("Este Tipo de Locação não foi cadastrado.");
+				alert.setHeaderText("Erro ao adicionar valor");
+				alert.show();
+				fdValor.setText(null);
+			}
+
+		}
+	}
+
+	@FXML
+	void actionBuscarCliente(ActionEvent event) {
 		ObservableList<String> ob = FXCollections.observableArrayList();
 		String str = cbCliente.getValue();
 		List<PessoaFisica> clientesF = DAOPessoaFisica.getInstace().findByFind(str);
 		List<PessoaJuridica> clientesJ = DAOPessoaJuridica.getInstace().findByFind(str);
-		
+
 		for (PessoaFisica pf : clientesF) {
 			ob.add(pf.getNome()+"-"+pf.getCpf());
 		}
@@ -97,7 +122,7 @@ public class ControllerNovaReserva implements Initializable{
 
 		System.out.println(clientesF.size());
 		cbCliente.setItems(ob);
-		
+
 	}
 
 	@FXML
@@ -107,42 +132,62 @@ public class ControllerNovaReserva implements Initializable{
 
 	@FXML
 	void actionSalvar(ActionEvent event) {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("CADASTRO RESERVA");
+
 		if(camposPreenchidos()) {
-			String as =pegarCPFCombo(cbCliente.getValue());
-			Pessoa cliente = DAOPessoa.getInstace().findByCPF(as);
-			Pessoa motorista = DAOPessoa.getInstace().findByCPF(pegarCPFCombo(cbMotorista.getValue()));
-			Filial filialSaida = DAOFilial.getInstance().findByNome(cbFilial.getValue());
-			Filial filialEntrega = DAOFilial.getInstance().findByNome(cbFilialEntrega.getValue());
-			Categoria categoria = DAOCategoria.getInstance().findByNome(cbCategoria.getValue());
-			
-			Reserva reserva = new Reserva(
-					new Date(),
-					converterData(fdData.getValue(), fdHora.getText()),
-					converterData(fdDataEntrega.getValue(), fdHoraEntrega.getText()),
-					cbTipo.getValue(),
-					Double.parseDouble(fdValor.getText()),
-					cliente,
-					motorista,
-					filialSaida,
-					filialEntrega,
-					categoria);
-			
-			DAOReserva.getInstance().saveOrUpdate(reserva);
-			
-			try {
-				DAOReserva.getInstance().findById(Reserva.class, reserva.getId());
-				alert.setContentText("Reserva realizada com sucesso");
-				alert.show();
-			} catch (Exception e) {
-				alert.setContentText("Reserva não cadastrada");
-				alert.show();
+			if(validarDatas()) {
+
+				String as =pegarCPFCombo(cbCliente.getValue());
+				Pessoa cliente = DAOPessoa.getInstace().findByCPF(as);
+				Pessoa motorista = DAOPessoa.getInstace().findByCPF(pegarCPFCombo(cbMotorista.getValue()));
+				Filial filialSaida = DAOFilial.getInstance().findByNome(cbFilial.getValue());
+				Filial filialEntrega = DAOFilial.getInstance().findByNome(cbFilialEntrega.getValue());
+				Categoria categoria = DAOCategoria.getInstance().findByNome(cbCategoria.getValue());
+
+				Reserva reserva = new Reserva(
+						new Date(),
+						converterData(fdData.getValue(), fdHora.getText()),
+						converterData(fdDataEntrega.getValue(), fdHoraEntrega.getText()),
+						cbTipo.getValue(),
+						Double.parseDouble(fdValor.getText()),
+						cliente,
+						motorista,
+						filialSaida,
+						filialEntrega,
+						categoria);
+
+				DAOReserva.getInstance().saveOrUpdate(reserva);
+
+				try {
+					DAOReserva.getInstance().findById(Reserva.class, reserva.getId());
+					alert.setHeaderText("SUCESSO");
+					alert.setContentText("Reserva realizada com sucesso");
+					alert.show();
+				} catch (Exception e) {
+					alert.setContentText("Reserva não cadastrada");
+					alert.show();
+				}
 			}
-			
 		}else {
 			alert.setContentText("Preencha todos os campos");
 			alert.show();
+		}
+	}
+
+	private boolean validarDatas() {
+		Calendar c = new GregorianCalendar();
+		c.setTime(converterData(fdData.getValue(), fdHora.getText()));
+		c.set(Calendar.DAY_OF_MONTH, c.get(Calendar.DAY_OF_MONTH)+1);
+		alert.setHeaderText("PROBLEMAS AO CADASTRAR RESERVA");
+		if(converterData(fdData.getValue(), fdHora.getText()).after(converterData(fdDataEntrega.getValue(), fdHoraEntrega.getText()))) {
+			alert.setContentText("A data de Entrega não pode ser inferior a data da locação");
+			alert.show();
+			return false;
+		}else if(c.getTime().after(converterData(fdDataEntrega.getValue(), fdHoraEntrega.getText()))){
+			alert.setContentText("O tempo minimo de locação é de 24h");
+			alert.show();
+			return false;
+		}else {
+			return true;
 		}
 	}
 
@@ -191,6 +236,7 @@ public class ControllerNovaReserva implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		alert.setTitle("CADASTRO RESERVA");
 		ObservableList<String> ob = FXCollections.observableArrayList();
 		List<Motorista> motoristas = DAOMotorista.getInstace().findAll();
 		List<Filial> filiais = DAOFilial.getInstance().findAll();
@@ -208,7 +254,7 @@ public class ControllerNovaReserva implements Initializable{
 		}
 		cbMotorista.setItems(ob);
 		ob = FXCollections.observableArrayList();
-		
+
 		for(Categoria categoria : categorias) {
 			ob.add(categoria.getNome());
 		}
@@ -218,7 +264,7 @@ public class ControllerNovaReserva implements Initializable{
 		ob.add("KMLivre");
 		ob.add("KMControle");
 		cbTipo.setItems(ob);
-		
+
 		ob = FXCollections.observableArrayList();
 
 

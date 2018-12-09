@@ -31,6 +31,7 @@ import br.com.model.dao.DAOPessoaFisica;
 import br.com.model.dao.DAOPessoaJuridica;
 import br.com.model.dao.DAOReserva;
 import br.com.model.dao.DAOVeiculo;
+import br.com.util.Session;
 import br.com.util.Util.Criptografia;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -71,8 +72,8 @@ public class ControllerLogin {
     	String login = loginField.getText().toString();
     	String senha = new String(senhaField.getText());
     	try {
-    		Pessoa pessoa = DAOPessoa.getInstace().findByLogin(login);
-    		String senhaDec = Criptografia.decriptografa(pessoa.getSenha().toCharArray());
+    		Session.usuario = DAOPessoa.getInstace().findByLogin(login);
+    		String senhaDec = Criptografia.decriptografa(Session.usuario.getSenha().toCharArray());
     		if(senhaDec.equals(senha)){
     			//script();
     			telas();

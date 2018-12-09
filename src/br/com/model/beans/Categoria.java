@@ -13,7 +13,7 @@ public class Categoria implements EntidadeBase{
 	@Id
 	@GeneratedValue(generator="sequencia_categoria", strategy=GenerationType.SEQUENCE)
 	private Integer id;
-	@Column(length=75)
+	@Column(length=75, unique=true)
 	private String nome;
 	@Column(length=25)
 	private String tamanho;

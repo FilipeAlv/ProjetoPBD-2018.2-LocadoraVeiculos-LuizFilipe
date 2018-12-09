@@ -2,6 +2,7 @@ package br.com.model.dao;
 
 import java.util.List;
 
+import javax.management.Query;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -63,6 +64,16 @@ public class DAOPessoa extends DaoGenerico<Pessoa>{
         TypedQuery<Pessoa> query = em.createQuery(SQLUtil.Pessoa.SELECT_CPF, Pessoa.class);
         query.setParameter("cpf", cpf);
         return query.getSingleResult();
+	}
+
+	public void updateSenha(String login, String senhaAtual, String novaSenha) {
+		EntityManager em = ConnectionFactory.getInstance().getConnection();
+        TypedQuery<Pessoa> query = em.createQuery(SQLUtil.Pessoa.UPDADTE_SENHA, Pessoa.class);
+        query.setParameter("login", login);
+        query.setParameter("senha", senhaAtual);
+        query.setParameter("novaSenha", novaSenha);
+        query.executeUpdate();
+ 	
 	}
 	
 	

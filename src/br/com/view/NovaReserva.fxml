@@ -40,12 +40,12 @@
       </Pane>
       <Pane layoutX="28.0" layoutY="202.0" prefHeight="143.0" prefWidth="548.0" style="-fx-border-color: #ffffff;" AnchorPane.bottomAnchor="59.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0">
          <children>
-            <ComboBox fx:id="cbMotorista" layoutX="352.0" layoutY="37.0" prefHeight="25.0" prefWidth="135.0" promptText="Motorista" />
+            <ComboBox fx:id="cbMotorista" layoutX="349.0" layoutY="82.0" prefHeight="25.0" prefWidth="135.0" promptText="Motorista" />
             <ComboBox fx:id="cbCliente" editable="true" layoutX="21.0" layoutY="82.0" prefHeight="25.0" prefWidth="271.0" promptText="Cliente" />
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="-11.0" prefHeight="25.0" prefWidth="122.0" style="-fx-background-color: #9c9c9c;" text="Outras Informações" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS" />
-            <TextField fx:id="fdValor" layoutX="21.0" layoutY="37.0" prefHeight="25.0" prefWidth="103.0" promptText="Valor" />
-            <ComboBox fx:id="cbTipo" layoutX="157.0" layoutY="37.0" prefHeight="25.0" prefWidth="163.0" promptText="Tipo de Locação" />
-            <ComboBox fx:id="cbCategoria" layoutX="352.0" layoutY="82.0" prefHeight="25.0" prefWidth="170.0" promptText="Categoria" />
+            <TextField fx:id="fdValor" editable="false" layoutX="21.0" layoutY="37.0" prefHeight="25.0" prefWidth="103.0" promptText="Valor" />
+            <ComboBox fx:id="cbTipo" layoutX="157.0" layoutY="37.0" onAction="#calcValor" prefHeight="25.0" prefWidth="163.0" promptText="Tipo de Locação" />
+            <ComboBox fx:id="cbCategoria" layoutX="349.0" layoutY="37.0" onAction="#calcValor" prefHeight="25.0" prefWidth="170.0" promptText="Categoria" />
             <Button fx:id="btnBuscarCliente" layoutX="294.0" layoutY="82.0" mnemonicParsing="false" onAction="#actionBuscarCliente" prefHeight="25.0" prefWidth="25.0">
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
@@ -55,7 +55,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button layoutX="489.0" layoutY="37.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0">
+            <Button layoutX="492.0" layoutY="82.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0">
                <graphic>
                   <ImageView fitHeight="16.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
