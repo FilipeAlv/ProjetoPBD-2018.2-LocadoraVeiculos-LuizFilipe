@@ -3,11 +3,7 @@ package br.com.controller;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-
 import br.com.main.Main;
-import br.com.model.beans.Categoria;
 import br.com.model.beans.ValorLocacao;
 import br.com.model.dao.DAOValorLocacao;
 import javafx.collections.FXCollections;

@@ -23,6 +23,9 @@ public class ControllerPrincipal {
     private MenuItem menuConfigLocacao;
     
     @FXML
+    private MenuItem menuVerFuncionario;
+    
+    @FXML
     void actionConfigLocacao(ActionEvent event)  {
     	Main.novaTela("ConfigLocacao");
     }
@@ -45,6 +48,12 @@ public class ControllerPrincipal {
     @FXML
     void actionLogout(MouseEvent event) {
     	Main.alterarTela("Login");
+    }
+    
+    @FXML
+    void actionVerFuncionario(ActionEvent event) {
+    	Main.novaTela("Funcionario");
+    	ControllerFuncionario.desativarBotoes();
     }
 
 }

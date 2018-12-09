@@ -2,15 +2,11 @@ package br.com.model.dao;
 
 import java.util.List;
 
-import javax.management.Query;
-import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import br.com.model.beans.Pessoa;
 import br.com.util.ConnectionFactory;
 import br.com.util.SQLUtil;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 
 
 public class DAOPessoa extends DaoGenerico<Pessoa>{
@@ -68,11 +64,11 @@ public class DAOPessoa extends DaoGenerico<Pessoa>{
 
 	public void updateSenha(String login, String senhaAtual, String novaSenha) {
 		EntityManager em = ConnectionFactory.getInstance().getConnection();
-        TypedQuery<Pessoa> query = em.createQuery(SQLUtil.Pessoa.UPDADTE_SENHA, Pessoa.class);
-        query.setParameter("login", login);
-        query.setParameter("senha", senhaAtual);
-        query.setParameter("novaSenha", novaSenha);
-        query.executeUpdate();
+        em.createQuery(SQLUtil.Pessoa.UPDADTE_SENHA)
+        	.setParameter("login", login)
+            .setParameter("senha", senhaAtual)
+            .setParameter("novaSenha", novaSenha)
+            .executeUpdate();
  	
 	}
 	

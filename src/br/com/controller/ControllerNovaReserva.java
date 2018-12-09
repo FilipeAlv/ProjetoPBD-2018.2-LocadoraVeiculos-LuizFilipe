@@ -39,7 +39,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent.HorizontalTextScrollUnits;
 
 public class ControllerNovaReserva implements Initializable{
 
@@ -88,6 +87,15 @@ public class ControllerNovaReserva implements Initializable{
 	private Button btnBuscarCliente;
 
 	@FXML
+	private Button btnAddValor;
+
+
+	@FXML
+	void actionAddValor(ActionEvent event) {
+		Main.novaTela("AddValorLocacao");
+	}
+
+	@FXML
 	void calcValor(ActionEvent event) {
 		if(cbCategoria.getValue()!=null && cbTipo.getValue() != null) {
 			Categoria categoria = DAOCategoria.getInstance().findByNome(cbCategoria.getValue());
@@ -108,8 +116,8 @@ public class ControllerNovaReserva implements Initializable{
 
 	@FXML
 	void actionBuscarCliente(ActionEvent event) {
-		ObservableList<String> ob = FXCollections.observableArrayList();
 		String str = cbCliente.getValue();
+		ObservableList<String> ob = FXCollections.observableArrayList();
 		List<PessoaFisica> clientesF = DAOPessoaFisica.getInstace().findByFind(str);
 		List<PessoaJuridica> clientesJ = DAOPessoaJuridica.getInstace().findByFind(str);
 

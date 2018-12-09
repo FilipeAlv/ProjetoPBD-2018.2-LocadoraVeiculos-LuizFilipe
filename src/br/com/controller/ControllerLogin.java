@@ -13,6 +13,8 @@ import br.com.model.beans.Endereco;
 import br.com.model.beans.Filial;
 import br.com.model.beans.Funcionario;
 import br.com.model.beans.Locacao;
+import br.com.model.beans.Marca;
+import br.com.model.beans.Modelo;
 import br.com.model.beans.Motorista;
 import br.com.model.beans.Pessoa;
 import br.com.model.beans.PessoaFisica;
@@ -25,6 +27,8 @@ import br.com.model.dao.DAOCategoria;
 import br.com.model.dao.DAOFilial;
 import br.com.model.dao.DAOFuncionario;
 import br.com.model.dao.DAOLocacao;
+import br.com.model.dao.DAOMarca;
+import br.com.model.dao.DAOModelo;
 import br.com.model.dao.DAOMotorista;
 import br.com.model.dao.DAOPessoa;
 import br.com.model.dao.DAOPessoaFisica;
@@ -32,6 +36,7 @@ import br.com.model.dao.DAOPessoaJuridica;
 import br.com.model.dao.DAOReserva;
 import br.com.model.dao.DAOVeiculo;
 import br.com.util.Session;
+import br.com.util.Util;
 import br.com.util.Util.Criptografia;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -63,14 +68,17 @@ public class ControllerLogin {
     	System.exit(0);
     }
     
-    @SuppressWarnings("unused")
 	@FXML
     void ectionEntrar(ActionEvent event){
     	Alert alert = new Alert (AlertType.INFORMATION);
 		alert.setTitle("Erro ao fazer login");
 		alert.setHeaderText("Erro ao fazer login");
     	String login = loginField.getText().toString();
-    	String senha = new String(senhaField.getText());
+    	String senha = null;
+    	if(senhaField.getText().length()==0)
+    		senha = Util.SENHA_PADRAO;
+    	else
+    		senha = new String(senhaField.getText());
     	try {
     		Session.usuario = DAOPessoa.getInstace().findByLogin(login);
     		String senhaDec = Criptografia.decriptografa(Session.usuario.getSenha().toCharArray());
@@ -105,6 +113,8 @@ public class ControllerLogin {
 		Locacao locacao = null;
 		Filial filial = null;
 		Categoria cat = null;
+		Marca marca = null;
+		Modelo modelo = null;
 		Veiculo veiculo = null;
 		Reserva reserva = null;
 		
@@ -119,6 +129,8 @@ public class ControllerLogin {
 		DAOPessoaJuridica daoPJ = new DAOPessoaJuridica();
 		DAOReserva daoR = new DAOReserva();
 		DAOVeiculo daoV = new DAOVeiculo();
+		DAOMarca daoMR = new DAOMarca();
+		DAOModelo daoMD = new DAOModelo();
 		
 		
 		Calendar cal = new GregorianCalendar();
@@ -134,7 +146,7 @@ public class ControllerLogin {
 		
 		if (result.get() == ButtonType.OK){
 			pessoaFisica = new PessoaFisica( 
-					"C012", "Luiz Filipe Alves da Silva", "loginss",new String (Criptografia.criptografa("senha1".toCharArray())), endereco, "123.456.789-10", "99999999", data, "masculino");
+					"C012", "Luiz Filipe Alves da Silva", "login1",new String (Criptografia.criptografa("senha1".toCharArray())), endereco, "123.456.789-10", "99999999", data, "masculino");
 			daoPF.saveOrUpdate(pessoaFisica);
 		}
 		dialog.setContentText("Deseja Persistir pessoa juridica?");
@@ -146,19 +158,19 @@ public class ControllerLogin {
 		dialog.setContentText("Deseja Persistir motorista?");
 		result = dialog.showAndWait();
 		if (result.get() == ButtonType.OK){
-			motorista = new Motorista("C03", "Luiz Filipe Alves da Silva", "login3", new String (Criptografia.criptografa("senha3".toCharArray())), endereco, "123.456.789-11", "99999998", data, "masculino", 19, "1237854", data);
+			motorista = new Motorista("C03", "Luiz Filipe Alves da Silva", "login3", new String (Criptografia.criptografa("senha3".toCharArray())), endereco, "123.456.789-11", "99999998", data, "masculino", "1237854", data);
 			daoM.saveOrUpdate(motorista);
 		}
 		dialog.setContentText("Deseja Persistir categoria?");
 		result = dialog.showAndWait();
 		if (result.get() == ButtonType.OK){
-			cat = new Categoria("PGC", "pequeno", "automatico", 15.5, true, true, false, true, false);
+			cat = new Categoria("PGC", "pequeno", "automatico", true, true, false, true, false);
 			daoC.saveOrUpdate(cat);
 		}
 		dialog.setContentText("Deseja Persistir categoria caminhoneta carga?");
 		result = dialog.showAndWait();
 		if (result.get() == ButtonType.OK){
-			caminhonetaCarga = new CaminhonetaCarga("GCC", "grande", "automatico", 105.5, true, true, false, true, false, 4000, "top", 150, 4, (float) 2.0, "mola");
+			caminhonetaCarga = new CaminhonetaCarga("GCC", "grande", "automatico", true, true, false, true, false);
 			daoCC.saveOrUpdate(caminhonetaCarga);
 		}
 		dialog.setContentText("Deseja Persistir categoria caminhoneta passageiros?");
@@ -176,13 +188,24 @@ public class ControllerLogin {
 		dialog.setContentText("Deseja Persistir funcionario?");
 		result = dialog.showAndWait();
 		if (result.get() == ButtonType.OK){
-			funcionario = new Funcionario("C04", "Luiz Filipe Alves da Silva", "login4",new String (Criptografia.criptografa("senha4".toCharArray())), endereco, "123.456.789-11", "99999998", data, "masculino", "gerente", "full");  			
+			funcionario = new Funcionario("C04", "Luiz Filipe Alves da Silva", "login4",new String (Criptografia.criptografa("senha4".toCharArray())), endereco, "123.456.789-13", "99999998", data, "masculino", "gerente", "full");  			
 			daoFU.saveOrUpdate(funcionario);
+		}
+		dialog.setContentText("Deseja Persistir Marca?");
+		result = dialog.showAndWait();
+		if (result.get() == ButtonType.OK){
+			marca = new Marca("Wolgsvage");
+			daoMR.saveOrUpdate(marca);
+		}dialog.setContentText("Deseja Persistir Modelo?");
+		result = dialog.showAndWait();
+		if (result.get() == ButtonType.OK){
+			modelo = new Modelo("gol g5", 2000,(float) 2.0,2000,4,4,1,"flex",DAOMarca.getInstance().findByNome(marca.getNome()));
+			daoMD.saveOrUpdate(modelo);
 		}
 		dialog.setContentText("Deseja Persistir veiculo?");
 		result = dialog.showAndWait();
 		if (result.get() == ButtonType.OK){
-			veiculo = new Veiculo("cks1234", "12312134", 145.23, 251, "WolksWagem", (float) 1.2, "Gol", "flex", 2, 4, 4, 2004, 2004, "Vermelho", cat);
+			veiculo = new Veiculo("ckj1212","123123123", 255.20, 125454,"vermelho", cat, modelo);
 			daoV.saveOrUpdate(veiculo);
 		}
 		dialog.setContentText("Deseja Persistir reserva?");
@@ -252,11 +275,23 @@ public class ControllerLogin {
 			funcionario.setCodigo("F04");
 			daoFU.saveOrUpdate(funcionario);
 		}
+		dialog.setContentText("Deseja Alterar Marca?");
+		result = dialog.showAndWait();
+		if (result.get() == ButtonType.OK){
+			marca = DAOMarca.getInstance().findByNome(marca.getNome());
+			marca.setNome("FIAT");
+			daoMR.saveOrUpdate(marca);
+		}
+		dialog.setContentText("Deseja Alterar Modelo?");
+		result = dialog.showAndWait();
+		if (result.get() == ButtonType.OK){
+			modelo.setNome("UNO");
+			daoMD.saveOrUpdate(modelo);
+		}
 		dialog.setContentText("Deseja Alterar veiculo?");
 		result = dialog.showAndWait();
 		if (result.get() == ButtonType.OK){
-			veiculo.setModelo("UNO");
-			veiculo.setFabricante("Fiat");
+			veiculo.setCor("Verde");
 			daoV.saveOrUpdate(veiculo);
 		}
 		dialog.setContentText("Deseja Alterar reserva?");
@@ -287,13 +322,25 @@ public class ControllerLogin {
 		if (result.get() == ButtonType.OK){
 			daoR.remove(Reserva.class, reserva.getId());
 		}
-
+		
 		dialog.setContentText("Deseja deletar veiculo?");
 		result = dialog.showAndWait();
 		if (result.get() == ButtonType.OK){
 			daoV.remove(Veiculo.class, veiculo.getId());
 		}
-
+		
+		dialog.setContentText("Deseja deletar Modelo?");
+		result = dialog.showAndWait();
+		if (result.get() == ButtonType.OK){
+			daoMD.remove(Modelo.class, modelo.getId());
+		}
+		
+		dialog.setContentText("Deseja deletar Marca?");
+		result = dialog.showAndWait();
+		if (result.get() == ButtonType.OK){
+			daoMR.remove(Marca.class, marca.getId());
+		}
+		
 		dialog.setContentText("Deseja deletar funcionario?");
 		result = dialog.showAndWait();
 		if (result.get() == ButtonType.OK){

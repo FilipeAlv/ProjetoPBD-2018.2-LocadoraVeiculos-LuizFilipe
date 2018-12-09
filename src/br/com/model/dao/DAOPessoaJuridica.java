@@ -5,7 +5,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import br.com.model.beans.Pessoa;
 import br.com.model.beans.PessoaJuridica;
-import br.com.model.beans.PessoaJuridica;
 import br.com.util.ConnectionFactory;
 import br.com.util.SQLUtil;
 

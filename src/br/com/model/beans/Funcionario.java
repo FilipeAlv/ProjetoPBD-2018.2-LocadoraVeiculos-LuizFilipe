@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 public class Funcionario extends PessoaFisica{
 	@Column(length=75)
 	private String cargo;
+	@Column(length=75)
 	private String permissao;
 	public Funcionario() {
 		super();

@@ -18,7 +18,7 @@ public class CaminhonetaPassageiro extends Categoria{
 
 	public CaminhonetaPassageiro(Integer id, String nome, String tamanho, String tipoCambio, double valorDiaria,
 			boolean arCondicionado, boolean direcaoHidraulica, boolean cameraRe, boolean radio, boolean mp3) {
-		super(id, nome, tamanho, tipoCambio, valorDiaria, arCondicionado, direcaoHidraulica, cameraRe, radio, mp3);
+		super(id, nome, tamanho, tipoCambio, arCondicionado, direcaoHidraulica, cameraRe, radio, mp3);
 	}
 
 
@@ -26,7 +26,7 @@ public class CaminhonetaPassageiro extends Categoria{
 			boolean arCondicionado, boolean direcaoHidraulica, boolean cameraRe, boolean radio, boolean mp3,
 			boolean airBag, boolean direcaoAssistida, boolean ligaLeve,
 			boolean cintosTrasRetrateis, boolean contrPol) {
-		super(id, nome, tamanho, tipoCambio, valorDiaria, arCondicionado, direcaoHidraulica, cameraRe, radio, mp3);
+		super(id, nome, tamanho, tipoCambio, arCondicionado, direcaoHidraulica, cameraRe, radio, mp3);
 		this.airBag = airBag;
 		this.direcaoAssistida = direcaoAssistida;
 		this.ligaLeve = ligaLeve;
@@ -38,7 +38,7 @@ public class CaminhonetaPassageiro extends Categoria{
 			boolean arCondicionado, boolean direcaoHidraulica, boolean cameraRe, boolean radio, boolean mp3,
 			boolean airBag, boolean direcaoAssistida, boolean ligaLeve,
 			boolean cintosTrasRetrateis, boolean contrPol) {
-		super(nome, tamanho, tipoCambio, valorDiaria, arCondicionado, direcaoHidraulica, cameraRe, radio, mp3);
+		super(nome, tamanho, tipoCambio, arCondicionado, direcaoHidraulica, cameraRe, radio, mp3);
 		this.airBag = airBag;
 		this.direcaoAssistida = direcaoAssistida;
 		this.ligaLeve = ligaLeve;
@@ -95,9 +95,42 @@ public class CaminhonetaPassageiro extends Categoria{
 	public void setContrPol(boolean contrPol) {
 		this.contrPol = contrPol;
 	}
-	
-	
-	
-	
 
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + (airBag ? 1231 : 1237);
+		result = prime * result + (cintosTrasRetrateis ? 1231 : 1237);
+		result = prime * result + (contrPol ? 1231 : 1237);
+		result = prime * result + (direcaoAssistida ? 1231 : 1237);
+		result = prime * result + (ligaLeve ? 1231 : 1237);
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CaminhonetaPassageiro other = (CaminhonetaPassageiro) obj;
+		if (airBag != other.airBag)
+			return false;
+		if (cintosTrasRetrateis != other.cintosTrasRetrateis)
+			return false;
+		if (contrPol != other.contrPol)
+			return false;
+		if (direcaoAssistida != other.direcaoAssistida)
+			return false;
+		if (ligaLeve != other.ligaLeve)
+			return false;
+		return true;
+	}
+	
+	
 }

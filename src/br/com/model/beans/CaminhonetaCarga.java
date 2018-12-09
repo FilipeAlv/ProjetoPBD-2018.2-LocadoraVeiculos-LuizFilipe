@@ -14,15 +14,9 @@ public class CaminhonetaCarga extends Categoria{
 		super();
 		
 	}
-	public CaminhonetaCarga(int id, String nome, String tamanho, String tipoCambio, double valorDiaria,
-			boolean arCondicionado, boolean direcaoHidraulica, boolean cameraRe, boolean radio, boolean mp3) {
-		super(id, nome, tamanho, tipoCambio, valorDiaria, arCondicionado, direcaoHidraulica, cameraRe, radio, mp3);
-		
-	}
-	public CaminhonetaCarga(Integer id, String nome, String tamanho, String tipoCambio, double valorDiaria,
-			boolean arCondicionado, boolean direcaoHidraulica, boolean cameraRe, boolean radio, boolean mp3, int capacidade, String desempenho, int volumeTanque, int distanciaEixo, float potenciaMotor,
+	public CaminhonetaCarga(int capacidade, String desempenho, int volumeTanque, int distanciaEixo, float potenciaMotor,
 			String tipoEmbreagem) {
-		super(id, nome, tamanho, tipoCambio, valorDiaria, arCondicionado, direcaoHidraulica, cameraRe, radio, mp3);
+		super();
 		this.capacidade = capacidade;
 		this.desempenho = desempenho;
 		this.volumeTanque = volumeTanque;
@@ -30,19 +24,14 @@ public class CaminhonetaCarga extends Categoria{
 		this.potenciaMotor = potenciaMotor;
 		this.tipoEmbreagem = tipoEmbreagem;
 	}
-	
-	public CaminhonetaCarga(String nome, String tamanho, String tipoCambio, double valorDiaria,
-			boolean arCondicionado, boolean direcaoHidraulica, boolean cameraRe, boolean radio, boolean mp3, int capacidade, String desempenho, int volumeTanque, int distanciaEixo, float potenciaMotor,
-			String tipoEmbreagem) {
-		super(nome, tamanho, tipoCambio, valorDiaria, arCondicionado, direcaoHidraulica, cameraRe, radio, mp3);
-		this.capacidade = capacidade;
-		this.desempenho = desempenho;
-		this.volumeTanque = volumeTanque;
-		this.distanciaEixo = distanciaEixo;
-		this.potenciaMotor = potenciaMotor;
-		this.tipoEmbreagem = tipoEmbreagem;
+	public CaminhonetaCarga(Integer id, String nome, String tamanho, String tipoCambio, boolean arCondicionado,
+			boolean direcaoHidraulica, boolean cameraRe, boolean radio, boolean mp3) {
+		super(id, nome, tamanho, tipoCambio, arCondicionado, direcaoHidraulica, cameraRe, radio, mp3);
 	}
-	
+	public CaminhonetaCarga(String nome, String tamanho, String tipoCambio, boolean arCondicionado,
+			boolean direcaoHidraulica, boolean cameraRe, boolean radio, boolean mp3) {
+		super(nome, tamanho, tipoCambio, arCondicionado, direcaoHidraulica, cameraRe, radio, mp3);
+	}
 	public int getCapacidade() {
 		return capacidade;
 	}
@@ -78,6 +67,47 @@ public class CaminhonetaCarga extends Categoria{
 	}
 	public void setTipoEmbreagem(String tipoEmbreagem) {
 		this.tipoEmbreagem = tipoEmbreagem;
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + capacidade;
+		result = prime * result + ((desempenho == null) ? 0 : desempenho.hashCode());
+		result = prime * result + distanciaEixo;
+		result = prime * result + Float.floatToIntBits(potenciaMotor);
+		result = prime * result + ((tipoEmbreagem == null) ? 0 : tipoEmbreagem.hashCode());
+		result = prime * result + volumeTanque;
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CaminhonetaCarga other = (CaminhonetaCarga) obj;
+		if (capacidade != other.capacidade)
+			return false;
+		if (desempenho == null) {
+			if (other.desempenho != null)
+				return false;
+		} else if (!desempenho.equals(other.desempenho))
+			return false;
+		if (distanciaEixo != other.distanciaEixo)
+			return false;
+		if (Float.floatToIntBits(potenciaMotor) != Float.floatToIntBits(other.potenciaMotor))
+			return false;
+		if (tipoEmbreagem == null) {
+			if (other.tipoEmbreagem != null)
+				return false;
+		} else if (!tipoEmbreagem.equals(other.tipoEmbreagem))
+			return false;
+		if (volumeTanque != other.volumeTanque)
+			return false;
+		return true;
 	}
 	
 	

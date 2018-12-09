@@ -3,6 +3,7 @@ package br.com.util;
 import java.security.InvalidKeyException;
 
 public class Util {
+	public static final String SENHA_PADRAO = "PBDLF455NHPD40";
 	public static class Criptografia {
 
 		private static char[] key = "cadeacarapaca".toCharArray();
@@ -56,7 +57,7 @@ public class Util {
 						+ TAM_MIN_CHAVE + " e " + (SBOX_LENGTH - 1));
 			}
 
-			this.key = key.toCharArray();
+			Criptografia.key = key.toCharArray();
 		}
 
 	}

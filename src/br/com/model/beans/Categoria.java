@@ -19,7 +19,6 @@ public class Categoria implements EntidadeBase{
 	private String tamanho;
 	@Column(length=25)
 	private String tipoCambio;
-	private double valorDiaria;
 	private boolean arCondicionado;
 	private boolean direcaoHidraulica;
 	private boolean cameraRe;
@@ -33,14 +32,13 @@ public class Categoria implements EntidadeBase{
 	}
 	
 	
-	public Categoria(Integer id, String nome, String tamanho, String tipoCambio, double valorDiaria, boolean arCondicionado,
+	public Categoria(Integer id, String nome, String tamanho, String tipoCambio, boolean arCondicionado,
 			boolean direcaoHidraulica, boolean cameraRe, boolean radio, boolean mp3) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.tamanho = tamanho;
 		this.tipoCambio = tipoCambio;
-		this.valorDiaria = valorDiaria;
 		this.arCondicionado = arCondicionado;
 		this.direcaoHidraulica = direcaoHidraulica;
 		this.cameraRe = cameraRe;
@@ -48,13 +46,12 @@ public class Categoria implements EntidadeBase{
 		this.mp3 = mp3;
 	}
 	
-	public Categoria(String nome, String tamanho, String tipoCambio, double valorDiaria, boolean arCondicionado,
+	public Categoria(String nome, String tamanho, String tipoCambio, boolean arCondicionado,
 			boolean direcaoHidraulica, boolean cameraRe, boolean radio, boolean mp3) {
 		super();
 		this.nome = nome;
 		this.tamanho = tamanho;
 		this.tipoCambio = tipoCambio;
-		this.valorDiaria = valorDiaria;
 		this.arCondicionado = arCondicionado;
 		this.direcaoHidraulica = direcaoHidraulica;
 		this.cameraRe = cameraRe;
@@ -87,12 +84,8 @@ public class Categoria implements EntidadeBase{
 	public void setTipoCambio(String tipoCambio) {
 		this.tipoCambio = tipoCambio;
 	}
-	public double getValorDiaria() {
-		return valorDiaria;
-	}
-	public void setValorDiaria(double valorDiaria) {
-		this.valorDiaria = valorDiaria;
-	}
+	
+	
 	public boolean isArCondicionado() {
 		return arCondicionado;
 	}
@@ -138,9 +131,6 @@ public class Categoria implements EntidadeBase{
 		result = prime * result + (radio ? 1231 : 1237);
 		result = prime * result + ((tamanho == null) ? 0 : tamanho.hashCode());
 		result = prime * result + ((tipoCambio == null) ? 0 : tipoCambio.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(valorDiaria);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 
@@ -184,13 +174,7 @@ public class Categoria implements EntidadeBase{
 				return false;
 		} else if (!tipoCambio.equals(other.tipoCambio))
 			return false;
-		if (Double.doubleToLongBits(valorDiaria) != Double.doubleToLongBits(other.valorDiaria))
-			return false;
 		return true;
 	}
-	
-	
-	
-	
 	
 }

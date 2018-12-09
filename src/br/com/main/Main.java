@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import br.com.model.beans.Pessoa;
 import br.com.model.beans.PessoaFisica;
+import br.com.model.dao.DAOPessoaFisica;
+import br.com.util.Util;
 import br.com.util.Util.Criptografia;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,9 +18,11 @@ import javafx.scene.layout.Pane;
 
 public class Main extends Application {
 	public static Scene sceneLogin, scenePrincipal, sceneNovaReserva, sceneConfigLocacao, sceneAddValorLocacao, sceneAlterarSenha;
+	public static Scene sceneFuncionario;
 	private static Stage stage;
-	public static Stage stageNovaReserva, stageConfigLocacao, stageAddValorLocacao, stageAlterarSenha;
+	public static Stage stageNovaReserva, stageConfigLocacao, stageAddValorLocacao, stageAlterarSenha, stageFuncionario;
 	private static Pane telaPrincipal, telaLogin, telaNovaReserva, telaConfigLocacao, telaAddValorLocacao, telaAlterarSenha;
+	private static Pane telaFuncionario;
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -28,12 +32,15 @@ public class Main extends Application {
 			telaConfigLocacao = FXMLLoader.load(getClass().getResource("../view/ConfigLocacao.fxml"));
 			telaAddValorLocacao =  FXMLLoader.load(getClass().getResource("../view/AddValorLocacao.fxml"));
 			telaAlterarSenha = FXMLLoader.load(getClass().getResource("../view/AlterarSenha.fxml"));
+			telaFuncionario = FXMLLoader.load(getClass().getResource("../view/Funcionario.fxml"));
+
 			sceneLogin = new Scene(telaLogin);
 			scenePrincipal = new Scene(telaPrincipal);
 			sceneNovaReserva = new Scene(telaNovaReserva);
 			sceneConfigLocacao = new Scene(telaConfigLocacao);
 			sceneAddValorLocacao = new Scene(telaAddValorLocacao);
 			sceneAlterarSenha = new Scene(telaAlterarSenha);
+			sceneFuncionario = new Scene(telaFuncionario);
 			
 			primaryStage.setScene(sceneLogin);
 			primaryStage.initStyle(StageStyle.UNDECORATED);
@@ -48,9 +55,8 @@ public class Main extends Application {
 		
 		Pessoa pessoa = new PessoaFisica();
 		pessoa.setLogin("admin");
-		pessoa.setSenha(new String(Criptografia.criptografa("admin".toCharArray())));
-		//DaoGenerico<Pessoa> dao = new DAOPessoaFisica();
-		//dao.saveOrUpdate(pessoa);		
+		pessoa.setSenha(new String(Criptografia.criptografa(Util.SENHA_PADRAO.toCharArray())));
+		DAOPessoaFisica.getInstace().saveOrUpdate(pessoa);		
 		launch(args);
 	}
 	
@@ -83,6 +89,13 @@ public class Main extends Application {
 			stageAlterarSenha.initStyle(StageStyle.UNDECORATED);
 			stageAlterarSenha.setScene(sceneAlterarSenha);
 			stageAlterarSenha.show();
+			break;
+		case "Funcionario":
+			stageFuncionario = new Stage();
+			stageFuncionario.initModality(Modality.APPLICATION_MODAL);
+			stageFuncionario.initStyle(StageStyle.UNDECORATED);
+			stageFuncionario.setScene(sceneFuncionario);
+			stageFuncionario.show();
 			break;
 		}
 		

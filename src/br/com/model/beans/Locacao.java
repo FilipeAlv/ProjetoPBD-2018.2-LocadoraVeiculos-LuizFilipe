@@ -25,7 +25,6 @@ public class Locacao implements EntidadeBase{
 	private Reserva reserva;
 	public Locacao() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public Locacao(Integer id, Date dataFinal, double valorFinal, String statusVeiculo, Veiculo veiculo, Reserva reserva) {
 		super();

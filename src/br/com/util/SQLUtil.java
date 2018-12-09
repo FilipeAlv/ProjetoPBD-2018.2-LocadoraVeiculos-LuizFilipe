@@ -8,7 +8,7 @@ public class SQLUtil {
 		public static final String SELECT_LOGIN_SENHA = "SELECT p FROM Pessoa p WHERE p.login = :login AND p.senha = :senha";
 		public static final String SELECT_LOGIN = "SELECT p FROM Pessoa p WHERE p.login = :login";
 		public static final String SELECT_CPF = "SELECT p FROM Pessoa p WHERE p.cpf = :cpf";
-		public static final String UPDADTE_SENHA = "UPDATE Pessoa p SET p.senha = :novaSenha WHERE p.login = :login AND p.senha = :senha";
+		public static final String UPDADTE_SENHA = "UPDATE Pessoa p SET senha = :novaSenha WHERE senha = :senha AND login = :login";
 		
 
 	}
@@ -86,4 +86,15 @@ public class SQLUtil {
 		public static final String SELECT_ALL = "SELECT v FROM ValorLocacao v";
 		public static final String SELECT_TIPO_CAT = "SELECT v.valor FROM ValorLocacao v WHERE v.tipoLocacao = :tipo and v.categoria = :categoria";
 	}
+
+	public class Marca{
+		public static final String SELECT_ALL = "SELECT m FROM Marca m";
+		public static final String SELECT_NOME = "SELECT m FROM Marca m WHERE m.nome = :nome";
+	}
+	
+	public class Modelo{
+		public static final String SELECT_ALL = "SELECT m FROM Modelo m";
+		public static final String SELECT_NOME = "SELECT m FROM Modelo m WHERE m.nome = :nome";
+	}
+
 }

@@ -64,6 +64,7 @@ public class ControllerNovoValor implements Initializable{
 				DAOValorLocacao.getInstance().findById(ValorLocacao.class, vl.getId());
 				alert.setContentText("Valor Adicionado Com Sucesso");
 				alert.show();
+				Main.stageAddValorLocacao.close();
 			} catch (Exception e) {
 				alert.setContentText("Erro ao adicionar valor");
 				alert.show();
