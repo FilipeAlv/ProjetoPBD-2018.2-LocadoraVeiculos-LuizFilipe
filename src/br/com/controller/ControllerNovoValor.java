@@ -61,10 +61,11 @@ public class ControllerNovoValor implements Initializable{
 	    	ValorLocacao vl = new ValorLocacao(Double.parseDouble(fdValor.getText()), categoria, cbTipoLocacao.getValue());
 	    	DAOValorLocacao.getInstance().saveOrUpdate(vl);
 	    	try {
-				DAOValorLocacao.getInstance().findById(ValorLocacao.class, vl.getId());
 				alert.setContentText("Valor Adicionado Com Sucesso");
 				alert.show();
 				Main.stageAddValorLocacao.close();
+				ControllerConfigLocacao.carregarTabela();
+				ControllerConfigLocacao.tb.refresh();
 			} catch (Exception e) {
 				alert.setContentText("Erro ao adicionar valor");
 				alert.show();

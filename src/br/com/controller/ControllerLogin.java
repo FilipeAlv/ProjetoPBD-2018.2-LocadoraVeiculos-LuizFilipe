@@ -83,7 +83,8 @@ public class ControllerLogin {
     		Session.usuario = DAOPessoa.getInstace().findByLogin(login);
     		String senhaDec = Criptografia.decriptografa(Session.usuario.getSenha().toCharArray());
     		if(senhaDec.equals(senha)){
-    			//script();
+    			if(Util.SCRIPT)
+    				script();
     			telas();
     		}else {
     			alert.setContentText("Senha Incorreta!");
@@ -166,18 +167,23 @@ public class ControllerLogin {
 		if (result.get() == ButtonType.OK){
 			cat = new Categoria("PGC", "pequeno", "automatico", true, true, false, true, false);
 			daoC.saveOrUpdate(cat);
+			cat=DAOCategoria.getInstance().findById(Categoria.class, cat.getId());
 		}
 		dialog.setContentText("Deseja Persistir categoria caminhoneta carga?");
 		result = dialog.showAndWait();
 		if (result.get() == ButtonType.OK){
-			caminhonetaCarga = new CaminhonetaCarga("GCC", "grande", "automatico", true, true, false, true, false);
+			caminhonetaCarga = new CaminhonetaCarga("CGS", "grande", "hidraulico", true, true, true, true,
+					false, 4000, "otimo", 150, (int)2.5, (float)2.5,"hidraulica");
 			daoCC.saveOrUpdate(caminhonetaCarga);
+			caminhonetaCarga=DAOCaminhonetaCarga.getInstace().findById(CaminhonetaCarga.class, caminhonetaCarga.getId());
 		}
 		dialog.setContentText("Deseja Persistir categoria caminhoneta passageiros?");
 		result = dialog.showAndWait();
 		if (result.get() == ButtonType.OK){
-			caminhonetaPassageiro = new CaminhonetaPassageiro("GCP", "grande", "automatico", 105.5, true, true, false, true, false, true, false, false, true, false);
+			caminhonetaPassageiro = new CaminhonetaPassageiro("GCP", "grande", "automatico", 105.5, true, true,
+					false, true, false, true, false, false, true, false);
 			daoCP.saveOrUpdate(caminhonetaPassageiro);
+			caminhonetaPassageiro=DAOCaminhonetaPassageiro.getInstace().findById(CaminhonetaPassageiro.class, caminhonetaPassageiro.getId());
 		}
 		dialog.setContentText("Deseja Persistir filial?");
 		result = dialog.showAndWait();
@@ -188,7 +194,9 @@ public class ControllerLogin {
 		dialog.setContentText("Deseja Persistir funcionario?");
 		result = dialog.showAndWait();
 		if (result.get() == ButtonType.OK){
-			funcionario = new Funcionario("C04", "Luiz Filipe Alves da Silva", "login4",new String (Criptografia.criptografa("senha4".toCharArray())), endereco, "123.456.789-13", "99999998", data, "masculino", "gerente", "full");  			
+			funcionario = new Funcionario("C04", "Luiz Filipe Alves da Silva", "login4",
+					new String (Criptografia.criptografa("senha4".toCharArray())), endereco,
+					"123.456.789-13", "99999998", data, "masculino", "gerente", "full");  			
 			daoFU.saveOrUpdate(funcionario);
 		}
 		dialog.setContentText("Deseja Persistir Marca?");
@@ -196,23 +204,30 @@ public class ControllerLogin {
 		if (result.get() == ButtonType.OK){
 			marca = new Marca("Wolgsvage");
 			daoMR.saveOrUpdate(marca);
-		}dialog.setContentText("Deseja Persistir Modelo?");
+			marca = daoMR.findByNome(marca.getNome());
+		}
+		
+		dialog.setContentText("Deseja Persistir Modelo?");
 		result = dialog.showAndWait();
 		if (result.get() == ButtonType.OK){
-			modelo = new Modelo("gol g5", 2000,(float) 2.0,2000,4,4,1,"flex",DAOMarca.getInstance().findByNome(marca.getNome()));
-			daoMD.saveOrUpdate(modelo);
-		}
+			modelo = new Modelo(2000,"Gol",2000,(float)2.5,4,4,2,"flex", marca);
+			DAOModelo.getInstance().saveOrUpdate(modelo);
+			modelo= DAOModelo.getInstance().findByNome(modelo.getNome());
+		} 
 		dialog.setContentText("Deseja Persistir veiculo?");
 		result = dialog.showAndWait();
 		if (result.get() == ButtonType.OK){
 			veiculo = new Veiculo("ckj1212","123123123", 255.20, 125454,"vermelho", cat, modelo);
 			daoV.saveOrUpdate(veiculo);
+			veiculo = DAOVeiculo.getInstance().findByPlaca(veiculo.getPlaca());
 		}
 		dialog.setContentText("Deseja Persistir reserva?");
 		result = dialog.showAndWait();
 		if (result.get() == ButtonType.OK){
-			reserva = new Reserva(data, data, data, "KMLivre", 150.00,pessoaJuridica, motorista, filial, filial, cat );
+			reserva = new Reserva(data, data, data, "KMLivre", 150.00,pessoaJuridica, motorista,
+					filial, filial,cat );
 			daoR.saveOrUpdate(reserva);
+			reserva = DAOReserva.getInstance().findById(Reserva.class, reserva.getId());
 		}
 		
 		dialog.setContentText("Deseja Persistir locacao?");

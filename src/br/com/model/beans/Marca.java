@@ -13,7 +13,7 @@ public class Marca implements EntidadeBase{
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequencia_marca")
 	private int id;
-	@Column(length=75)
+	@Column(length=75, unique=true)
 	private String nome;
 	
 	public Marca() {

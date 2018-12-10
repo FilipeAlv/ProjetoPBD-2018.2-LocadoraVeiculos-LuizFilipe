@@ -20,7 +20,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 public class ControllerConfigLocacao implements Initializable{
-
+	public static TableView<VLAux> tb;
+	public static ObservableList<VLAux> ob;
     @FXML
     private ImageView btnClose;
 
@@ -78,12 +79,8 @@ public class ControllerConfigLocacao implements Initializable{
         valorCol.setCellValueFactory(
                 new PropertyValueFactory<>("valor"));
         
-		List<ValorLocacao> valores = DAOValorLocacao.getInstance().findAll();
-		ObservableList<VLAux> ob = FXCollections.observableArrayList();
-		
-		for (ValorLocacao valorLocacao : valores) {
-			ob.add(new VLAux(valorLocacao.getTipoLocacao(), valorLocacao.getValor(), valorLocacao.getCategoria().getNome()));
-		}
+		carregarTabela();
+		tb=tbValor;
 		if (ob.size()>0) 
 			tbValor.setItems(ob);
 		
@@ -91,7 +88,15 @@ public class ControllerConfigLocacao implements Initializable{
 		
 	}
 	
-	public class VLAux{
+	public static void carregarTabela() {
+		List<ValorLocacao> valores = DAOValorLocacao.getInstance().findAll();
+		ob = FXCollections.observableArrayList();
+		for (ValorLocacao valorLocacao : valores) {
+			ob.add(new VLAux(valorLocacao.getTipoLocacao(), valorLocacao.getValor(), valorLocacao.getCategoria().getNome()));
+		}
+	}
+	
+	public static class VLAux{
 		 private String tipo;
 		 private Double valor;
 		 private String categoria;

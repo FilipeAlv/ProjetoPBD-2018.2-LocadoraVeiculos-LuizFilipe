@@ -2,8 +2,25 @@ package br.com.main;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.Date;
+import java.util.Random;
+
+import br.com.model.beans.CaminhonetaCarga;
+import br.com.model.beans.CaminhonetaPassageiro;
+import br.com.model.beans.Categoria;
+import br.com.model.beans.Endereco;
+import br.com.model.beans.Filial;
+import br.com.model.beans.Funcionario;
+import br.com.model.beans.Locacao;
+import br.com.model.beans.Marca;
+import br.com.model.beans.Modelo;
+import br.com.model.beans.Motorista;
 import br.com.model.beans.Pessoa;
 import br.com.model.beans.PessoaFisica;
+import br.com.model.beans.PessoaJuridica;
+import br.com.model.beans.Reserva;
+import br.com.model.beans.Veiculo;
+import br.com.model.dao.DAOMarca;
 import br.com.model.dao.DAOPessoaFisica;
 import br.com.util.Util;
 import br.com.util.Util.Criptografia;
@@ -13,6 +30,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.Scene;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Pane;
 
 
@@ -52,14 +70,13 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
-		
 		Pessoa pessoa = new PessoaFisica();
 		pessoa.setLogin("admin");
-		pessoa.setSenha(new String(Criptografia.criptografa(Util.SENHA_PADRAO.toCharArray())));
-		DAOPessoaFisica.getInstace().saveOrUpdate(pessoa);		
+		pessoa.setSenha(new String (Criptografia.criptografa("admin".toCharArray())));
+		DAOPessoaFisica.getInstace().saveOrUpdate(pessoa);
 		launch(args);
 	}
-	
+
 	public static void novaTela(String tela) {	
 		switch(tela) {
 		case "NovaReserva":
@@ -122,4 +139,6 @@ public class Main extends Application {
 			break;
 		}
 	}
+	
+	
 }

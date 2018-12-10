@@ -14,104 +14,182 @@ public class Modelo implements EntidadeBase{
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequencia_modelo")
 	int id;
+	private int anoFabricacao;
+	@Column(length=15, unique=true)
 	private String nome;
 	private int anoModelo;
 	private float torqueMotor;
-	private int anoFabricacao;
-	@Column(length=15)
 	private int numPassageiro;
 	private int numPorta;
 	private int tempoLimpeza;
+	@Column(length=15)
 	private String combustivel;
 	@ManyToOne
 	private Marca marca;
 	
 	
 	
-	public Modelo(int id, String nome, int anoModelo, float torqueMotor, int anoFabricacao, int numPassageiro,
+	
+	public Modelo() {
+		super();
+	}
+
+
+
+	public Modelo(int anoFabricacao, String nome, int anoModelo, float torqueMotor, int numPassageiro, int numPorta,
+			int tempoLimpeza, String combustivel, Marca marca) {
+		super();
+		this.anoFabricacao = anoFabricacao;
+		this.nome = nome;
+		this.anoModelo = anoModelo;
+		this.torqueMotor = torqueMotor;
+		this.numPassageiro = numPassageiro;
+		this.numPorta = numPorta;
+		this.tempoLimpeza = tempoLimpeza;
+		this.combustivel = combustivel;
+		this.marca = marca;
+	}
+
+
+
+	public Modelo(int id, int anoFabricacao, String nome, int anoModelo, float torqueMotor, int numPassageiro,
 			int numPorta, int tempoLimpeza, String combustivel, Marca marca) {
 		super();
 		this.id = id;
+		this.anoFabricacao = anoFabricacao;
 		this.nome = nome;
 		this.anoModelo = anoModelo;
 		this.torqueMotor = torqueMotor;
-		this.anoFabricacao = anoFabricacao;
 		this.numPassageiro = numPassageiro;
 		this.numPorta = numPorta;
 		this.tempoLimpeza = tempoLimpeza;
 		this.combustivel = combustivel;
 		this.marca = marca;
 	}
-	public Modelo(String nome, int anoModelo, float torqueMotor, int anoFabricacao, int numPassageiro, int numPorta,
-			int tempoLimpeza, String combustivel, Marca marca) {
-		super();
-		this.nome = nome;
-		this.anoModelo = anoModelo;
-		this.torqueMotor = torqueMotor;
-		this.anoFabricacao = anoFabricacao;
-		this.numPassageiro = numPassageiro;
-		this.numPorta = numPorta;
-		this.tempoLimpeza = tempoLimpeza;
-		this.combustivel = combustivel;
-		this.marca = marca;
+
+
+
+	@Override
+	public Integer getId() {
+		return id;
 	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	public int getAnoModelo() {
-		return anoModelo;
-	}
-	public void setAnoModelo(int anoModelo) {
-		this.anoModelo = anoModelo;
-	}
-	public float getTorqueMotor() {
-		return torqueMotor;
-	}
-	public void setTorqueMotor(float torqueMotor) {
-		this.torqueMotor = torqueMotor;
-	}
+
+
+
 	public int getAnoFabricacao() {
 		return anoFabricacao;
 	}
+
+
+
 	public void setAnoFabricacao(int anoFabricacao) {
 		this.anoFabricacao = anoFabricacao;
 	}
+
+
+
+	public String getNome() {
+		return nome;
+	}
+
+
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+
+
+	public int getAnoModelo() {
+		return anoModelo;
+	}
+
+
+
+	public void setAnoModelo(int anoModelo) {
+		this.anoModelo = anoModelo;
+	}
+
+
+
+	public float getTorqueMotor() {
+		return torqueMotor;
+	}
+
+
+
+	public void setTorqueMotor(float torqueMotor) {
+		this.torqueMotor = torqueMotor;
+	}
+
+
+
 	public int getNumPassageiro() {
 		return numPassageiro;
 	}
+
+
+
 	public void setNumPassageiro(int numPassageiro) {
 		this.numPassageiro = numPassageiro;
 	}
+
+
+
 	public int getNumPorta() {
 		return numPorta;
 	}
+
+
+
 	public void setNumPorta(int numPorta) {
 		this.numPorta = numPorta;
 	}
+
+
+
 	public int getTempoLimpeza() {
 		return tempoLimpeza;
 	}
+
+
+
 	public void setTempoLimpeza(int tempoLimpeza) {
 		this.tempoLimpeza = tempoLimpeza;
 	}
+
+
+
 	public String getCombustivel() {
 		return combustivel;
 	}
+
+
+
 	public void setCombustivel(String combustivel) {
 		this.combustivel = combustivel;
 	}
+
+
+
 	public Marca getMarca() {
 		return marca;
 	}
+
+
+
 	public void setMarca(Marca marca) {
 		this.marca = marca;
 	}
+
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -128,6 +206,9 @@ public class Modelo implements EntidadeBase{
 		result = prime * result + Float.floatToIntBits(torqueMotor);
 		return result;
 	}
+
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -168,11 +249,6 @@ public class Modelo implements EntidadeBase{
 			return false;
 		return true;
 	}
-	@Override
-	public Integer getId() {
-		return id;
-	}
-	
 	
 	
 }

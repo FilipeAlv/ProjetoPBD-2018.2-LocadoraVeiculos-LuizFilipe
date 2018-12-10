@@ -2,6 +2,7 @@ package br.com.controller;
 
 
 import br.com.main.Main;
+import br.com.util.Util;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -48,6 +49,7 @@ public class ControllerPrincipal {
     @FXML
     void actionLogout(MouseEvent event) {
     	Main.alterarTela("Login");
+    	Util.SCRIPT=false;
     }
     
     @FXML

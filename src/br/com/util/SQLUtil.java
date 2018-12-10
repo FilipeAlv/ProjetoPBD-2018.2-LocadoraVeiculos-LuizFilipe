@@ -76,6 +76,7 @@ public class SQLUtil {
 	
 	public class Veiculo{
 		public static final String SELECT_ALL = "SELECT v FROM Veiculo v";
+		public static final String SELECT_PLACA = "SELECT v FROM Veiculo v WHERE v.placa = :placa";
 	}
 	
 	public class DaoGenerico{

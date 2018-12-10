@@ -28,6 +28,19 @@ public class CaminhonetaCarga extends Categoria{
 			boolean direcaoHidraulica, boolean cameraRe, boolean radio, boolean mp3) {
 		super(id, nome, tamanho, tipoCambio, arCondicionado, direcaoHidraulica, cameraRe, radio, mp3);
 	}
+	
+	
+	public CaminhonetaCarga(String nome, String tamanho, String tipoCambio, boolean arCondicionado,
+			boolean direcaoHidraulica, boolean cameraRe, boolean radio, boolean mp3, int capacidade, String desempenho,
+			int volumeTanque, int distanciaEixo, float potenciaMotor, String tipoEmbreagem) {
+		super(nome, tamanho, tipoCambio, arCondicionado, direcaoHidraulica, cameraRe, radio, mp3);
+		this.capacidade = capacidade;
+		this.desempenho = desempenho;
+		this.volumeTanque = volumeTanque;
+		this.distanciaEixo = distanciaEixo;
+		this.potenciaMotor = potenciaMotor;
+		this.tipoEmbreagem = tipoEmbreagem;
+	}
 	public CaminhonetaCarga(String nome, String tamanho, String tipoCambio, boolean arCondicionado,
 			boolean direcaoHidraulica, boolean cameraRe, boolean radio, boolean mp3) {
 		super(nome, tamanho, tipoCambio, arCondicionado, direcaoHidraulica, cameraRe, radio, mp3);
