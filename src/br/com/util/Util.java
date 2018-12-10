@@ -4,7 +4,7 @@ import java.security.InvalidKeyException;
 
 public class Util {
 	public static final String SENHA_PADRAO = "PBDLF455NHPD40";
-	public static boolean SCRIPT = true;
+	public static boolean SCRIPT = false;
 	public static class Criptografia {
 
 		private static char[] key = "cadeacarapaca".toCharArray();

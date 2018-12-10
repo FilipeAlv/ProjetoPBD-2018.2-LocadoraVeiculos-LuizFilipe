@@ -36,11 +36,12 @@ import javafx.scene.layout.Pane;
 
 public class Main extends Application {
 	public static Scene sceneLogin, scenePrincipal, sceneNovaReserva, sceneConfigLocacao, sceneAddValorLocacao, sceneAlterarSenha;
-	public static Scene sceneFuncionario;
+	public static Scene sceneFuncionario, sceneReserva;
 	private static Stage stage;
 	public static Stage stageNovaReserva, stageConfigLocacao, stageAddValorLocacao, stageAlterarSenha, stageFuncionario;
+	public static Stage stageReserva;
 	private static Pane telaPrincipal, telaLogin, telaNovaReserva, telaConfigLocacao, telaAddValorLocacao, telaAlterarSenha;
-	private static Pane telaFuncionario;
+	private static Pane telaFuncionario, telaReserva;
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -51,6 +52,7 @@ public class Main extends Application {
 			telaAddValorLocacao =  FXMLLoader.load(getClass().getResource("../view/AddValorLocacao.fxml"));
 			telaAlterarSenha = FXMLLoader.load(getClass().getResource("../view/AlterarSenha.fxml"));
 			telaFuncionario = FXMLLoader.load(getClass().getResource("../view/Funcionario.fxml"));
+			telaReserva = FXMLLoader.load(getClass().getResource("../view/Reserva.fxml"));
 
 			sceneLogin = new Scene(telaLogin);
 			scenePrincipal = new Scene(telaPrincipal);
@@ -59,6 +61,7 @@ public class Main extends Application {
 			sceneAddValorLocacao = new Scene(telaAddValorLocacao);
 			sceneAlterarSenha = new Scene(telaAlterarSenha);
 			sceneFuncionario = new Scene(telaFuncionario);
+			sceneReserva = new Scene(telaReserva);
 			
 			primaryStage.setScene(sceneLogin);
 			primaryStage.initStyle(StageStyle.UNDECORATED);
@@ -113,6 +116,13 @@ public class Main extends Application {
 			stageFuncionario.initStyle(StageStyle.UNDECORATED);
 			stageFuncionario.setScene(sceneFuncionario);
 			stageFuncionario.show();
+			break;
+		case "Reserva":
+			stageReserva = new Stage();
+			stageReserva.initModality(Modality.APPLICATION_MODAL);
+			stageReserva.initStyle(StageStyle.UNDECORATED);
+			stageReserva.setScene(sceneReserva);
+			stageReserva.show();
 			break;
 		}
 		

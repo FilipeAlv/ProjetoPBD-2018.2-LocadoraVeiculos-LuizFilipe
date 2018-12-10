@@ -61,6 +61,7 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Reserva">
               <items>
+                  <MenuItem fx:id="menuVerReservas" mnemonicParsing="false" onAction="#actionVerReserva" text="Ver Reservas" />
                 <MenuItem fx:id="menuNovaReserva" mnemonicParsing="false" onAction="#actionAddReserva" text="Nova Reserva" />
               </items>
             </Menu>
