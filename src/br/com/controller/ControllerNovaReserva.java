@@ -37,15 +37,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 
 public class ControllerNovaReserva implements Initializable{
 
 	Alert alert = new Alert(AlertType.INFORMATION);
 
-	@FXML
-	private ImageView btnClose;
 
 	@FXML
 	private DatePicker fdData;
@@ -133,10 +129,7 @@ public class ControllerNovaReserva implements Initializable{
 
 	}
 
-	@FXML
-	void actionClose(MouseEvent event) {
-		Main.stageNovaReserva.close();
-	}
+
 
 	@FXML
 	void actionSalvar(ActionEvent event) {

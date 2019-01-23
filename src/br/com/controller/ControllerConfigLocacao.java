@@ -16,14 +16,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 
 public class ControllerConfigLocacao implements Initializable{
 	public static TableView<VLAux> tb;
 	public static ObservableList<VLAux> ob;
-    @FXML
-    private ImageView btnClose;
+  
 
     @FXML
     private Button btnAdd;
@@ -56,11 +53,6 @@ public class ControllerConfigLocacao implements Initializable{
 
     @FXML
     void actionBuscar(ActionEvent event) {
-
-    }
-
-    @FXML
-    void actionClose(MouseEvent event) {
 
     }
 

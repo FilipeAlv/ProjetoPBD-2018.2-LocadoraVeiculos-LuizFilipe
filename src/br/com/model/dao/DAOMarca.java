@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import br.com.model.beans.Marca;
-import br.com.model.beans.Marca;
 import br.com.util.ConnectionFactory;
 import br.com.util.SQLUtil;
 

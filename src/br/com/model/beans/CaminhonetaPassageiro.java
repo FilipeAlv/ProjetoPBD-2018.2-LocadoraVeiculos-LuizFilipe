@@ -16,13 +16,13 @@ public class CaminhonetaPassageiro extends Categoria{
 	}
 
 
-	public CaminhonetaPassageiro(Integer id, String nome, String tamanho, String tipoCambio, double valorDiaria,
+	public CaminhonetaPassageiro(Integer id, String nome, String tamanho, String tipoCambio,
 			boolean arCondicionado, boolean direcaoHidraulica, boolean cameraRe, boolean radio, boolean mp3) {
 		super(id, nome, tamanho, tipoCambio, arCondicionado, direcaoHidraulica, cameraRe, radio, mp3);
 	}
 
 
-	public CaminhonetaPassageiro(Integer id, String nome, String tamanho, String tipoCambio, double valorDiaria,
+	public CaminhonetaPassageiro(Integer id, String nome, String tamanho, String tipoCambio, 
 			boolean arCondicionado, boolean direcaoHidraulica, boolean cameraRe, boolean radio, boolean mp3,
 			boolean airBag, boolean direcaoAssistida, boolean ligaLeve,
 			boolean cintosTrasRetrateis, boolean contrPol) {
@@ -34,7 +34,7 @@ public class CaminhonetaPassageiro extends Categoria{
 		this.contrPol = contrPol;
 	}
 	
-	public CaminhonetaPassageiro(String nome, String tamanho, String tipoCambio, double valorDiaria,
+	public CaminhonetaPassageiro(String nome, String tamanho, String tipoCambio,
 			boolean arCondicionado, boolean direcaoHidraulica, boolean cameraRe, boolean radio, boolean mp3,
 			boolean airBag, boolean direcaoAssistida, boolean ligaLeve,
 			boolean cintosTrasRetrateis, boolean contrPol) {

@@ -180,7 +180,7 @@ public class ControllerLogin {
 		dialog.setContentText("Deseja Persistir categoria caminhoneta passageiros?");
 		result = dialog.showAndWait();
 		if (result.get() == ButtonType.OK){
-			caminhonetaPassageiro = new CaminhonetaPassageiro("GCP", "grande", "automatico", 105.5, true, true,
+			caminhonetaPassageiro = new CaminhonetaPassageiro("GCP", "grande", "automatico", true, true,
 					false, true, false, true, false, false, true, false);
 			daoCP.saveOrUpdate(caminhonetaPassageiro);
 			caminhonetaPassageiro=DAOCaminhonetaPassageiro.getInstace().findById(CaminhonetaPassageiro.class, caminhonetaPassageiro.getId());

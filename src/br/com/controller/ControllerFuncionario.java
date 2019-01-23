@@ -3,7 +3,6 @@ package br.com.controller;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import br.com.main.Main;
 import br.com.model.beans.Funcionario;
 import br.com.model.dao.DAOFuncionario;
 import br.com.util.Session;
@@ -21,13 +20,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 
 public class ControllerFuncionario implements Initializable{
-
-    @FXML
-    private ImageView btnClose;
 
     @FXML
     private TableView<Funcionario> tbFuncionario;
@@ -69,10 +63,6 @@ public class ControllerFuncionario implements Initializable{
 
     }
 
-    @FXML
-    void actionClose(MouseEvent event) {
-    	Main.stageFuncionario.close();
-    }
 
     @FXML
     void actionEditar(ActionEvent event) {

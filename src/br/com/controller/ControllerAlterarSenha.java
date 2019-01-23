@@ -12,13 +12,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 
 public class ControllerAlterarSenha {
 	Alert alert = new Alert(AlertType.ERROR);
-    @FXML
-    private ImageView btnClose;
 
     @FXML
     private PasswordField fdNovaSenha;
@@ -31,11 +27,6 @@ public class ControllerAlterarSenha {
 
     @FXML
     private Button btnSalvar;
-
-    @FXML
-    void actionClose(KeyEvent event) {
-    	Main.stageAlterarSenha.close();
-    }
 
     @FXML
     void actionSalvar(ActionEvent event) {

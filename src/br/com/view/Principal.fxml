@@ -45,18 +45,24 @@
          <menus>
             <Menu mnemonicParsing="false" text="Cadastro">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem fx:id="menuCadastroCategoria" mnemonicParsing="false" onAction="#actionCadastroCategoria" text="Categoria" />
+                  <MenuItem fx:id="menuCadastroFilial" mnemonicParsing="false" onAction="#actionCadastroFilial" text="Filial" />
+                  <MenuItem fx:id="menuCadastroMotorista" mnemonicParsing="false" onAction="#actionCadastroMotorista" text="Motorista" />
+                  <MenuItem fx:id="menuCadastroCliente" mnemonicParsing="false" onAction="#actionCadastroCliente" text="Cliente" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Funcionario">
                <items>
                   <MenuItem fx:id="menuVerFuncionario" mnemonicParsing="false" onAction="#actionVerFuncionario" text="Ver Funcionarios" />
-                  <MenuItem mnemonicParsing="false" text="Novo Funcionario" />
+                  <MenuItem fx:id="menuNovoFuncionario" mnemonicParsing="false" onAction="#actionNovoFuncionario" text="Novo Funcionario" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Veiculo">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem fx:id="menuVerVeiculo" mnemonicParsing="false" onAction="#actionVerVeiculo" text="Ver veículos" />
+                  <MenuItem fx:id="menuNovoVeiculo" mnemonicParsing="false" onAction="#actionNovoVeiculo" text="Adicionar Veículo" />
+                  <MenuItem fx:id="menuNovaMarca" mnemonicParsing="false" onAction="#actionNovaMarca" text="Adicionar Marca" />
+                  <MenuItem fx:id="menuNovoModelo" mnemonicParsing="false" onAction="#actionNovoModelo" text="Adicionar Modelo" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Reserva">
@@ -67,8 +73,8 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Locação">
                <items>
-                  <MenuItem fx:id="menuNovaReserva1" mnemonicParsing="false" text="Vizualizar Locações" />
-                  <MenuItem fx:id="menuNovaReserva11" mnemonicParsing="false" text="Locação sem reserva" />
+                  <MenuItem fx:id="menuVerLocacao" mnemonicParsing="false" onAction="#actionVerLocacao" text="Vizualizar Locações" />
+                  <MenuItem fx:id="menuLocacaoSemReserva" mnemonicParsing="false" onAction="#actionLocacaoSemReserva" text="Locação sem reserva" />
                   <MenuItem fx:id="menuConfigLocacao" mnemonicParsing="false" onAction="#actionConfigLocacao" text="Configurações" />
                </items>
             </Menu>

@@ -19,13 +19,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 
 public class ControllerNovoValor implements Initializable{
 
-    @FXML
-    private ImageView btnClose;
 
     @FXML
     private Button btnAdd;
@@ -45,11 +41,6 @@ public class ControllerNovoValor implements Initializable{
     @FXML
     void actionAddCategoria(ActionEvent event) {
 
-    }
-
-    @FXML
-    void actionClose(KeyEvent event) {
-    	Main.stageAddValorLocacao.close();
     }
 
     @FXML

@@ -20,11 +20,6 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <ImageView fx:id="btnClose" fitHeight="17.0" fitWidth="15.0" layoutX="569.0" layoutY="11.0" onMouseClicked="#actionClose" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="7.5416669845581055" AnchorPane.topAnchor="11.0">
-               <image>
-                  <Image url="@../resources/close_icon.png" />
-               </image>
-            </ImageView>
          </children>
       </AnchorPane>
       <Pane accessibleRole="LIST_VIEW" cache="true" layoutX="28.0" layoutY="60.0" prefHeight="126.0" prefWidth="540.0" style="-fx-border-color: #ffffff;" AnchorPane.bottomAnchor="219.0" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="59.0">
