@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="301.0" prefWidth="472.0" style="-fx-background-color: #9c9c9c; -fx-border-color: #000000;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.controller.ControllerNovoVeiculo">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="335.0" prefWidth="472.0" style="-fx-background-color: #9c9c9c; -fx-border-color: #000000;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.controller.ControllerNovoVeiculo">
    <children>
       <AnchorPane layoutX="1.0" prefHeight="39.0" prefWidth="600.0" style="-fx-background-color: #333333;" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -22,7 +22,7 @@
          </children>
       </AnchorPane>
       <Button fx:id="btnSalvar" layoutX="348.0" layoutY="253.0" mnemonicParsing="false" onAction="#actionSalvar" prefHeight="25.0" prefWidth="101.0" text="Salvar" AnchorPane.bottomAnchor="23.0" AnchorPane.rightAnchor="23.0" />
-      <Pane accessibleRole="LIST_VIEW" cache="true" layoutX="24.0" layoutY="64.0" prefHeight="167.0" prefWidth="425.0" style="-fx-border-color: #ffffff;">
+      <Pane accessibleRole="LIST_VIEW" cache="true" layoutX="24.0" layoutY="64.0" prefHeight="208.0" prefWidth="425.0" style="-fx-border-color: #ffffff;">
          <children>
             <TextField fx:id="fdKmAtual" layoutX="310.0" layoutY="70.0" prefHeight="25.0" prefWidth="84.0" promptText="Km Atual" />
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="-12.0" prefHeight="25.0" prefWidth="163.0" style="-fx-background-color: #9c9c9c;" text="Dados do Veículo" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS" />
@@ -42,6 +42,16 @@
                </graphic>
             </Button>
             <Button fx:id="btnAddModelo" layoutX="364.0" layoutY="117.0" mnemonicParsing="false" onAction="#actionAddModelo" prefHeight="25.0" prefWidth="25.0">
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/iconAdd.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <ComboBox fx:id="cbFilial" layoutX="23.0" layoutY="157.0" prefHeight="25.0" prefWidth="337.0" promptText="Filial Atual" />
+            <Button fx:id="btnAddFilial" layoutX="364.0" layoutY="157.0" mnemonicParsing="false" onAction="#actionAddFilial" prefHeight="25.0" prefWidth="25.0">
                <graphic>
                   <ImageView fitHeight="16.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>

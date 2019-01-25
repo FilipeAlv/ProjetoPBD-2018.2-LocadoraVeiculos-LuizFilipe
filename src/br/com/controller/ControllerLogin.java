@@ -217,7 +217,7 @@ public class ControllerLogin {
 		dialog.setContentText("Deseja Persistir veiculo?");
 		result = dialog.showAndWait();
 		if (result.get() == ButtonType.OK){
-			veiculo = new Veiculo("ckj1212","123123123", 255.20, 125454,"vermelho", cat, modelo);
+			veiculo = new Veiculo("ckj1212","123123123", 255.20, 125454,"vermelho", cat, modelo, filial);
 			daoV.saveOrUpdate(veiculo);
 			veiculo = DAOVeiculo.getInstance().findByPlaca(veiculo.getPlaca());
 		}

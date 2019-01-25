@@ -20,11 +20,11 @@ public class Main extends Application {
 	public static Scene sceneFuncionario, sceneReserva, sceneNovaCategoria, sceneNovaFilial, sceneNovoMotorista, sceneNovoCliente;
 	public static Scene sceneNovoFuncionario, sceneNovoVeiculo, sceneNovoModelo, sceneNovaMarca;
 	
-	private static Stage stage, stageNovoFuncionario, stageNovoVeiculo, stageNovoModelo, stageNovaMarca;
+	public static Stage stage, stageNovoFuncionario, stageNovoVeiculo, stageNovoModelo, stageNovaMarca;
 	public static Stage stageNovaReserva, stageConfigLocacao, stageAddValorLocacao, stageAlterarSenha, stageFuncionario;
 	public static Stage stageReserva, stageNovaCategoria, stageNovaFilial, stageNovoMotorista, stageNovoCliente;
 	
-	private static Pane telaPrincipal, telaLogin, telaNovaReserva, telaConfigLocacao, telaAddValorLocacao, telaAlterarSenha;
+	public static Pane telaPrincipal, telaLogin, telaNovaReserva, telaConfigLocacao, telaAddValorLocacao, telaAlterarSenha;
 	private static Pane telaFuncionario, telaReserva, telaNovoMotorista, telaNovoCliente, telaNovaMarca;
 	public static Pane  telaNovaCategoria, telaNovaFilial, telaNovoFuncionario, telaNovoVeiculo, telaNovoModelo;
 	@Override

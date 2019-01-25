@@ -1,11 +1,7 @@
 package br.com.controller;
 
 import java.net.URL;
-import java.util.Collection;
 import java.util.ResourceBundle;
-
-import org.hibernate.mapping.Array;
-
 import br.com.model.beans.Endereco;
 import br.com.model.beans.Filial;
 import br.com.model.dao.DAOFilial;

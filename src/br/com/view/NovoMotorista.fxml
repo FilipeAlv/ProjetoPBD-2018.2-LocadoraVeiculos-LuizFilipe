@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -24,27 +25,30 @@
       <Pane layoutX="24.0" layoutY="249.0" prefHeight="137.0" prefWidth="645.0" style="-fx-border-color: #ffffff;">
          <children>
             <Label fx:id="lbTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="34.0" layoutY="-9.0" prefHeight="25.0" prefWidth="163.0" style="-fx-background-color: #9c9c9c;" text="Endereço" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS" />
-            <TextField fx:id="fdRua" layoutX="34.0" layoutY="28.0" prefHeight="25.0" prefWidth="273.0" promptText="Rua" />
-            <ComboBox fx:id="cbUf" layoutX="377.0" layoutY="77.0" prefHeight="25.0" prefWidth="59.0" promptText="UF" />
-            <TextField fx:id="fdNumero" layoutX="329.0" layoutY="28.0" prefHeight="25.0" prefWidth="51.0" promptText="N°" />
-            <TextField fx:id="fdBairro" layoutX="406.0" layoutY="28.0" prefHeight="25.0" prefWidth="199.0" promptText="Bairro" />
-            <TextField fx:id="fdCidade" layoutX="34.0" layoutY="77.0" prefHeight="25.0" prefWidth="323.0" promptText="Cidade" />
+            <TextField fx:id="fdRua" focusTraversable="false" layoutX="34.0" layoutY="28.0" prefHeight="25.0" prefWidth="273.0" promptText="Rua" />
+            <ComboBox fx:id="cbUf" focusTraversable="false" layoutX="377.0" layoutY="77.0" prefHeight="25.0" prefWidth="59.0" promptText="UF" />
+            <TextField fx:id="fdNumero" focusTraversable="false" layoutX="329.0" layoutY="28.0" prefHeight="25.0" prefWidth="51.0" promptText="N°" />
+            <TextField fx:id="fdBairro" focusTraversable="false" layoutX="406.0" layoutY="28.0" prefHeight="25.0" prefWidth="199.0" promptText="Bairro" />
+            <TextField fx:id="fdCidade" focusTraversable="false" layoutX="34.0" layoutY="77.0" prefHeight="25.0" prefWidth="323.0" promptText="Cidade" />
          </children>
       </Pane>
       <Button fx:id="btnSalvar" layoutX="546.0" layoutY="399.0" mnemonicParsing="false" onAction="#actionSalvar" prefHeight="25.0" prefWidth="123.0" text="Salvar" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="545.0" AnchorPane.rightAnchor="15.0" />
       <Pane accessibleRole="LIST_VIEW" cache="true" layoutX="24.0" layoutY="64.0" prefHeight="164.0" prefWidth="645.0" style="-fx-border-color: #ffffff;">
          <children>
-            <TextField fx:id="fdNomeFi" layoutX="384.0" layoutY="26.0" prefHeight="25.0" prefWidth="227.0" promptText="Nome" />
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="-12.0" prefHeight="25.0" prefWidth="163.0" style="-fx-background-color: #9c9c9c;" text="Dados Pessoais" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS" />
-            <TextField fx:id="fdCpf" layoutX="27.0" layoutY="26.0" prefHeight="25.0" prefWidth="186.0" promptText="CPF" />
-            <TextField fx:id="fdHabilitacao" layoutX="27.0" layoutY="116.0" prefHeight="25.0" prefWidth="146.0" promptText="N° da Habilitação" />
-            <TextField fx:id="fdLoginFi" layoutX="341.0" layoutY="70.0" prefHeight="25.0" prefWidth="132.0" promptText="Login" />
-            <TextField fx:id="fdSenhaFi" layoutX="488.0" layoutY="70.0" prefHeight="25.0" prefWidth="123.0" promptText="Senha" />
-            <TextField fx:id="fdRg" layoutX="234.0" layoutY="26.0" prefHeight="25.0" prefWidth="132.0" promptText="RG" />
-            <DatePicker fx:id="fdNacimento" layoutX="26.0" layoutY="70.0" prefHeight="25.0" prefWidth="101.0" />
-            <RadioButton fx:id="radioMasculino" layoutX="146.0" layoutY="77.0" mnemonicParsing="false" text="Masculino" />
-            <RadioButton fx:id="radioFeminino" layoutX="241.0" layoutY="77.0" mnemonicParsing="false" text="Feminino" />
             <Pane layoutX="141.0" layoutY="68.0" prefHeight="32.0" prefWidth="176.0" style="-fx-border-color: #ffffff;" />
+            <TextField fx:id="fdNomeFi" focusTraversable="false" layoutX="384.0" layoutY="26.0" prefHeight="25.0" prefWidth="227.0" promptText="Nome" />
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="-12.0" prefHeight="25.0" prefWidth="163.0" style="-fx-background-color: #9c9c9c;" text="Dados Pessoais" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS" />
+            <TextField fx:id="fdCpf" focusTraversable="false" layoutX="27.0" layoutY="26.0" prefHeight="25.0" prefWidth="186.0" promptText="CPF" />
+            <TextField fx:id="fdHabilitacao" focusTraversable="false" layoutX="27.0" layoutY="116.0" prefHeight="25.0" prefWidth="146.0" promptText="N° da Habilitação" />
+            <TextField fx:id="fdLoginFi" focusTraversable="false" layoutX="341.0" layoutY="70.0" prefHeight="25.0" prefWidth="132.0" promptText="Login" />
+            <TextField fx:id="fdSenhaFi" focusTraversable="false" layoutX="488.0" layoutY="70.0" prefHeight="25.0" prefWidth="123.0" promptText="Senha" />
+            <TextField fx:id="fdRg" focusTraversable="false" layoutX="234.0" layoutY="26.0" prefHeight="25.0" prefWidth="132.0" promptText="RG" />
+            <DatePicker fx:id="fdNacimento" focusTraversable="false" layoutX="26.0" layoutY="70.0" prefHeight="25.0" prefWidth="101.0" />
+            <RadioButton fx:id="radioMasculino" layoutX="146.0" layoutY="77.0" mnemonicParsing="false" text="Masculino">
+               <toggleGroup>
+                  <ToggleGroup fx:id="sexo" />
+               </toggleGroup></RadioButton>
+            <RadioButton fx:id="radioFeminino" layoutX="241.0" layoutY="77.0" mnemonicParsing="false" text="Feminino" toggleGroup="$sexo" />
             <Pane layoutX="150.0" layoutY="58.0" prefHeight="17.0" prefWidth="47.0" style="-fx-background-color: #9c9c9c;">
                <children>
                   <Label layoutX="10.0" text="Sexo" textFill="WHITE" />

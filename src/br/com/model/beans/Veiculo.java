@@ -26,6 +26,8 @@ public class Veiculo implements EntidadeBase{
 	private Categoria categoria;
 	@ManyToOne
 	private Modelo modelo;
+	@ManyToOne
+	private Filial filialAtual;
 	
 	public Veiculo() {
 		super();
@@ -34,7 +36,7 @@ public class Veiculo implements EntidadeBase{
 	
 
 	public Veiculo(String placa, String chassi, double kmAtual, int numMotor, String cor, Categoria categoria,
-			Modelo modelo) {
+			Modelo modelo, Filial filial) {
 		super();
 		this.placa = placa;
 		this.chassi = chassi;
@@ -47,18 +49,6 @@ public class Veiculo implements EntidadeBase{
 
 
 
-	public Veiculo(Integer id, String placa, String chassi, double kmAtual, int numMotor, String cor,
-			Categoria categoria, Modelo modelo) {
-		super();
-		this.id = id;
-		this.placa = placa;
-		this.chassi = chassi;
-		this.kmAtual = kmAtual;
-		this.numMotor = numMotor;
-		this.cor = cor;
-		this.categoria = categoria;
-		this.modelo = modelo;
-	}
 
 
 
@@ -159,6 +149,18 @@ public class Veiculo implements EntidadeBase{
 
 
 
+	public Filial getFilialAtual() {
+		return filialAtual;
+	}
+
+
+
+	public void setFilialAtual(Filial filialAtual) {
+		this.filialAtual = filialAtual;
+	}
+
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -166,6 +168,7 @@ public class Veiculo implements EntidadeBase{
 		result = prime * result + ((categoria == null) ? 0 : categoria.hashCode());
 		result = prime * result + ((chassi == null) ? 0 : chassi.hashCode());
 		result = prime * result + ((cor == null) ? 0 : cor.hashCode());
+		result = prime * result + ((filialAtual == null) ? 0 : filialAtual.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(kmAtual);
@@ -202,6 +205,11 @@ public class Veiculo implements EntidadeBase{
 				return false;
 		} else if (!cor.equals(other.cor))
 			return false;
+		if (filialAtual == null) {
+			if (other.filialAtual != null)
+				return false;
+		} else if (!filialAtual.equals(other.filialAtual))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -223,8 +231,9 @@ public class Veiculo implements EntidadeBase{
 			return false;
 		return true;
 	}
-	
-	
+
+
+
 	
 	
 	

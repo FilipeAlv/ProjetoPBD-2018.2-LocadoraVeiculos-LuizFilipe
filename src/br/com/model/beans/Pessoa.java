@@ -23,7 +23,7 @@ public abstract class Pessoa implements EntidadeBase{
 	private String nome;
 	@Column(unique=true)
 	private String login;
-	@Column(length=16)
+	@Column(length=11)
 	private String senha;
 	@OneToOne
 	@Cascade(CascadeType.ALL)

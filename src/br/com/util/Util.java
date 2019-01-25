@@ -2,9 +2,20 @@ package br.com.util;
 
 import java.security.InvalidKeyException;
 
+import br.com.model.beans.Pessoa;
+import br.com.model.dao.DAOPessoa;
+
 public class Util {
-	public static final String SENHA_PADRAO = "PBDLF455NHPD40";
+	public static final String SENHA_PADRAO = "PBDLF#55NH";
 	public static boolean SCRIPT = false;
+	
+	public static String gerarCodigo(Pessoa pessoa) {
+		String codigo = (pessoa.getNome().substring(3)).toUpperCase();
+		codigo=codigo+"-"+(DAOPessoa.getInstace().findMaxId()+1);
+		return codigo;
+		
+	}
+	
 	public static class Criptografia {
 
 		private static char[] key = "cadeacarapaca".toCharArray();

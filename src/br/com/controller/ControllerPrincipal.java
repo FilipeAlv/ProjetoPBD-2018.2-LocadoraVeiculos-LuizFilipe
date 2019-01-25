@@ -8,7 +8,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-public class ControllerPrincipal {
+public class ControllerPrincipal{
 
     @FXML
     private ImageView btnClose;
@@ -152,5 +152,7 @@ public class ControllerPrincipal {
     void actionVerVeiculo(ActionEvent event) {
 
     }
+
+
 
 }

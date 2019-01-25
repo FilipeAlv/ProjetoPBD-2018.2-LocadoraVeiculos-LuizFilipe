@@ -104,11 +104,11 @@ public class ControllerFuncionario implements Initializable{
 	}
 
     public static void desativarBotoes() {
-		if(!((Funcionario)Session.usuario).getPermissao().equals("full")) {
-			btnResetSenha.setDisable(true);
-		}else {
-			btnResetSenha.setDisable(false);
-		}
+//		if(!((Funcionario)Session.usuario).getPermissao().equals("full")) {
+//			btnResetSenha.setDisable(true);
+//		}else {
+//			btnResetSenha.setDisable(false);
+//		}
 		
 	}
     
