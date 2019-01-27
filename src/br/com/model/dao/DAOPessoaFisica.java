@@ -3,8 +3,6 @@ package br.com.model.dao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-
-import br.com.model.beans.Categoria;
 import br.com.model.beans.Pessoa;
 import br.com.model.beans.PessoaFisica;
 import br.com.util.ConnectionFactory;

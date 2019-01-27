@@ -44,12 +44,20 @@
       <MenuBar layoutY="50.0" prefHeight="22.0" prefWidth="600.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="50.0">
          <menus>
             <Menu mnemonicParsing="false" text="Cadastro">
-              <items>
+               <items>
                 <MenuItem fx:id="menuCadastroCategoria" mnemonicParsing="false" onAction="#actionCadastroCategoria" text="Categoria" />
                   <MenuItem fx:id="menuCadastroFilial" mnemonicParsing="false" onAction="#actionCadastroFilial" text="Filial" />
                   <MenuItem fx:id="menuCadastroMotorista" mnemonicParsing="false" onAction="#actionCadastroMotorista" text="Motorista" />
                   <MenuItem fx:id="menuCadastroCliente" mnemonicParsing="false" onAction="#actionCadastroCliente" text="Cliente" />
-              </items>
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Buscar">
+               <items>
+                  <MenuItem fx:id="menuBuscarCategoria" mnemonicParsing="false" onAction="#actionBuscarCategoria" text="Categoria" />
+                  <MenuItem fx:id="menuBuscarFilial" mnemonicParsing="false" onAction="#actionBuscarFilial" text="Filial" />
+                  <MenuItem fx:id="menuBuscarMotorista" mnemonicParsing="false" onAction="#actionBuscarMotorista" text="Motorista" />
+                  <MenuItem fx:id="menuBuscarCliente" mnemonicParsing="false" onAction="#actionBuscarCliente" text="Cliente" />
+               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Funcionario">
                <items>
@@ -76,6 +84,13 @@
                   <MenuItem fx:id="menuVerLocacao" mnemonicParsing="false" onAction="#actionVerLocacao" text="Vizualizar Locações" />
                   <MenuItem fx:id="menuLocacaoSemReserva" mnemonicParsing="false" onAction="#actionLocacaoSemReserva" text="Locação sem reserva" />
                   <MenuItem fx:id="menuConfigLocacao" mnemonicParsing="false" onAction="#actionConfigLocacao" text="Configurações" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Log">
+               <items>
+                  <MenuItem fx:id="menuLogCliente" mnemonicParsing="false" onAction="#actionLogCliente" text="Cliente" />
+                  <MenuItem fx:id="menuLogReserva" mnemonicParsing="false" onAction="#actionLogReserva" text="Reserva" />
+                  <MenuItem fx:id="menuLogLocacao" mnemonicParsing="false" onAction="#actionLogLocacao" text="Locação" />
                </items>
             </Menu>
          </menus>

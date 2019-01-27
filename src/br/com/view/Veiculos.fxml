@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -11,7 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="650.0" style="-fx-background-color: #9c9c9c; -fx-border-color: #000000;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.controller.ControllerReserva">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="650.0" style="-fx-background-color: #9c9c9c; -fx-border-color: #000000;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.controller.ControllerVeiculo">
    <children>
       <AnchorPane layoutX="1.0" prefHeight="39.0" prefWidth="600.0" style="-fx-background-color: #333333;" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -25,17 +27,17 @@
       <Pane layoutX="32.0" layoutY="202.0" prefHeight="375.0" prefWidth="588.0" style="-fx-border-color: #ffffff;" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="31.0">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="-11.0" prefHeight="25.0" prefWidth="122.0" style="-fx-background-color: #9c9c9c;" text="Lista de Veículos" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS" />
-            <TableView fx:id="tbReserva" layoutX="14.0" layoutY="14.0" prefHeight="344.0" prefWidth="558.0">
+            <TableView fx:id="tbVeiculo" layoutX="14.0" layoutY="15.0" prefHeight="343.0" prefWidth="558.0">
                <columns>
-                  <TableColumn fx:id="clienteCol" prefWidth="121.0" text="Modelo" />
-                  <TableColumn fx:id="categoriaCol" prefWidth="147.0" text="Placa" />
-                  <TableColumn fx:id="valorCol" prefWidth="148.0" text="Categoria" />
-                  <TableColumn fx:id="dataCol" prefWidth="141.0" text="status" />
+                  <TableColumn fx:id="modeloCol" prefWidth="121.0" text="Modelo" />
+                  <TableColumn fx:id="placaCol" prefWidth="147.0" text="Placa" />
+                  <TableColumn fx:id="categoriaCol" prefWidth="148.0" text="Categoria" />
+                  <TableColumn fx:id="statusCol" prefWidth="141.0" text="status" />
                </columns>
             </TableView>
          </children>
       </Pane>
-      <Button fx:id="btnBuscar" layoutX="456.0" layoutY="48.0" mnemonicParsing="false" onAction="#actionBuscar" prefHeight="25.0" prefWidth="25.0">
+      <Button fx:id="btnBuscar" layoutX="486.0" layoutY="49.0" mnemonicParsing="false" onAction="#actionBuscar" prefHeight="25.0" prefWidth="25.0">
          <graphic>
             <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -53,7 +55,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <TextField fx:id="fdBuscar" layoutX="31.0" layoutY="49.0" prefHeight="25.0" prefWidth="422.0" promptText="Buscar" />
+      <TextField fx:id="fdBuscar" layoutX="31.0" layoutY="49.0" prefHeight="25.0" prefWidth="146.0" promptText="Buscar" />
       <Button fx:id="btnEditar" layoutX="547.0" layoutY="48.0" mnemonicParsing="false" onAction="#actionEditar" prefHeight="26.0" prefWidth="34.0">
          <graphic>
             <ImageView fitHeight="14.0" fitWidth="106.0" pickOnBounds="true" preserveRatio="true">
@@ -72,5 +74,8 @@
             </ImageView>
          </graphic>
       </Button>
+      <ComboBox fx:id="cbFilial" layoutX="188.0" layoutY="49.0" prefHeight="25.0" prefWidth="83.0" promptText="Filial" />
+      <DatePicker fx:id="fdData" layoutX="281.0" layoutY="49.0" prefHeight="25.0" prefWidth="103.0" promptText="Data" />
+      <ComboBox fx:id="cbStatus" layoutX="392.0" layoutY="49.0" prefHeight="25.0" prefWidth="83.0" promptText="Status" />
    </children>
 </AnchorPane>

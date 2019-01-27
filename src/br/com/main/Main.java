@@ -18,15 +18,18 @@ import javafx.scene.layout.Pane;
 public class Main extends Application {
 	public static Scene sceneLogin, scenePrincipal, sceneNovaReserva, sceneConfigLocacao, sceneAddValorLocacao, sceneAlterarSenha;
 	public static Scene sceneFuncionario, sceneReserva, sceneNovaCategoria, sceneNovaFilial, sceneNovoMotorista, sceneNovoCliente;
-	public static Scene sceneNovoFuncionario, sceneNovoVeiculo, sceneNovoModelo, sceneNovaMarca;
-	
-	public static Stage stage, stageNovoFuncionario, stageNovoVeiculo, stageNovoModelo, stageNovaMarca;
+	public static Scene sceneNovoFuncionario, sceneNovoVeiculo, sceneNovoModelo, sceneNovaMarca, sceneVeiculo, sceneAddVeiculoLocacao;
+	public static Scene sceneLocacao, sceneFinalizarLocacao, sceneCategoria, sceneCliente, sceneMotorista, sceneFilial;
+
+	public static Stage stage, stageNovoFuncionario, stageNovoVeiculo, stageNovoModelo, stageNovaMarca, stageVeiculo;
 	public static Stage stageNovaReserva, stageConfigLocacao, stageAddValorLocacao, stageAlterarSenha, stageFuncionario;
-	public static Stage stageReserva, stageNovaCategoria, stageNovaFilial, stageNovoMotorista, stageNovoCliente;
-	
+	public static Stage stageReserva, stageNovaCategoria, stageNovaFilial, stageNovoMotorista, stageNovoCliente, stageAddVeiculoLocacao;
+	public static Stage stageLocacao, stageFinalizarLocacao, stageCategoria, stageCliente, stageFilial, stageMotorista;
+
 	public static Pane telaPrincipal, telaLogin, telaNovaReserva, telaConfigLocacao, telaAddValorLocacao, telaAlterarSenha;
-	private static Pane telaFuncionario, telaReserva, telaNovoMotorista, telaNovoCliente, telaNovaMarca;
-	public static Pane  telaNovaCategoria, telaNovaFilial, telaNovoFuncionario, telaNovoVeiculo, telaNovoModelo;
+	private static Pane telaFuncionario, telaReserva, telaNovoMotorista, telaNovoCliente, telaNovaMarca, telaVeiculo;
+	public static Pane  telaNovaCategoria, telaNovaFilial, telaNovoFuncionario, telaNovoVeiculo, telaNovoModelo, telaAddVeiculoLocacao;
+	public static Pane telaLocacao, telaFinalizarLocacao, telaCliente, telaCategoria, telaMotorista, telaFilial;
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -46,7 +49,15 @@ public class Main extends Application {
 			telaNovoVeiculo = FXMLLoader.load(getClass().getResource("../view/NovoVeiculo.fxml"));
 			telaNovoModelo = FXMLLoader.load(getClass().getResource("../view/NovoModelo.fxml"));
 			telaNovaMarca = FXMLLoader.load(getClass().getResource("../view/NovaMarca.fxml"));
-			
+			telaVeiculo = FXMLLoader.load(getClass().getResource("../view/Veiculos.fxml"));
+			telaAddVeiculoLocacao = FXMLLoader.load(getClass().getResource("../view/AddVeiculoLocacao.fxml"));
+			telaLocacao = FXMLLoader.load(getClass().getResource("../view/Locacao.fxml"));
+			telaFinalizarLocacao = FXMLLoader.load(getClass().getResource("../view/FinalizarLocacao.fxml"));
+			telaCategoria = FXMLLoader.load(getClass().getResource("../view/Categoria.fxml"));
+			telaFilial = FXMLLoader.load(getClass().getResource("../view/Filial.fxml"));
+			telaMotorista = FXMLLoader.load(getClass().getResource("../view/Motorista.fxml"));
+			telaCliente = FXMLLoader.load(getClass().getResource("../view/Cliente.fxml"));
+
 			sceneLogin = new Scene(telaLogin);
 			scenePrincipal = new Scene(telaPrincipal);
 			sceneNovaReserva = new Scene(telaNovaReserva);
@@ -63,7 +74,15 @@ public class Main extends Application {
 			sceneNovoVeiculo = new Scene(telaNovoVeiculo);
 			sceneNovoModelo = new Scene(telaNovoModelo);
 			sceneNovaMarca = new Scene(telaNovaMarca);
-			
+			sceneVeiculo = new Scene(telaVeiculo);
+			sceneAddVeiculoLocacao = new Scene(telaAddVeiculoLocacao);
+			sceneLocacao = new Scene(telaLocacao);
+			sceneFinalizarLocacao = new Scene(telaFinalizarLocacao);
+			sceneCliente = new Scene(telaCliente);
+			sceneCategoria = new Scene(telaCategoria);
+			sceneMotorista = new Scene(telaMotorista);
+			sceneFilial = new Scene(telaFilial);
+
 			primaryStage.setScene(sceneLogin);
 			primaryStage.initStyle(StageStyle.UNDECORATED);
 			stage = primaryStage;
@@ -72,7 +91,7 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		Pessoa pessoa = new PessoaFisica();
 		pessoa.setLogin("admin");
@@ -137,46 +156,103 @@ public class Main extends Application {
 			stageNovoMotorista.setScene(sceneNovoMotorista);
 			stageNovoMotorista.show();
 			break;
-			
+
 		case "NovoCliente":
 			stageNovoCliente = new Stage();
 			stageNovoCliente.initModality(Modality.APPLICATION_MODAL);
 			stageNovoCliente.setScene(sceneNovoCliente);
 			stageNovoCliente.show();
 			break;
-			
+
 		case "NovoFuncionario":
 			stageNovoFuncionario = new Stage();
 			stageNovoFuncionario.initModality(Modality.APPLICATION_MODAL);
 			stageNovoFuncionario.setScene(sceneNovoFuncionario);
 			stageNovoFuncionario.show();
 			break;
-			
+
 		case "NovoVeiculo":
 			stageNovoVeiculo = new Stage();
 			stageNovoVeiculo.initModality(Modality.APPLICATION_MODAL);
 			stageNovoVeiculo.setScene(sceneNovoVeiculo);
 			stageNovoVeiculo.show();
 			break;
-			
+
 		case "NovoModelo":
 			stageNovoModelo = new Stage();
 			stageNovoModelo.initModality(Modality.APPLICATION_MODAL);
 			stageNovoModelo.setScene(sceneNovoModelo);
 			stageNovoModelo.show();
 			break;
-			
+
 		case "NovaMarca":
 			stageNovaMarca = new Stage();
 			stageNovaMarca.initModality(Modality.APPLICATION_MODAL);
 			stageNovaMarca.setScene(sceneNovaMarca);
 			stageNovaMarca.show();
 			break;
+
+		case "Veiculo":
+			stageVeiculo = new Stage();
+			stageVeiculo.initModality(Modality.APPLICATION_MODAL);
+			stageVeiculo.setScene(sceneVeiculo);
+			stageVeiculo.show();
+			break;
+
+		case "AddVeiculoLocacao":
+			stageAddVeiculoLocacao = new Stage();
+			stageAddVeiculoLocacao.initModality(Modality.APPLICATION_MODAL);
+			stageAddVeiculoLocacao.setScene(sceneAddVeiculoLocacao);
+			stageAddVeiculoLocacao.show();
+			break;
+
+		case "Locacao":
+			stageLocacao = new Stage();
+			stageLocacao.initModality(Modality.APPLICATION_MODAL);
+			stageLocacao.setScene(sceneLocacao);
+			stageLocacao.show();
+			break;
+
+		case "FinalizarLocacao":
+			stageFinalizarLocacao = new Stage();
+			stageFinalizarLocacao.initModality(Modality.APPLICATION_MODAL);
+			stageFinalizarLocacao.setScene(sceneFinalizarLocacao);
+			stageFinalizarLocacao.show();
+			break;
+
+
+		case "Categoria":
+			stageCategoria = new Stage();
+			stageCategoria.initModality(Modality.APPLICATION_MODAL);
+			stageCategoria.setScene(sceneCategoria);
+			stageCategoria.show();
+			break;
+
+
+		case "Cliente":
+			stageCliente = new Stage();
+			stageCliente.initModality(Modality.APPLICATION_MODAL);
+			stageCliente.setScene(sceneCliente);
+			stageCliente.show();
+			break;
+
+		case "Motorista":
+			stageMotorista = new Stage();
+			stageMotorista.initModality(Modality.APPLICATION_MODAL);
+			stageMotorista.setScene(sceneMotorista);
+			stageMotorista.show();
+			break;
+
+		case "Filial":
+			stageFilial = new Stage();
+			stageFilial.initModality(Modality.APPLICATION_MODAL);
+			stageFilial.setScene(sceneFilial);
+			stageFilial.show();
+			break;
+
 		}
-		
-		
 	}
-	
+
 	public static void alterarTela(String tela) {	
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 		switch(tela) {
@@ -187,7 +263,7 @@ public class Main extends Application {
 			stage.setY(0);
 			stage.setScene(scenePrincipal);
 			break;
-			
+
 		case "Login":
 			stage.setWidth(500);
 			stage.setHeight(400);
@@ -197,6 +273,6 @@ public class Main extends Application {
 			break;
 		}
 	}
-	
-	
+
+
 }

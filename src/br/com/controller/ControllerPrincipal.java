@@ -60,9 +60,22 @@ public class ControllerPrincipal{
 
     @FXML
     private MenuItem menuConfigLocacao;
+    
+    @FXML
+    private MenuItem menuBuscarCategoria;
+
+    @FXML
+    private MenuItem menuBuscarFilial;
+
+    @FXML
+    private MenuItem menuBuscarMotorista;
+
+    @FXML
+    private MenuItem menuBuscarCliente;
 
     @FXML
     void actionAddReserva(ActionEvent event) {
+    
     	Main.novaTela("NovaReserva");
     }
 
@@ -140,7 +153,7 @@ public class ControllerPrincipal{
 
     @FXML
     void actionVerLocacao(ActionEvent event) {
-
+    	Main.novaTela("Locacao");
     }
 
     @FXML
@@ -150,6 +163,41 @@ public class ControllerPrincipal{
 
     @FXML
     void actionVerVeiculo(ActionEvent event) {
+    	Main.novaTela("Veiculo");
+    }
+    
+    @FXML
+    void actionBuscarCategoria(ActionEvent event) {
+    	Main.novaTela("Categoria");
+    }
+
+    @FXML
+    void actionBuscarCliente(ActionEvent event) {
+    	Main.novaTela("Cliente");
+    }
+
+    @FXML
+    void actionBuscarFilial(ActionEvent event) {
+    	Main.novaTela("Filial");
+    }
+
+    @FXML
+    void actionBuscarMotorista(ActionEvent event) {
+    	Main.novaTela("Motorista");
+    }
+    
+    @FXML
+    void actionLogCliente(ActionEvent event) {
+
+    }
+
+    @FXML
+    void actionLogLocacao(ActionEvent event) {
+
+    }
+
+    @FXML
+    void actionLogReserva(ActionEvent event) {
 
     }
 

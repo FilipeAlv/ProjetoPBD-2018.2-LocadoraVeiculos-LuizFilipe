@@ -154,7 +154,7 @@ public class ControllerNovaReserva implements Initializable{
 						motorista,
 						filialSaida,
 						filialEntrega,
-						categoria);
+						categoria,"Aguardando");
 
 				DAOReserva.getInstance().saveOrUpdate(reserva);
 

@@ -6,10 +6,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 
 @Entity
 @SequenceGenerator(name="sequencia_veiculo", sequenceName="seq_vei", initialValue=1, allocationSize=1)
+@NamedQueries({@NamedQuery(name=br.com.util.SQLUtil.Veiculo.SELECT_FILIAL, query = "SELECT v.placa FROM Veiculo v WHERE v.filialAtual.id = :filial")})
 public class Veiculo implements EntidadeBase{
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequencia_veiculo")
@@ -19,6 +22,7 @@ public class Veiculo implements EntidadeBase{
 	@Column(unique=true)
 	private String chassi;
 	private double kmAtual;
+	private double kmAnterior;
 	private int numMotor;
 	@Column(length=15)
 	private String cor;
@@ -28,6 +32,8 @@ public class Veiculo implements EntidadeBase{
 	private Modelo modelo;
 	@ManyToOne
 	private Filial filialAtual;
+	@Column(length=10)
+	private String status;
 	
 	public Veiculo() {
 		super();
@@ -36,7 +42,7 @@ public class Veiculo implements EntidadeBase{
 	
 
 	public Veiculo(String placa, String chassi, double kmAtual, int numMotor, String cor, Categoria categoria,
-			Modelo modelo, Filial filial) {
+			Modelo modelo, Filial filial, String status) {
 		super();
 		this.placa = placa;
 		this.chassi = chassi;
@@ -45,16 +51,15 @@ public class Veiculo implements EntidadeBase{
 		this.cor = cor;
 		this.categoria = categoria;
 		this.modelo = modelo;
+		this.status = status;
 	}
-
-
-
 
 
 
 	@Override
 	public Integer getId() {
-		return id;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
@@ -91,6 +96,18 @@ public class Veiculo implements EntidadeBase{
 
 	public void setKmAtual(double kmAtual) {
 		this.kmAtual = kmAtual;
+	}
+
+
+
+	public double getKmAnterior() {
+		return kmAnterior;
+	}
+
+
+
+	public void setKmAnterior(double kmAnterior) {
+		this.kmAnterior = kmAnterior;
 	}
 
 
@@ -143,12 +160,6 @@ public class Veiculo implements EntidadeBase{
 
 
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-
-
 	public Filial getFilialAtual() {
 		return filialAtual;
 	}
@@ -157,6 +168,24 @@ public class Veiculo implements EntidadeBase{
 
 	public void setFilialAtual(Filial filialAtual) {
 		this.filialAtual = filialAtual;
+	}
+
+
+
+	public String getStatus() {
+		return status;
+	}
+
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 
@@ -171,11 +200,14 @@ public class Veiculo implements EntidadeBase{
 		result = prime * result + ((filialAtual == null) ? 0 : filialAtual.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		long temp;
+		temp = Double.doubleToLongBits(kmAnterior);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		temp = Double.doubleToLongBits(kmAtual);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((modelo == null) ? 0 : modelo.hashCode());
 		result = prime * result + numMotor;
 		result = prime * result + ((placa == null) ? 0 : placa.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		return result;
 	}
 
@@ -215,6 +247,8 @@ public class Veiculo implements EntidadeBase{
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (Double.doubleToLongBits(kmAnterior) != Double.doubleToLongBits(other.kmAnterior))
+			return false;
 		if (Double.doubleToLongBits(kmAtual) != Double.doubleToLongBits(other.kmAtual))
 			return false;
 		if (modelo == null) {
@@ -229,12 +263,11 @@ public class Veiculo implements EntidadeBase{
 				return false;
 		} else if (!placa.equals(other.placa))
 			return false;
+		if (status == null) {
+			if (other.status != null)
+				return false;
+		} else if (!status.equals(other.status))
+			return false;
 		return true;
 	}
-
-
-
-	
-	
-	
 }

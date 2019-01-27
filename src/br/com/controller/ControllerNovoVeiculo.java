@@ -97,7 +97,7 @@ public class ControllerNovoVeiculo implements Initializable{
 	    	modelo = DAOModelo.getInstance().findByNome(pegarModeloCOmbo(cbModelo.getValue()));
 	    	filial = DAOFilial.getInstance().findByNome(cbFilial.getValue());
 	    	
-	    	veiculo = new Veiculo(placa, chassi, kmAtual, numMotor, cor, categoria, modelo, filial);
+	    	veiculo = new Veiculo(placa, chassi, kmAtual, numMotor, cor, categoria, modelo, filial, "Disponivel");
 	    	DAOVeiculo.getInstance().saveOrUpdate(veiculo);
 	    	
 	    	Alert alert = new Alert(AlertType.INFORMATION);
@@ -118,6 +118,7 @@ public class ControllerNovoVeiculo implements Initializable{
 		ObservableList<String> ob = FXCollections.observableArrayList();
 		List<Categoria> categorias = DAOCategoria.getInstance().findAll();
 		List<Modelo> modelos = DAOModelo.getInstance().findAll();
+		List<Filial> filiais = DAOFilial.getInstance().findAll();
 
 		for (Categoria categoria : categorias) {
 			ob.add(categoria.getNome());
@@ -128,7 +129,14 @@ public class ControllerNovoVeiculo implements Initializable{
 		for(Modelo modelo : modelos) {
 			ob.add(modelo.getNome()+"-"+modelo.getMarca().getNome());
 		}
-		cbModelo.setItems(ob);		
+		cbModelo.setItems(ob);	
+		
+		ob = FXCollections.observableArrayList();
+
+		for(Filial filial : filiais) {
+			ob.add(filial.getNome());
+		}
+		cbFilial.setItems(ob);	
 	}
 
 	private String pegarModeloCOmbo(String value) {

@@ -23,63 +23,85 @@ public class Locacao implements EntidadeBase{
 	private Veiculo veiculo;
 	@OneToOne
 	private Reserva reserva;
+	private String status;
 	public Locacao() {
 		super();
 	}
-	public Locacao(Integer id, Date dataFinal, double valorFinal, String statusVeiculo, Veiculo veiculo, Reserva reserva) {
+	
+	public Locacao( Veiculo veiculo, Reserva reserva, String status) {
 		super();
-		this.id = id;
-		this.dataFinal = dataFinal;
-		this.valorFinal = valorFinal;
-		this.statusVeiculo = statusVeiculo;
 		this.veiculo = veiculo;
 		this.reserva = reserva;
+		this.status = status;
 	}
 	
-	public Locacao(Date dataFinal, double valorFinal, String statusVeiculo, Veiculo veiculo, Reserva reserva) {
+	public Locacao(Date dataFinal, double valorFinal, String statusVeiculo, Veiculo veiculo, Reserva reserva, String status) {
 		super();
 		this.dataFinal = dataFinal;
 		this.valorFinal = valorFinal;
 		this.statusVeiculo = statusVeiculo;
 		this.veiculo = veiculo;
 		this.reserva = reserva;
+		this.status = status;
 	}
+
+	@Override
 	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
-		this.id = id;
-	}
+
 	public Date getDataFinal() {
 		return dataFinal;
 	}
+
 	public void setDataFinal(Date dataFinal) {
 		this.dataFinal = dataFinal;
 	}
+
 	public double getValorFinal() {
 		return valorFinal;
 	}
+
 	public void setValorFinal(double valorFinal) {
 		this.valorFinal = valorFinal;
 	}
+
 	public String getStatusVeiculo() {
 		return statusVeiculo;
 	}
+
 	public void setStatusVeiculo(String statusVeiculo) {
 		this.statusVeiculo = statusVeiculo;
 	}
+
 	public Veiculo getVeiculo() {
 		return veiculo;
 	}
+
 	public void setVeiculo(Veiculo veiculo) {
 		this.veiculo = veiculo;
 	}
+
 	public Reserva getReserva() {
 		return reserva;
 	}
+
 	public void setReserva(Reserva reserva) {
 		this.reserva = reserva;
 	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -87,6 +109,7 @@ public class Locacao implements EntidadeBase{
 		result = prime * result + ((dataFinal == null) ? 0 : dataFinal.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((reserva == null) ? 0 : reserva.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((statusVeiculo == null) ? 0 : statusVeiculo.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(valorFinal);
@@ -94,6 +117,7 @@ public class Locacao implements EntidadeBase{
 		result = prime * result + ((veiculo == null) ? 0 : veiculo.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -118,6 +142,11 @@ public class Locacao implements EntidadeBase{
 				return false;
 		} else if (!reserva.equals(other.reserva))
 			return false;
+		if (status == null) {
+			if (other.status != null)
+				return false;
+		} else if (!status.equals(other.status))
+			return false;
 		if (statusVeiculo == null) {
 			if (other.statusVeiculo != null)
 				return false;
@@ -132,6 +161,7 @@ public class Locacao implements EntidadeBase{
 			return false;
 		return true;
 	}
+
 	
 	
 }

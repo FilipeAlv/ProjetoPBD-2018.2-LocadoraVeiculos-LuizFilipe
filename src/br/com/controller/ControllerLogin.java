@@ -217,7 +217,7 @@ public class ControllerLogin {
 		dialog.setContentText("Deseja Persistir veiculo?");
 		result = dialog.showAndWait();
 		if (result.get() == ButtonType.OK){
-			veiculo = new Veiculo("ckj1212","123123123", 255.20, 125454,"vermelho", cat, modelo, filial);
+			veiculo = new Veiculo("ckj1212","123123123", 255.20, 125454,"vermelho", cat, modelo, filial, "Disponivel");
 			daoV.saveOrUpdate(veiculo);
 			veiculo = DAOVeiculo.getInstance().findByPlaca(veiculo.getPlaca());
 		}
@@ -225,7 +225,7 @@ public class ControllerLogin {
 		result = dialog.showAndWait();
 		if (result.get() == ButtonType.OK){
 			reserva = new Reserva(data, data, data, "KMLivre", 150.00,pessoaJuridica, motorista,
-					filial, filial,cat );
+					filial, filial,cat , "Aguardando");
 			daoR.saveOrUpdate(reserva);
 			reserva = DAOReserva.getInstance().findById(Reserva.class, reserva.getId());
 		}
@@ -233,7 +233,7 @@ public class ControllerLogin {
 		dialog.setContentText("Deseja Persistir locacao?");
 		result = dialog.showAndWait();
 		if (result.get() == ButtonType.OK){
-			locacao = new Locacao(data, 15.00, "Bom estado", veiculo, reserva);
+			locacao = new Locacao(data, 15.00, "Bom estado", veiculo, reserva, "Aguardando");
 			daoL.saveOrUpdate(locacao);
 		}
 	

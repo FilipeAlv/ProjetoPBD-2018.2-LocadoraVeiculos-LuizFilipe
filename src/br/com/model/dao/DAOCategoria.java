@@ -44,4 +44,5 @@ public class DAOCategoria extends DaoGenerico<Categoria>{
 		return tp.getSingleResult();
 	}
 
+
 }

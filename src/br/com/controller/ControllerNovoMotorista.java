@@ -2,7 +2,9 @@ package br.com.controller;
 
 import java.net.URL;
 import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
 import br.com.model.beans.Endereco;
 import br.com.model.beans.Motorista;
@@ -65,7 +67,10 @@ public class ControllerNovoMotorista implements Initializable{
 
 	@FXML
 	private DatePicker fdNacimento;
-
+	
+	@FXML
+	private DatePicker fdVencimentoHab;
+	
 	@FXML
 	private RadioButton radioMasculino;
 
@@ -102,7 +107,7 @@ public class ControllerNovoMotorista implements Initializable{
 			sexo = radioMasculino.isSelected()?"Masculino":"Feminino";
 			dataNascimento = Date.from(fdNacimento.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
 			habilitacao = fdHabilitacao.getText().toString();
-			validadeHabilitacao = new Date();
+			validadeHabilitacao = Date.from(fdVencimentoHab.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
 
 			Endereco endereco = new Endereco(rua, numero, bairro, cidade, uf);
 
@@ -115,12 +120,7 @@ public class ControllerNovoMotorista implements Initializable{
     		alert.setContentText("Este Motorista foi salvo com successo!");
     		alert.show();
     		
-    	}else {
-    		Alert alert = new Alert(AlertType.ERROR);
-    		alert.setTitle("Erro ao Salvar Motorista" );
-    		alert.setContentText("Preencha todos os campos obrigatorios");
-    		alert.show();
-		}
+    	}
 
 	}
 
@@ -134,13 +134,23 @@ public class ControllerNovoMotorista implements Initializable{
 	}
 
 	private boolean validarCampos() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Erro ao Salvar Motorista" );
 		if(fdBairro.getText().length()==0|| fdCidade.getText().length()==0 ||
 				fdNumero.getText().length()==0 || fdRua.getText().length()==0||fdNomeFi.getText().length()==0 || 
 				fdCpf.getText().length()==0||fdLoginFi.getText().length()==0||fdSenhaFi.getText().length()==0) {
+    		alert.setContentText("Preencha todos os campos obrigatorios");
+    		alert.show();
 			return false;
-		}else if(!(fdSenhaFi.getText().length()>=6 || fdSenhaFi.getText().length()<=11)) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Erro ao Salvar Funcionario" );
+		}else if(new Date().after(Date.from(fdVencimentoHab.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()))) {
+			alert.setContentText("A Habilitação não pode estar vencida.");
+			alert.show();
+			return false;
+		}else if(calculaIdade()<21) {
+				alert.setContentText("O motorista tem menos de 21 anos.");
+				alert.show();
+				return false;
+		}else if(!(fdSenhaFi.getText().toString().length()>=6 && fdSenhaFi.getText().toString().length()<=11)) {
 			alert.setContentText("As senhas devem conter entre 6 e 11 caracteres");
 			alert.show();
 			return false;
@@ -149,5 +159,19 @@ public class ControllerNovoMotorista implements Initializable{
 	}
 
 
-
+	private int calculaIdade() {
+		Calendar atual = new GregorianCalendar();
+		Calendar nascimento = new GregorianCalendar();
+		Date dataNascimento = Date.from(fdNacimento.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+		int anoNascimento, anoAtual;
+		
+		atual.setTime(new Date());
+		nascimento.setTime(dataNascimento);
+		
+		anoAtual=atual.get(Calendar.YEAR);
+		anoNascimento = nascimento.get(Calendar.YEAR);
+		System.out.println(anoAtual-anoNascimento);
+		return anoAtual-anoNascimento;
+		
+	}
 }

@@ -30,6 +30,7 @@ public class SQLUtil {
 		public static final String SELECT_MAX_ID = "SELECT MAX(id) FROM Categoria";
 		public static final String SELECT_TAMANHO = "SELECT c FROM Categoria c WHERE c.tamanho = :tamanho";
 		public static final String SELECT_NOME = "SELECT c FROM Categoria c WHERE c.nome = :nome";
+		public static final String SELECT_FOR_TABLE = "SELECT c.id, c.nome, c.tamanho FROM Categoria c";
 		
 	}
 	
@@ -49,6 +50,7 @@ public class SQLUtil {
 	
 	public class Filial{
 		public static final String SELECT_NOME = "SELECT fl FROM Filial fl WHERE fl.nome = :nome";
+		public static final String SELECT_ID_NOME = "SELECT fl.id FROM Filial fl WHERE fl.nome = :nome";
 		public static final String SELECT_MAX_ID = "SELECT MAX(id) FROM Filial";
 		public static final String SELECT_ALL = "SELECT f FROM Filial f";
 	}
@@ -77,6 +79,11 @@ public class SQLUtil {
 	public class Veiculo{
 		public static final String SELECT_ALL = "SELECT v FROM Veiculo v";
 		public static final String SELECT_PLACA = "SELECT v FROM Veiculo v WHERE v.placa = :placa";
+		public static final String SELECT = "SELECT v FROM Veiculo v WHERE LOWER(v.placa) LIKE :str";
+		public static final String SELECT_FILIAL =  "SELECT v FROM Veiculo v WHERE v.filialAtual.id = :filial";
+		public static final String SELECT_STATUS =  "SELECT v FROM Veiculo v WHERE v.status = :status";
+		public static final String SELECT_ALL_RESERVA =  "SELECT DISTINCT v FROM Veiculo v, Locacao l, Reserva r WHERE v.status = :status and"
+				+ "(v.id = l.veiculo.id and l.reserva.id = r.id and r.dataFinalPrevista <= :data) and r.filialEntrega = :filial";
 	}
 	
 	public class DaoGenerico{
