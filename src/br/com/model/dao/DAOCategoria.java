@@ -21,6 +21,7 @@ public class DAOCategoria extends DaoGenerico<Categoria>{
 	public List<Categoria> findAll(){
 		EntityManager em = ConnectionFactory.getInstance().getConnection();
 		List<Categoria> categorias = em.createQuery(SQLUtil.Categoria.SELECT_ALL, Categoria.class).getResultList();
+		em.close();
 		return categorias;
 	}
 	
@@ -28,12 +29,15 @@ public class DAOCategoria extends DaoGenerico<Categoria>{
 		EntityManager em = ConnectionFactory.getInstance().getConnection();
 		TypedQuery<Categoria> tp = em.createQuery(SQLUtil.Categoria.SELECT_TAMANHO, Categoria.class);
 		tp.setParameter("tamanho", tamanho);
-		return tp.getResultList();
+		List<Categoria> categorias = tp.getResultList();
+		em.close();
+		return categorias;
 	}
 	
 	public Categoria findMaxId() {
 		EntityManager em = ConnectionFactory.getInstance().getConnection();
 		Categoria categoria = em.createQuery(SQLUtil.Categoria.SELECT_MAX_ID, Categoria.class).getSingleResult();
+		em.close();
 		return categoria;
 	}
 
@@ -41,7 +45,9 @@ public class DAOCategoria extends DaoGenerico<Categoria>{
 		EntityManager em = ConnectionFactory.getInstance().getConnection();
 		TypedQuery<Categoria> tp = em.createQuery(SQLUtil.Categoria.SELECT_NOME, Categoria.class);
 		tp.setParameter("nome", nome);
-		return tp.getSingleResult();
+		Categoria categoria = tp.getSingleResult();
+		em.close();
+		return categoria;
 	}
 
 

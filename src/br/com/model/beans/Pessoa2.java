@@ -12,11 +12,11 @@ import javax.persistence.SequenceGenerator;
 
 @Entity
 @SequenceGenerator(name="sequencia_pessoa_backup", sequenceName="seq_pessoa_backup", initialValue=1, allocationSize=1)
-public abstract class PessoaBackup implements EntidadeBase{
+public abstract class Pessoa2 implements EntidadeBase{
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequencia_pessoa_backup")
 	private Integer id;
-	@Column(length=50, unique=true)
+	@Column(length=50)
 	private String codigo;
 	@Column(length=150)
 	private String nome;
@@ -26,10 +26,10 @@ public abstract class PessoaBackup implements EntidadeBase{
 	@OneToOne
 	private Endereco endereco;
 	private Date dataModificacao;
-	public PessoaBackup() {		
+	public Pessoa2() {		
 	}
 	
-	public PessoaBackup(Integer id, String codigo, String nome, String login, String senha, Endereco endereco) {
+	public Pessoa2(Integer id, String codigo, String nome, String login, String senha, Endereco endereco) {
 		super();
 		this.id = id;
 		this.codigo = codigo;
@@ -39,7 +39,7 @@ public abstract class PessoaBackup implements EntidadeBase{
 		this.endereco = endereco;
 	}
 	
-	public PessoaBackup(String codigo, String nome, String login, String senha, Endereco endereco) {
+	public Pessoa2(String codigo, String nome, String login, String senha, Endereco endereco) {
 		super();
 		this.codigo = codigo;
 		this.nome = nome;
@@ -126,7 +126,7 @@ public abstract class PessoaBackup implements EntidadeBase{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PessoaBackup other = (PessoaBackup) obj;
+		Pessoa2 other = (Pessoa2) obj;
 		if (codigo == null) {
 			if (other.codigo != null)
 				return false;

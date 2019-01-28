@@ -25,6 +25,7 @@ public class DAOPessoaFisica extends DaoGenerico<Pessoa>{
 	public List<PessoaFisica> findAll(){
 		EntityManager em = ConnectionFactory.getInstance().getConnection();
 		List<PessoaFisica>pessoasFisicas = em.createQuery(SQLUtil.PessoaFisica.SELECT_ALL).getResultList();
+		em.close();
 		return pessoasFisicas;
 	}
 
@@ -34,6 +35,7 @@ public class DAOPessoaFisica extends DaoGenerico<Pessoa>{
 		TypedQuery<PessoaFisica> tq = em.createQuery(SQLUtil.PessoaFisica.SELECT_CPF, PessoaFisica.class);
 		tq.setParameter("cpf", cpf);
 		PessoaFisica pessoa = tq.getSingleResult();
+		em.close();
 		return pessoa;
 	}
 	
@@ -41,7 +43,9 @@ public class DAOPessoaFisica extends DaoGenerico<Pessoa>{
 		EntityManager em = ConnectionFactory.getInstance().getConnection();
 		TypedQuery<PessoaFisica> tq = em.createQuery(SQLUtil.PessoaFisica.SELECT, PessoaFisica.class);
 		tq.setParameter("str", "%" + str + "%");
-		return tq.getResultList();
+		List<PessoaFisica> pessoaFisica = tq.getResultList();
+		em.close();
+		return pessoaFisica;
 	}
 	
 	

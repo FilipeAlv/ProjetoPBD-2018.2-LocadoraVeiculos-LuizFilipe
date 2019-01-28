@@ -45,13 +45,13 @@ public class ControllerNovoVeiculo implements Initializable{
     private TextField fdChassi;
 
     @FXML
-    private ComboBox<String> cbCategoria;
+    private  ComboBox<String> cbCategoria;
 
     @FXML
-    private ComboBox<String> cbModelo;
+    private  ComboBox<String> cbModelo;
     
     @FXML
-    private ComboBox<String> cbFilial;
+    private  ComboBox<String> cbFilial;
 
     @FXML
     private Button btnAddCategoria;
@@ -115,6 +115,10 @@ public class ControllerNovoVeiculo implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		carregarCombo();
+	}
+	
+	public void carregarCombo() {
 		ObservableList<String> ob = FXCollections.observableArrayList();
 		List<Categoria> categorias = DAOCategoria.getInstance().findAll();
 		List<Modelo> modelos = DAOModelo.getInstance().findAll();
@@ -139,6 +143,7 @@ public class ControllerNovoVeiculo implements Initializable{
 		cbFilial.setItems(ob);	
 	}
 
+	
 	private String pegarModeloCOmbo(String value) {
 		int i = value.indexOf("-");
 		String sub = value.substring(0,i);

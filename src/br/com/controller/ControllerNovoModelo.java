@@ -28,7 +28,7 @@ public class ControllerNovoModelo implements Initializable{
     private TextField fdNome;
     
     @FXML
-    private ComboBox<String> cbMarca;
+    private  ComboBox<String> cbMarca;
 
     @FXML
     private TextField fdAnoFab;
@@ -93,10 +93,17 @@ public class ControllerNovoModelo implements Initializable{
     		alert.setContentText("Preencha todos os campos obrigatorios");
     		alert.show();
     	}
+    	
+    	new ControllerNovoVeiculo().carregarCombo();
     }
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		carregarCombo();
+	}
+	
+	public void carregarCombo() {
 		ObservableList<String> ob = FXCollections.observableArrayList();
 		List<Marca> marcas = DAOMarca.getInstance().findAll();
 		
@@ -104,9 +111,8 @@ public class ControllerNovoModelo implements Initializable{
 			ob.add(marca.getNome());
 		}
 		cbMarca.setItems(ob);
-		
 	}
-	
+
 	private boolean validarCampos() {
 		if(fdNome.getText().length()==0||
     		fdCombustivel.getText().length()==0||

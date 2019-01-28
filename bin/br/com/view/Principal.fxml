@@ -86,6 +86,13 @@
                   <MenuItem fx:id="menuConfigLocacao" mnemonicParsing="false" onAction="#actionConfigLocacao" text="Configurações" />
                </items>
             </Menu>
+            <Menu mnemonicParsing="false" text="Log">
+               <items>
+                  <MenuItem fx:id="menuLogCliente" mnemonicParsing="false" onAction="#actionLogCliente" text="Cliente" />
+                  <MenuItem fx:id="menuLogReserva" mnemonicParsing="false" onAction="#actionLogReserva" text="Reserva" />
+                  <MenuItem fx:id="menuLogLocacao" mnemonicParsing="false" onAction="#actionLogLocacao" text="Locação" />
+               </items>
+            </Menu>
          </menus>
       </MenuBar>
    </children>

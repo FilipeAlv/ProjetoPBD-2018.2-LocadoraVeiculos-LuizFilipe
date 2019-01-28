@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1020.0" style="-fx-background-color: #9c9c9c; -fx-border-color: #000000;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.controller.ControllerLogCliente">
+   <children>
+      <AnchorPane layoutX="1.0" prefHeight="39.0" prefWidth="600.0" style="-fx-background-color: #333333;" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label layoutX="442.0" layoutY="7.0" text="Log Clientes" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Pane layoutX="29.0" layoutY="81.0" prefHeight="510.0" prefWidth="950.0" style="-fx-border-color: #ffffff;" AnchorPane.bottomAnchor="59.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="29.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="-11.0" prefHeight="25.0" prefWidth="165.0" style="-fx-background-color: #9c9c9c;" text="Lista de Clientes Modificados" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS" />
+            <TableView fx:id="tbLog" layoutX="14.0" layoutY="15.0" prefHeight="480.0" prefWidth="937.0">
+               <columns>
+                  <TableColumn fx:id="codigoCol" prefWidth="68.0" text="Codigo" />
+                  <TableColumn fx:id="nomeCol" prefWidth="130.0" text="Nome" />
+                  <TableColumn fx:id="loginCol" text="Login" />
+                  <TableColumn fx:id="cpfCol" prefWidth="92.0" text="Cpf" />
+                  <TableColumn fx:id="rgCol" prefWidth="82.0" text="Rg" />
+                  <TableColumn fx:id="nascCol" prefWidth="75.0" text="Nasc" />
+                  <TableColumn fx:id="sexoCol" prefWidth="75.0" text="Sexo" />
+                  <TableColumn fx:id="cnpjCol" prefWidth="99.0" text="Cnpj" />
+                  <TableColumn fx:id="inscCol" prefWidth="108.0" text="Inscrição Estadual" />
+                  <TableColumn fx:id="dataCol" prefWidth="126.0" text="Data" />
+               </columns>
+            </TableView>
+         </children>
+      </Pane>
+      <Button fx:id="btnBuscar" layoutX="919.0" layoutY="49.0" mnemonicParsing="false" onAction="#actionBuscar" prefHeight="25.0" prefWidth="25.0">
+         <graphic>
+            <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/iconBusca.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <TextField fx:id="fdBuscar" layoutX="705.0" layoutY="49.0" prefHeight="25.0" prefWidth="203.0" promptText="Buscar" />
+      <Button fx:id="btnAtualizar" layoutX="850.0" layoutY="599.0" mnemonicParsing="false" onAction="#actionAtualizar" prefHeight="26.0" prefWidth="34.0">
+         <graphic>
+            <ImageView fitHeight="15.0" fitWidth="17.0">
+               <image>
+                  <Image url="@../resources/iconRefresh.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>

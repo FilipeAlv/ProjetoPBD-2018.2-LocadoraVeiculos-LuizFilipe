@@ -4,14 +4,13 @@ import java.net.URL;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
-
-
 import br.com.model.beans.Endereco;
 import br.com.model.beans.Motorista;
 import br.com.model.beans.Pessoa;
 import br.com.model.beans.PessoaFisica;
 import br.com.model.beans.PessoaJuridica;
 import br.com.model.dao.DAOMotorista;
+import br.com.model.dao.DAOPessoa;
 import br.com.model.dao.DAOPessoaFisica;
 import br.com.model.dao.DAOPessoaJuridica;
 import br.com.util.Util;
@@ -41,7 +40,7 @@ public class ControllerNovoCliente implements Initializable{
 	private TextField fdRua;
 
 	@FXML
-	private ComboBox<String> cbUf;
+	private  ComboBox<String> cbUf;
 
 	@FXML
 	private TextField fdNumero;
@@ -56,7 +55,7 @@ public class ControllerNovoCliente implements Initializable{
 	private Button btnSalvar;
 
 	@FXML
-	private Pane panelJuridica;
+	private  Pane panelJuridica;
 
 	@FXML
 	private Pane panelFisica;
@@ -151,12 +150,12 @@ public class ControllerNovoCliente implements Initializable{
 					habilitacao = fdHabilitacao.getText().toString();
 					validadeHabilitacao = new Date();
 					pessoa = new Motorista(codigo, nome, login, senha, endereco, cpf, rg, dataNascimento, sexo, habilitacao, validadeHabilitacao);
-					pessoa.setCodigo(Util.gerarCodigo(pessoa));
 					DAOMotorista.getInstace().saveOrUpdate((Motorista)pessoa);
+					DAOPessoa.getInstace().gerarCodigo(Util.subNome(pessoa));
 				}else {
 					pessoa = new PessoaFisica(codigo, nome, login, senha, endereco, cpf, rg, dataNascimento, sexo);
-					pessoa.setCodigo(Util.gerarCodigo(pessoa));
 					DAOPessoaFisica.getInstace().saveOrUpdate((PessoaFisica)pessoa);
+					DAOPessoa.getInstace().gerarCodigo(Util.subNome(pessoa));
 				}
 				break;
 

@@ -23,35 +23,35 @@ import javafx.scene.control.Alert.AlertType;
 public class ControllerNovoValor implements Initializable{
 
 
-    @FXML
-    private Button btnAdd;
+	@FXML
+	private Button btnAdd;
 
-    @FXML
-    private TextField fdValor;
+	@FXML
+	private TextField fdValor;
 
-    @FXML
-    private ComboBox<String> cbTipoLocacao;
+	@FXML
+	private  ComboBox<String> cbTipoLocacao;
 
-    @FXML
-    private ComboBox<String> cbCategoria;
+	@FXML
+	private  ComboBox<String> cbCategoria;
 
-    @FXML
-    private Button btnSalvar;
+	@FXML
+	private Button btnSalvar;
 
-    @FXML
-    void actionAddCategoria(ActionEvent event) {
+	@FXML
+	void actionAddCategoria(ActionEvent event) {
 
-    }
+	}
 
-    @FXML
-    void actionSalvar(ActionEvent event) {
-    	Alert alert = new Alert(AlertType.INFORMATION);
+	@FXML
+	void actionSalvar(ActionEvent event) {
+		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("CADASTRO VALOR LOCAÇÃO");
-    	if(validarCampos()) {
-	    	Categoria categoria = DAOCategoria.getInstance().findByNome(cbCategoria.getValue());
-	    	ValorLocacao vl = new ValorLocacao(Double.parseDouble(fdValor.getText()), categoria, cbTipoLocacao.getValue());
-	    	DAOValorLocacao.getInstance().saveOrUpdate(vl);
-	    	try {
+		if(validarCampos()) {
+			Categoria categoria = DAOCategoria.getInstance().findByNome(cbCategoria.getValue());
+			ValorLocacao vl = new ValorLocacao(Double.parseDouble(fdValor.getText()), categoria, cbTipoLocacao.getValue());
+			DAOValorLocacao.getInstance().saveOrUpdate(vl);
+			try {
 				alert.setContentText("Valor Adicionado Com Sucesso");
 				alert.show();
 				Main.stageAddValorLocacao.close();
@@ -61,12 +61,12 @@ public class ControllerNovoValor implements Initializable{
 				alert.setContentText("Erro ao adicionar valor");
 				alert.show();
 			}
-			
+
 		}else {
 			alert.setContentText("Preencha todos os campos");
 			alert.show();
 		}
-    }
+	}
 
 	private boolean validarCampos() {
 		if(
@@ -81,8 +81,18 @@ public class ControllerNovoValor implements Initializable{
 		return true;
 	}
 
+	@FXML
+	void actionAtualizarCombo(ActionEvent event) {
+		carregarCombo();
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		carregarCombo();
+
+	}
+
+	public void carregarCombo() {
 		List<Categoria> categorias = DAOCategoria.getInstance().findAll();
 		ObservableList<String> ob = FXCollections.observableArrayList();
 		for(Categoria categoria : categorias) {
@@ -94,7 +104,6 @@ public class ControllerNovoValor implements Initializable{
 		ob.add("KMLivre");
 		ob.add("KMControle");
 		cbTipoLocacao.setItems(ob);
-		
 	}
 
 }

@@ -25,6 +25,7 @@ public class DAOPessoaJuridica extends DaoGenerico<Pessoa>{
 	public List<PessoaJuridica> findAll(){
 		EntityManager em = ConnectionFactory.getInstance().getConnection();
 		List<PessoaJuridica>pessoasJuridicas = em.createQuery(SQLUtil.PessoaJuridica.SELECT_ALL).getResultList();
+		em.close();
 		return pessoasJuridicas;
 	}
 
@@ -34,6 +35,7 @@ public class DAOPessoaJuridica extends DaoGenerico<Pessoa>{
 		TypedQuery<PessoaJuridica> tq = em.createQuery(SQLUtil.PessoaJuridica.SELECT_CNPJ, PessoaJuridica.class);
 		tq.setParameter("cnpj", cnpj);
 		PessoaJuridica pessoa = tq.getSingleResult();
+		em.close();
 		return pessoa;
 	}
 	
@@ -42,6 +44,8 @@ public class DAOPessoaJuridica extends DaoGenerico<Pessoa>{
 		EntityManager em = ConnectionFactory.getInstance().getConnection();
 		TypedQuery<PessoaJuridica> tq = em.createQuery(SQLUtil.PessoaJuridica.SELECT, PessoaJuridica.class);
 		tq.setParameter("str", str);
-		return tq.getResultList();
+		List<PessoaJuridica> pessoa = tq.getResultList();
+		em.close();
+		return pessoa;
 	}
 }

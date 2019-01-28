@@ -79,7 +79,7 @@ public class ControllerVeiculo implements Initializable{
 
     @FXML
     void actionAtualizar(ActionEvent event) {
-
+    	
     }
 
     @FXML
@@ -100,7 +100,7 @@ public class ControllerVeiculo implements Initializable{
     		System.out.println(data);
     		String status = cbStatus.getValue();
     		
-    		veiculos = DAOVeiculo.getInstance().findByAllReserva(filialId, data, status);
+    		veiculos = DAOVeiculo.getInstance().findByAllReserva(filialId, data);
 			carregarTabela(veiculos);
     	
     	}else {

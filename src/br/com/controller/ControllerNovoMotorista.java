@@ -120,6 +120,8 @@ public class ControllerNovoMotorista implements Initializable{
     		alert.setContentText("Este Motorista foi salvo com successo!");
     		alert.show();
     		
+    		new ControllerNovaReserva().carregarCombo();
+    		
     	}
 
 	}

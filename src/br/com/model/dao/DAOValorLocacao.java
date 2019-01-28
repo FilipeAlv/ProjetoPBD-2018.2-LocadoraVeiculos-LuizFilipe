@@ -23,15 +23,18 @@ public class DAOValorLocacao extends DaoGenerico<ValorLocacao>{
 	public List<ValorLocacao> findAll(){
 		EntityManager em = ConnectionFactory.getInstance().getConnection();
 		List<ValorLocacao> valores = em.createQuery(SQLUtil.ValorLocacao.SELECT_ALL, ValorLocacao.class).getResultList();
+		em.close();
 		return valores;
 	}
 
 	public Double findByTipoCategoria(String tipo, Categoria categoria) {
 		EntityManager em = ConnectionFactory.getInstance().getConnection();
-		TypedQuery<Double> tq = em.createQuery(SQLUtil.ValorLocacao.SELECT_TIPO_CAT, Double.class);
-		tq.setParameter("tipo", tipo);
-		tq.setParameter("categoria", categoria);
-		return tq.getSingleResult();
+		TypedQuery<Double> tp = em.createQuery(SQLUtil.ValorLocacao.SELECT_TIPO_CAT, Double.class);
+		tp.setParameter("tipo", tipo);
+		tp.setParameter("categoria", categoria);
+		Double valor = tp.getSingleResult();
+		em.close();
+		return valor;
 		
 	}
 

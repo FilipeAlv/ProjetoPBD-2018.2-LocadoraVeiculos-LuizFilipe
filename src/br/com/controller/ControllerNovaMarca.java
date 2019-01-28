@@ -27,7 +27,7 @@ public class ControllerNovaMarca {
     		alert.setTitle("Sucesso" );
     		alert.setContentText("Esta Marca foi salvo com successo!");
     		alert.show();
-    		
+    		new ControllerNovoModelo().carregarCombo();
     	}else {
     		Alert alert = new Alert(AlertType.ERROR);
     		alert.setTitle("Erro ao Salvar Marca" );

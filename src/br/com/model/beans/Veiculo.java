@@ -52,6 +52,7 @@ public class Veiculo implements EntidadeBase{
 		this.categoria = categoria;
 		this.modelo = modelo;
 		this.status = status;
+		this.filialAtual = filial;
 	}
 
 
@@ -59,7 +60,7 @@ public class Veiculo implements EntidadeBase{
 	@Override
 	public Integer getId() {
 		// TODO Auto-generated method stub
-		return null;
+		return id;
 	}
 
 

@@ -10,29 +10,31 @@ import br.com.util.SQLUtil;
 
 public class DAOEndereco extends DaoGenerico<Endereco>{
 
-    private static DAOEndereco DaoEndereco;
+	private static DAOEndereco DaoEndereco;
 
-    public static DAOEndereco getInstace() {
-        if (DaoEndereco != null) {
-            return DaoEndereco;
-        }
+	public static DAOEndereco getInstace() {
+		if (DaoEndereco != null) {
+			return DaoEndereco;
+		}
 
-        return DaoEndereco = new DAOEndereco();
-    }
+		return DaoEndereco = new DAOEndereco();
+	}
 
-    public List<Endereco> findByUF(String uf){
-        EntityManager em = ConnectionFactory.getInstance().getConnection();
-        TypedQuery<Endereco> tq = em.createQuery(SQLUtil.Endereco.SELECT_UF, Endereco.class);
-        tq.setParameter("uf", uf);
-        List<Endereco> enderecos = tq.getResultList();;
-        return enderecos;
+	public List<Endereco> findByUF(String uf){
+		EntityManager em = ConnectionFactory.getInstance().getConnection();
+		TypedQuery<Endereco> tq = em.createQuery(SQLUtil.Endereco.SELECT_UF, Endereco.class);
+		tq.setParameter("uf", uf);
+		List<Endereco> enderecos = tq.getResultList();
+		em.close();
+		return enderecos;
 
-    }
+	}
 
-    public Integer findMaxId() {
-        EntityManager em = ConnectionFactory.getInstance().getConnection();
-        Integer id = em.createQuery(SQLUtil.Endereco.SELECT_MAX_ID, Integer.class).getSingleResult();
-        return id;
-    }
+	public Integer findMaxId() {
+		EntityManager em = ConnectionFactory.getInstance().getConnection();
+		Integer id = em.createQuery(SQLUtil.Endereco.SELECT_MAX_ID, Integer.class).getSingleResult();
+		em.close();
+		return id;
+	}
 
 }

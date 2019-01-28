@@ -9,8 +9,13 @@ public class SQLUtil {
 		public static final String SELECT_LOGIN = "SELECT p FROM Pessoa p WHERE p.login = :login";
 		public static final String SELECT_CPF = "SELECT p FROM Pessoa p WHERE p.cpf = :cpf";
 		public static final String UPDADTE_SENHA = "UPDATE Pessoa p SET senha = :novaSenha WHERE senha = :senha AND login = :login";
+		public static final String PROCEDURE_GERA_CODIGO = "geracodigo";
 		
 
+	}
+	
+	public class PessoaBackup{
+		public static final String SELECT_ALL = "SELECT p FROM PessoaBackup p";
 	}
 	
 	public class PessoaFisica{
@@ -19,10 +24,18 @@ public class SQLUtil {
 		public static final String SELECT = "SELECT p FROM PessoaFisica p WHERE LOWER(p.nome) LIKE :str or LOWER(p.cpf) LIKE :str";
 	}
 	
+	public class PessoaFisicaBackup{
+		public static final String SELECT_ALL = "SELECT p FROM PessoaFisica2 p";
+	}
+	
 	public class PessoaJuridica{
 		public static final String SELECT_ALL = "SELECT p FROM PessoaJuridica p";
 		public static final String SELECT_CNPJ = "SELECT p FROM PessoaJuridica p WEHERE p.cnpj = :cnpj";
 		public static final String SELECT = "SELECT p FROM PessoaJuridica p WHERE LOWER(p.nome) LIKE :str or LOWER(p.cnpj) LIKE :str";
+	}
+	
+	public class PessoaJuridicaBackup{
+		public static final String SELECT_ALL = "SELECT p FROM PessoaJuridica2 p";
 	}
 	
 	public class Categoria{
@@ -65,10 +78,19 @@ public class SQLUtil {
 		public static final String SELECT_DATA = "SELECT l FROM Locacao l WHERE l.dataFinal = :dataFinal";
 	}
 	
+	public class LocacaoBackup{
+		public static final String SELECT_ALL = "SELECT l FROM Locacao2 l";
+		public static final String SELECT_VIEW =  "SELECT l FROM LocacaoAdapter l";
+	}
+	
 	public class Motorista{
 		public static final String SELECT_ALL = "SELECT m FROM Motorista m";
 		public static final String SELECT_HABILITACAO = "SELECT m FROM Motorista m WHERE m.habilitacao = :habilitacao";
 	}
+	
+	public class MotoristaBackup{
+		public static final String SELECT_ALL = "SELECT m FROM Motorista2 m";
+		}
 	
 	public class Reserva{
 		public static final String SELECT_ALL = "SELECT r FROM Reserva r";
@@ -76,14 +98,22 @@ public class SQLUtil {
 		public static final String SELECT_TIPO = "SELECT r FROM Reserva r WHERE e.tipoLocacao = :tipo";
 	}
 	
+	public class ReservaBackup{
+		public static final String SELECT_ALL = "SELECT r FROM Reserva2 r";
+		public static final String SELECT_VIEW = "SELECT r FROM ReservaAdapter r";
+	}
+	
+	
 	public class Veiculo{
 		public static final String SELECT_ALL = "SELECT v FROM Veiculo v";
 		public static final String SELECT_PLACA = "SELECT v FROM Veiculo v WHERE v.placa = :placa";
 		public static final String SELECT = "SELECT v FROM Veiculo v WHERE LOWER(v.placa) LIKE :str";
 		public static final String SELECT_FILIAL =  "SELECT v FROM Veiculo v WHERE v.filialAtual.id = :filial";
 		public static final String SELECT_STATUS =  "SELECT v FROM Veiculo v WHERE v.status = :status";
-		public static final String SELECT_ALL_RESERVA =  "SELECT DISTINCT v FROM Veiculo v, Locacao l, Reserva r WHERE v.status = :status and"
-				+ "(v.id = l.veiculo.id and l.reserva.id = r.id and r.dataFinalPrevista <= :data) and r.filialEntrega = :filial";
+		public static final String SELECT_ALL_RESERVA =  "SELECT DISTINCT v FROM Veiculo v, Locacao l, Reserva r WHERE "
+				+ "(v.id = l.veiculo.id and l.reserva.id = r.id and r.dataFinalPrevista <= :data and r.filialEntrega = :filial"
+				+ " and l.status ='Aguardando') or (v.status = 'Disponivel' and v.filialAtual = :filial)";
+		public static final String PROCEDURE_CONTA_VEICULO = "contaveiculoporcategoria";
 	}
 	
 	public class DaoGenerico{

@@ -19,7 +19,7 @@ public class ControllerAddVeiculoLocacao implements Initializable{
     private Button btnSalvar;
 
     @FXML
-    private ComboBox<String> cbVeiculo;
+    private  ComboBox<String> cbVeiculo;
 
     @FXML
     void actionSalvar(ActionEvent event) {
@@ -38,8 +38,8 @@ public class ControllerAddVeiculoLocacao implements Initializable{
 			ob.add(veiculo.getModelo().getNome()+"-"+veiculo.getPlaca());
 		}
 		cbVeiculo.setItems(ob);
-		
 	}
+	
 	
 	private String pegarPlacaCombo(String value) {
 		int i = value.indexOf("-");

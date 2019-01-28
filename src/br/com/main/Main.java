@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import br.com.model.beans.Pessoa;
 import br.com.model.beans.PessoaFisica;
+import br.com.model.beans.ThreadBackup;
 import br.com.model.dao.DAOPessoaFisica;
 import br.com.util.Util.Criptografia;
 import javafx.application.Application;
@@ -20,16 +21,20 @@ public class Main extends Application {
 	public static Scene sceneFuncionario, sceneReserva, sceneNovaCategoria, sceneNovaFilial, sceneNovoMotorista, sceneNovoCliente;
 	public static Scene sceneNovoFuncionario, sceneNovoVeiculo, sceneNovoModelo, sceneNovaMarca, sceneVeiculo, sceneAddVeiculoLocacao;
 	public static Scene sceneLocacao, sceneFinalizarLocacao, sceneCategoria, sceneCliente, sceneMotorista, sceneFilial;
-
+	public static Scene sceneLogCliente, sceneLogReservas, sceneLogLocacao;
+	
 	public static Stage stage, stageNovoFuncionario, stageNovoVeiculo, stageNovoModelo, stageNovaMarca, stageVeiculo;
 	public static Stage stageNovaReserva, stageConfigLocacao, stageAddValorLocacao, stageAlterarSenha, stageFuncionario;
 	public static Stage stageReserva, stageNovaCategoria, stageNovaFilial, stageNovoMotorista, stageNovoCliente, stageAddVeiculoLocacao;
 	public static Stage stageLocacao, stageFinalizarLocacao, stageCategoria, stageCliente, stageFilial, stageMotorista;
-
+	public static Stage stageLogCliente, stageLogReservas, stageLogLocacao;
+	
 	public static Pane telaPrincipal, telaLogin, telaNovaReserva, telaConfigLocacao, telaAddValorLocacao, telaAlterarSenha;
 	private static Pane telaFuncionario, telaReserva, telaNovoMotorista, telaNovoCliente, telaNovaMarca, telaVeiculo;
 	public static Pane  telaNovaCategoria, telaNovaFilial, telaNovoFuncionario, telaNovoVeiculo, telaNovoModelo, telaAddVeiculoLocacao;
 	public static Pane telaLocacao, telaFinalizarLocacao, telaCliente, telaCategoria, telaMotorista, telaFilial;
+	public static Pane telaLogCliente, telaLogReservas, telaLogLocacao;
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -57,6 +62,9 @@ public class Main extends Application {
 			telaFilial = FXMLLoader.load(getClass().getResource("../view/Filial.fxml"));
 			telaMotorista = FXMLLoader.load(getClass().getResource("../view/Motorista.fxml"));
 			telaCliente = FXMLLoader.load(getClass().getResource("../view/Cliente.fxml"));
+			telaLogCliente = FXMLLoader.load(getClass().getResource("../view/LogCliente.fxml"));
+			telaLogReservas = FXMLLoader.load(getClass().getResource("../view/LogReservas.fxml"));
+			telaLogLocacao = FXMLLoader.load(getClass().getResource("../view/LogLocacao.fxml"));
 
 			sceneLogin = new Scene(telaLogin);
 			scenePrincipal = new Scene(telaPrincipal);
@@ -82,7 +90,14 @@ public class Main extends Application {
 			sceneCategoria = new Scene(telaCategoria);
 			sceneMotorista = new Scene(telaMotorista);
 			sceneFilial = new Scene(telaFilial);
+			sceneLogCliente = new Scene(telaLogCliente);
+			sceneLogReservas = new Scene(telaLogReservas);
+			sceneLogLocacao = new Scene(telaLogLocacao);
 
+			Thread th = new Thread(new ThreadBackup());
+			th.setDaemon(true);
+			th.start();
+			
 			primaryStage.setScene(sceneLogin);
 			primaryStage.initStyle(StageStyle.UNDECORATED);
 			stage = primaryStage;
@@ -248,6 +263,27 @@ public class Main extends Application {
 			stageFilial.initModality(Modality.APPLICATION_MODAL);
 			stageFilial.setScene(sceneFilial);
 			stageFilial.show();
+			break;
+
+		case "LogCliente":
+			stageLogCliente = new Stage();
+			stageLogCliente.initModality(Modality.APPLICATION_MODAL);
+			stageLogCliente.setScene(sceneLogCliente);
+			stageLogCliente.show();
+			break;
+			
+		case "LogReservas":
+			stageLogReservas= new Stage();
+			stageLogReservas.initModality(Modality.APPLICATION_MODAL);
+			stageLogReservas.setScene(sceneLogReservas);
+			stageLogReservas.show();
+			break;
+			
+		case "LogLocacao":
+			stageLogLocacao = new Stage();
+			stageLogLocacao.initModality(Modality.APPLICATION_MODAL);
+			stageLogLocacao.setScene(sceneLogLocacao);
+			stageLogLocacao.show();
 			break;
 
 		}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="453.0" style="-fx-background-color: #9c9c9c; -fx-border-color: #000000;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.controller.ControllerNovoModelo">
+   <children>
+      <AnchorPane layoutX="5.0" layoutY="4.0" prefHeight="25.0" prefWidth="279.0" style="-fx-background-color: #333333;" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="3.0">
+         <children>
+            <Label layoutX="157.0" layoutY="5.0" prefHeight="25.0" prefWidth="130.0" text="Novo Modelo" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Pane accessibleRole="LIST_VIEW" cache="true" layoutX="30.0" layoutY="63.0" prefHeight="196.0" prefWidth="390.0" style="-fx-border-color: #ffffff;">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="-12.0" prefHeight="25.0" prefWidth="130.0" style="-fx-background-color: #9c9c9c;" text="Dados do Modelo" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS" />
+            <Button fx:id="btnAdd" layoutX="342.0" layoutY="139.0" mnemonicParsing="false" onAction="#actionAddMarca" prefHeight="25.0" prefWidth="25.0">
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/iconAdd.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <TextField fx:id="fdNome" layoutX="14.0" layoutY="27.0" prefHeight="25.0" prefWidth="205.0" promptText="Nome" />
+            <ComboBox fx:id="cbMarca" layoutX="14.0" layoutY="139.0" prefHeight="25.0" prefWidth="314.0" promptText="Categoria" />
+            <TextField fx:id="fdAnoFab" layoutX="159.0" layoutY="65.0" prefHeight="25.0" prefWidth="101.0" promptText="Ano de Fab" />
+            <TextField fx:id="fdAnoModel" layoutX="270.0" layoutY="65.0" prefHeight="25.0" prefWidth="101.0" promptText="Ano do Modelo" />
+            <TextField fx:id="fdTorqueMotor" layoutX="14.0" layoutY="65.0" prefHeight="25.0" prefWidth="130.0" promptText="Torque do Motor" />
+            <TextField fx:id="fdNumPortas" layoutX="14.0" layoutY="103.0" prefHeight="25.0" prefWidth="130.0" promptText="N° de Portas" />
+            <TextField fx:id="fdTempoLimpeza" layoutX="156.0" layoutY="103.0" prefHeight="25.0" prefWidth="120.0" promptText="Tempo de Limpeza" />
+            <TextField fx:id="fdCombustivel" layoutX="287.0" layoutY="103.0" prefHeight="25.0" prefWidth="85.0" promptText="Compustivél" />
+            <TextField fx:id="fdNumPassageiro" layoutX="234.0" layoutY="26.0" prefHeight="25.0" prefWidth="137.0" promptText="N° de Passageiros" />
+         </children>
+      </Pane>
+      <Button fx:id="btnSalvar" layoutX="372.0" layoutY="271.0" mnemonicParsing="false" onAction="#actionSalvar" text="Salvar" />
+   </children>
+</AnchorPane>

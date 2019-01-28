@@ -13,7 +13,7 @@ import javax.persistence.SequenceGenerator;
 
 @Entity
 @SequenceGenerator(name="sequencia_reserva_backup", sequenceName="seq_res_backup", initialValue=1, allocationSize=1)
-public class ReservaBackup implements EntidadeBase{
+public class Reserva2 implements EntidadeBase{
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequencia_reserva_backup")
 	private Integer id;
@@ -35,16 +35,16 @@ public class ReservaBackup implements EntidadeBase{
 	private Categoria categoria;
 	private String status;
 	private Date dataModificacao;
-	public ReservaBackup() {
+	public Reserva2() {
 		super();
 	}
-	
-	
-	
-	
-	
 
-	public ReservaBackup(Date dataReserva, Date dataInicial, Date dataFinalPrevista, String tipoLocacao, double valorPrevisto,
+
+
+
+
+
+	public Reserva2(Date dataReserva, Date dataInicial, Date dataFinalPrevista, String tipoLocacao, double valorPrevisto,
 			Pessoa cliente, Pessoa motorista, Filial filial, Filial filialEntrega, Categoria categoria, String status) {
 		super();
 		this.dataReserva = dataReserva;
@@ -267,28 +267,13 @@ public class ReservaBackup implements EntidadeBase{
 		return status;
 	}
 
-
-
-
-
-
 	public void setStatus(String status) {
 		this.status = status;
 	}
 
-
-
-
-
-
 	public Date getDataModificacao() {
 		return dataModificacao;
 	}
-
-
-
-
-
 
 	public void setDataModificacao(Date dataModificacao) {
 		this.dataModificacao = dataModificacao;
@@ -334,7 +319,7 @@ public class ReservaBackup implements EntidadeBase{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ReservaBackup other = (ReservaBackup) obj;
+		Reserva2 other = (Reserva2) obj;
 		if (categoria == null) {
 			if (other.categoria != null)
 				return false;
@@ -400,12 +385,12 @@ public class ReservaBackup implements EntidadeBase{
 		return true;
 	}
 
- 
 
 
 
 
 
-	
-	
+
+
+
 }

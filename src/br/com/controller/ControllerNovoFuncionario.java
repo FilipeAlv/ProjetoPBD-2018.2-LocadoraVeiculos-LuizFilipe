@@ -150,7 +150,7 @@ public class ControllerNovoFuncionario implements Initializable{
 		cbUf.setItems(ob);
 
 		ob = FXCollections.observableArrayList();
-		ob.addAll("read","full");
+		ob.addAll("Administrador","Funcionario");
 		cbPermissao.setItems(ob);
 
 	}

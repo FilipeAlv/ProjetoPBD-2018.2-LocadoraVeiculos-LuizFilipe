@@ -24,6 +24,7 @@ public class DAOCaminhonetaCarga extends DaoGenerico<CaminhonetaCarga>{
     public List<CaminhonetaCarga> findAll(){
         EntityManager em = ConnectionFactory.getInstance().getConnection();
         List<CaminhonetaCarga> resultado = em.createQuery(SQLUtil.CaminhonetaCarga.SELECT_ALL, CaminhonetaCarga.class).getResultList();;
+        em.close();
         return resultado;
 
     }
@@ -32,6 +33,7 @@ public class DAOCaminhonetaCarga extends DaoGenerico<CaminhonetaCarga>{
         EntityManager em = ConnectionFactory.getInstance().getConnection();
         TypedQuery<CaminhonetaCarga> tq = em.createQuery(SQLUtil.CaminhonetaCarga.SELECT_POTENCIA, CaminhonetaCarga.class);
         List<CaminhonetaCarga> caminhonetasCarga = tq.getResultList();
+        em.close();
         return caminhonetasCarga;
     }
     

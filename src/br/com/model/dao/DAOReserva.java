@@ -22,6 +22,7 @@ public class DAOReserva extends DaoGenerico<Reserva>{
 	public List<Reserva> findAll(){
 		EntityManager em = ConnectionFactory.getInstance().getConnection();
 		List<Reserva> reserva = em.createQuery(SQLUtil.Reserva.SELECT_ALL, Reserva.class).getResultList();
+		em.close();
 		return reserva;
 	}
 	
@@ -29,14 +30,18 @@ public class DAOReserva extends DaoGenerico<Reserva>{
 		EntityManager em = ConnectionFactory.getInstance().getConnection();
 		TypedQuery<Reserva> tp = em.createQuery(SQLUtil.Reserva.SELECT_DATA, Reserva.class);
 		tp.setParameter("dataInicial", data);
-		return tp.getResultList();
+		List<Reserva> reservas = tp.getResultList();
+		em.close();
+		return reservas;
 	}
 	
 	public List<Reserva> findByTipoLocacao(String tipo){
 		EntityManager em = ConnectionFactory.getInstance().getConnection();
 		TypedQuery<Reserva> tp = em.createQuery(SQLUtil.Reserva.SELECT_TIPO, Reserva.class);
 		tp.setParameter("tipoLocacao", tipo);
-		return tp.getResultList();
+		List<Reserva> reservas = tp.getResultList();
+		em.close();
+		return reservas;
 	}
 	
 

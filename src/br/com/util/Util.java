@@ -10,8 +10,14 @@ public class Util {
 	public static boolean SCRIPT = false;
 	
 	public static String gerarCodigo(Pessoa pessoa) {
-		String codigo = (pessoa.getNome().substring(3)).toUpperCase();
+		String codigo = (pessoa.getNome().substring(0,3)).toUpperCase();
 		codigo=codigo+"-"+(DAOPessoa.getInstace().findMaxId()+1);
+		return codigo;
+		
+	}
+	
+	public static String subNome(Pessoa pessoa) {
+		String codigo = (pessoa.getNome().substring(3)).toUpperCase();
 		return codigo;
 		
 	}

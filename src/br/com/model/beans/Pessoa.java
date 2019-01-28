@@ -17,7 +17,7 @@ public abstract class Pessoa implements EntidadeBase{
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequencia_pessoa")
 	private Integer id;
-	@Column(length=50, unique=true)
+	@Column(length=50)
 	private String codigo;
 	@Column(length=150)
 	private String nome;

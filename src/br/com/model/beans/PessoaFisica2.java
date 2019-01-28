@@ -5,7 +5,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 @Entity
-public class PessoaFisicaBackup extends PessoaBackup{
+public class PessoaFisica2 extends Pessoa2{
 	@Column(length=15)
 	private String cpf;
 	@Column(length=25)
@@ -14,16 +14,16 @@ public class PessoaFisicaBackup extends PessoaBackup{
 	@Column(length=10)
 	private String sexo;
 	
-	public PessoaFisicaBackup() {
+	public PessoaFisica2() {
 		super();
 		
 	}
-	public PessoaFisicaBackup(int id, String codigo, String nome, String login, String senha, Endereco endereco) {
+	public PessoaFisica2(int id, String codigo, String nome, String login, String senha, Endereco endereco) {
 		super(id, codigo, nome, login, senha, endereco);
 		
 	}
 	
-	public PessoaFisicaBackup(int id, String codigo, String nome, String login, String senha, Endereco endereco, String cpf, String rg, Date dataNascimento, String sexo) {
+	public PessoaFisica2(int id, String codigo, String nome, String login, String senha, Endereco endereco, String cpf, String rg, Date dataNascimento, String sexo) {
 		super(id, codigo, nome, login, senha, endereco);
 		this.cpf = cpf;
 		this.rg = rg;
@@ -31,7 +31,7 @@ public class PessoaFisicaBackup extends PessoaBackup{
 		this.sexo = sexo;
 	}
 	
-	public PessoaFisicaBackup( String codigo, String nome, String login, String senha, Endereco endereco, String cpf, String rg, Date dataNascimento, String sexo) {
+	public PessoaFisica2( String codigo, String nome, String login, String senha, Endereco endereco, String cpf, String rg, Date dataNascimento, String sexo) {
 		super(codigo, nome, login, senha, endereco);
 		this.cpf = cpf;
 		this.rg = rg;

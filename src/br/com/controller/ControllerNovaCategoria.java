@@ -156,13 +156,16 @@ public class ControllerNovaCategoria implements Initializable{
     		alert.setTitle("Sucesso" );
     		alert.setContentText("Esta categoria foi salva com successo!");
     		alert.show();
-    		
+    		new ControllerNovaReserva().carregarCombo();
+    		new ControllerNovoVeiculo().carregarCombo();
     	}else {
     		Alert alert = new Alert(AlertType.ERROR);
     		alert.setTitle("Erro ao Salvar Categoria" );
     		alert.setContentText("Preencha todos os campos obrigatorios");
     		alert.show();
     	}
+    	
+    	
     }
 
     @FXML
@@ -215,6 +218,8 @@ public class ControllerNovaCategoria implements Initializable{
 		
 		cbEmbreagem.setItems(ob);
 	}
+
+
 	
 	private boolean validarCampos() {
 		if(cbTipo.getValue()=="Comum" || cbTipo.getValue()=="Caminhoneta Passageiro") {

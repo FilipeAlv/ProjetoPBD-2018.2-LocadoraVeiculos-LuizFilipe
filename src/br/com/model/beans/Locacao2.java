@@ -11,7 +11,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 @Entity
 @SequenceGenerator(name="sequencia_locacao_backup", sequenceName="seq_loc_backup", initialValue=1, allocationSize=1)
-public class LocacaoBackup implements EntidadeBase{
+public class Locacao2 implements EntidadeBase{
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequencia_locacao_backup" )
 	private Integer id;
@@ -25,18 +25,18 @@ public class LocacaoBackup implements EntidadeBase{
 	private Reserva reserva;
 	private String status;
 	private Date dataModificacao;
-	public LocacaoBackup() {
+	public Locacao2() {
 		super();
 	}
 	
-	public LocacaoBackup( Veiculo veiculo, Reserva reserva, String status) {
+	public Locacao2( Veiculo veiculo, Reserva reserva, String status) {
 		super();
 		this.veiculo = veiculo;
 		this.reserva = reserva;
 		this.status = status;
 	}
 	
-	public LocacaoBackup(Date dataFinal, double valorFinal, String statusVeiculo, Veiculo veiculo, Reserva reserva, String status) {
+	public Locacao2(Date dataFinal, double valorFinal, String statusVeiculo, Veiculo veiculo, Reserva reserva, String status) {
 		super();
 		this.dataFinal = dataFinal;
 		this.valorFinal = valorFinal;
@@ -136,7 +136,7 @@ public class LocacaoBackup implements EntidadeBase{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		LocacaoBackup other = (LocacaoBackup) obj;
+		Locacao2 other = (Locacao2) obj;
 		if (dataFinal == null) {
 			if (other.dataFinal != null)
 				return false;

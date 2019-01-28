@@ -38,10 +38,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
-public class ControllerNovaReserva implements Initializable{
+public class ControllerNovaReserva implements Initializable {
 
 	Alert alert = new Alert(AlertType.INFORMATION);
-
 
 	@FXML
 	private DatePicker fdData;
@@ -56,13 +55,13 @@ public class ControllerNovaReserva implements Initializable{
 	private TextField fdHoraEntrega;
 
 	@FXML
-	private ComboBox<String> cbFilial;
+	private  ComboBox<String> cbFilial;
 
 	@FXML
-	private ComboBox<String> cbFilialEntrega;
+	private  ComboBox<String> cbFilialEntrega;
 
 	@FXML
-	private ComboBox<String> cbMotorista;
+	private  ComboBox<String> cbMotorista;
 
 	@FXML
 	private ComboBox<String> cbCliente;
@@ -71,34 +70,49 @@ public class ControllerNovaReserva implements Initializable{
 	private TextField fdValor;
 
 	@FXML
-	private ComboBox<String> cbTipo;
+	private  ComboBox<String> cbTipo;
 
 	@FXML
 	private Button btnSalvar;
 
 	@FXML
-	private ComboBox<String> cbCategoria;
+	private  ComboBox<String> cbCategoria;
 
 	@FXML
 	private Button btnBuscarCliente;
 
 	@FXML
 	private Button btnAddValor;
-
+	
+	@FXML
+	private Button btnAddMotorista;
 
 	@FXML
 	void actionAddValor(ActionEvent event) {
 		Main.novaTela("AddValorLocacao");
 	}
+	
+	@FXML
+	void actionAddMotorista(ActionEvent event) {
+		Main.novaTela("AddMotorista");
+	}
+	
+	
+
+	public ControllerNovaReserva() {
+		super();
+	}
+
+
 
 	@FXML
 	void calcValor(ActionEvent event) {
-		if(cbCategoria.getValue()!=null && cbTipo.getValue() != null) {
+		if (cbCategoria.getValue() != null && cbTipo.getValue() != null) {
 			Categoria categoria = DAOCategoria.getInstance().findByNome(cbCategoria.getValue());
-			try{
+			try {
 				Double valor = DAOValorLocacao.getInstance().findByTipoCategoria(cbTipo.getValue(), categoria);
 				fdValor.setText(valor.toString());
-			}catch (Exception e) {
+			} catch (Exception e) {
 				Alert alert = new Alert(AlertType.CONFIRMATION);
 				alert.setTitle("CADASTRO RESERVA");
 				alert.setContentText("Este Tipo de Locação não foi cadastrado.");
@@ -118,43 +132,33 @@ public class ControllerNovaReserva implements Initializable{
 		List<PessoaJuridica> clientesJ = DAOPessoaJuridica.getInstace().findByFind(str);
 
 		for (PessoaFisica pf : clientesF) {
-			ob.add(pf.getNome()+"-"+pf.getCpf());
+			ob.add(pf.getNome() + "-" + pf.getCpf());
 		}
 		for (PessoaJuridica pj : clientesJ) {
-			ob.add(pj.getNome()+"-"+pj.getCnpj());
+			ob.add(pj.getNome() + "-" + pj.getCnpj());
 		}
 
-		System.out.println(clientesF.size());
 		cbCliente.setItems(ob);
 
 	}
 
-
-
 	@FXML
 	void actionSalvar(ActionEvent event) {
 
-		if(camposPreenchidos()) {
-			if(validarDatas()) {
+		if (camposPreenchidos()) {
+			if (validarDatas()) {
 
-				String as =pegarCPFCombo(cbCliente.getValue());
+				String as = pegarCPFCombo(cbCliente.getValue());
 				Pessoa cliente = DAOPessoa.getInstace().findByCPF(as);
 				Pessoa motorista = DAOPessoa.getInstace().findByCPF(pegarCPFCombo(cbMotorista.getValue()));
 				Filial filialSaida = DAOFilial.getInstance().findByNome(cbFilial.getValue());
 				Filial filialEntrega = DAOFilial.getInstance().findByNome(cbFilialEntrega.getValue());
 				Categoria categoria = DAOCategoria.getInstance().findByNome(cbCategoria.getValue());
 
-				Reserva reserva = new Reserva(
-						new Date(),
-						converterData(fdData.getValue(), fdHora.getText()),
-						converterData(fdDataEntrega.getValue(), fdHoraEntrega.getText()),
-						cbTipo.getValue(),
-						Double.parseDouble(fdValor.getText()),
-						cliente,
-						motorista,
-						filialSaida,
-						filialEntrega,
-						categoria,"Aguardando");
+				Reserva reserva = new Reserva(new Date(), converterData(fdData.getValue(), fdHora.getText()),
+						converterData(fdDataEntrega.getValue(), fdHoraEntrega.getText()), cbTipo.getValue(),
+						Double.parseDouble(fdValor.getText()), cliente, motorista, filialSaida, filialEntrega,
+						categoria, "Aguardando");
 
 				DAOReserva.getInstance().saveOrUpdate(reserva);
 
@@ -168,7 +172,7 @@ public class ControllerNovaReserva implements Initializable{
 					alert.show();
 				}
 			}
-		}else {
+		} else {
 			alert.setContentText("Preencha todos os campos");
 			alert.show();
 		}
@@ -177,34 +181,27 @@ public class ControllerNovaReserva implements Initializable{
 	private boolean validarDatas() {
 		Calendar c = new GregorianCalendar();
 		c.setTime(converterData(fdData.getValue(), fdHora.getText()));
-		c.set(Calendar.DAY_OF_MONTH, c.get(Calendar.DAY_OF_MONTH)+1);
+		c.set(Calendar.DAY_OF_MONTH, c.get(Calendar.DAY_OF_MONTH) + 1);
 		alert.setHeaderText("PROBLEMAS AO CADASTRAR RESERVA");
-		if(converterData(fdData.getValue(), fdHora.getText()).after(converterData(fdDataEntrega.getValue(), fdHoraEntrega.getText()))) {
+		if (converterData(fdData.getValue(), fdHora.getText())
+				.after(converterData(fdDataEntrega.getValue(), fdHoraEntrega.getText()))) {
 			alert.setContentText("A data de Entrega não pode ser inferior a data da locação");
 			alert.show();
 			return false;
-		}else if(c.getTime().after(converterData(fdDataEntrega.getValue(), fdHoraEntrega.getText()))){
+		} else if (c.getTime().after(converterData(fdDataEntrega.getValue(), fdHoraEntrega.getText()))) {
 			alert.setContentText("O tempo minimo de locação é de 24h");
 			alert.show();
 			return false;
-		}else {
+		} else {
 			return true;
 		}
 	}
 
 	private boolean camposPreenchidos() {
-		if(
-				fdData.getValue()==null||
-				fdDataEntrega.getValue()==null||
-				fdHora.getText()==null||
-				fdHora.getText()==null||
-				fdValor.getText()==null||
-				cbCliente.getValue()==null||
-				cbFilial.getValue()==null||
-				cbFilialEntrega.getValue()==null||
-				cbMotorista.getValue()==null||
-				cbTipo.getValue()==null
-				) {
+		if (fdData.getValue() == null || fdDataEntrega.getValue() == null || fdHora.getText() == null
+				|| fdHora.getText() == null || fdValor.getText() == null || cbCliente.getValue() == null
+				|| cbFilial.getValue() == null || cbFilialEntrega.getValue() == null || cbMotorista.getValue() == null
+				|| cbTipo.getValue() == null) {
 
 			return false;
 
@@ -214,7 +211,7 @@ public class ControllerNovaReserva implements Initializable{
 
 	private String pegarCPFCombo(String value) {
 		int i = value.indexOf("-");
-		String sub = value.substring(i+1, value.length());
+		String sub = value.substring(i + 1, value.length());
 		System.out.println(sub);
 		return sub;
 	}
@@ -227,7 +224,7 @@ public class ControllerNovaReserva implements Initializable{
 			SimpleDateFormat fh = new SimpleDateFormat("dd/MM/yyyy");
 
 			String data = fh.format(date1);
-			date1 = fd.parse(data+" "+hora);
+			date1 = fd.parse(data + " " + hora);
 			return date1;
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -237,6 +234,11 @@ public class ControllerNovaReserva implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		carregarCombo();
+
+	}
+	
+	public void carregarCombo() {
 		alert.setTitle("CADASTRO RESERVA");
 		ObservableList<String> ob = FXCollections.observableArrayList();
 		List<Motorista> motoristas = DAOMotorista.getInstace().findAll();
@@ -250,13 +252,13 @@ public class ControllerNovaReserva implements Initializable{
 		cbFilialEntrega.setItems(ob);
 		ob = FXCollections.observableArrayList();
 
-		for(Motorista motorista : motoristas) {
-			ob.add(motorista.getNome()+"-"+motorista.getCpf());
+		for (Motorista motorista : motoristas) {
+			ob.add(motorista.getNome() + "-" + motorista.getCpf());
 		}
 		cbMotorista.setItems(ob);
 		ob = FXCollections.observableArrayList();
 
-		for(Categoria categoria : categorias) {
+		for (Categoria categoria : categorias) {
 			ob.add(categoria.getNome());
 		}
 		cbCategoria.setItems(ob);
@@ -267,16 +269,5 @@ public class ControllerNovaReserva implements Initializable{
 		cbTipo.setItems(ob);
 
 		ob = FXCollections.observableArrayList();
-
-
-
 	}
-
-
-
 }
-
-
-
-
-

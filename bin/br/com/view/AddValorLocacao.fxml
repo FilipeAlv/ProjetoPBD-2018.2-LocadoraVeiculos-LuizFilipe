@@ -35,7 +35,7 @@
             </Button>
             <TextField fx:id="fdValor" layoutX="152.0" layoutY="26.0" prefHeight="25.0" prefWidth="59.0" promptText="Valor" />
             <ComboBox fx:id="cbTipoLocacao" layoutX="14.0" layoutY="26.0" prefHeight="25.0" prefWidth="130.0" promptText="Tipo de Locação" />
-            <ComboBox fx:id="cbCategoria" layoutX="14.0" layoutY="63.0" prefHeight="25.0" prefWidth="163.0" promptText="Categoria" />
+            <ComboBox fx:id="cbCategoria" layoutX="14.0" layoutY="63.0" onAction="#actionAtualizarCombo" prefHeight="25.0" prefWidth="163.0" promptText="Categoria" />
          </children>
       </Pane>
       <Button fx:id="btnSalvar" layoutX="206.0" layoutY="177.0" mnemonicParsing="false" onAction="#actionSalvar" text="Salvar" />

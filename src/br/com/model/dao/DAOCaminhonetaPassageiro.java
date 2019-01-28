@@ -22,6 +22,7 @@ public class DAOCaminhonetaPassageiro extends DaoGenerico<CaminhonetaPassageiro>
     public List<CaminhonetaPassageiro> findAll(){
         EntityManager em = ConnectionFactory.getInstance().getConnection();
         List<CaminhonetaPassageiro> resultado = em.createQuery(SQLUtil.CaminhonetaPassageiro.SELECT_ALL, CaminhonetaPassageiro.class).getResultList();
+        em.close();
         return resultado;
 
     }

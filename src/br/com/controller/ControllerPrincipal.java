@@ -72,12 +72,22 @@ public class ControllerPrincipal{
 
     @FXML
     private MenuItem menuBuscarCliente;
+    
+    @FXML
+    private MenuItem menuLogCliente;
+
+    @FXML
+    private MenuItem menuLogReserva;
+
+    @FXML
+    private MenuItem menuLogLocacao;
 
     @FXML
     void actionAddReserva(ActionEvent event) {
-    
     	Main.novaTela("NovaReserva");
     }
+    
+    
 
     @FXML
     void actionCadastroCategoria(ActionEvent event) {
@@ -188,17 +198,17 @@ public class ControllerPrincipal{
     
     @FXML
     void actionLogCliente(ActionEvent event) {
-
+    	Main.novaTela("LogCliente");
     }
 
     @FXML
     void actionLogLocacao(ActionEvent event) {
-
+    	Main.novaTela("LogLocacao");
     }
 
     @FXML
     void actionLogReserva(ActionEvent event) {
-
+    	Main.novaTela("LogReservas");
     }
 
 

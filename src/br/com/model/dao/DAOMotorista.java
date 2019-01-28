@@ -10,34 +10,37 @@ import br.com.util.SQLUtil;
 
 public class DAOMotorista extends DaoGenerico<Motorista>{
 
-    private static DAOMotorista DaoMotorista;
+	private static DAOMotorista DaoMotorista;
 
-    public static DAOMotorista getInstace() {
-        if (DaoMotorista != null) {
-            return DaoMotorista;
-        }
+	public static DAOMotorista getInstace() {
+		if (DaoMotorista != null) {
+			return DaoMotorista;
+		}
 
-        return DaoMotorista = new DAOMotorista();
-    }
+		return DaoMotorista = new DAOMotorista();
+	}
 
-    public List<Motorista> findAll(){
-        EntityManager em = ConnectionFactory.getInstance().getConnection();
-        List<Motorista> motoristas = em.createQuery(SQLUtil.Motorista.SELECT_ALL, Motorista.class).getResultList();;
-        return motoristas;
+	public List<Motorista> findAll(){
+		EntityManager em = ConnectionFactory.getInstance().getConnection();
+		List<Motorista> motoristas = em.createQuery(SQLUtil.Motorista.SELECT_ALL, Motorista.class).getResultList();;
+		em.close();
+		return motoristas;
 
-    }
+	}
 
-    public List<Motorista> findByHabilitacao(String habilitacao){
+	public List<Motorista> findByHabilitacao(String habilitacao){
 		EntityManager em = ConnectionFactory.getInstance().getConnection();
 		TypedQuery<Motorista> tp = em.createQuery(SQLUtil.Motorista.SELECT_HABILITACAO, Motorista.class);
 		tp.setParameter("habilitacao", habilitacao);
-		return tp.getResultList();
+		List<Motorista> motoristas = tp.getResultList(); 
+		em.close();
+		return motoristas;
 	}
 
 	@Override
 	public void remove(Class<Motorista> classe, Integer id) {
 		super.remove(classe, id);
 	}
-    
+
 
 }
