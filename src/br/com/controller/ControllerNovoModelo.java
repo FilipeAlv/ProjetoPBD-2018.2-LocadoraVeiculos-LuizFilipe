@@ -94,7 +94,7 @@ public class ControllerNovoModelo implements Initializable{
     		alert.show();
     	}
     	
-    	new ControllerNovoVeiculo().carregarCombo();
+    	//new ControllerNovoVeiculo().carregarCombo();
     }
 
 	@Override

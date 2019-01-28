@@ -68,8 +68,8 @@ public class ControllerNovaFilial implements Initializable{
     		alert.show();
     	}
     	
-    	new ControllerNovaReserva().carregarCombo();
-    	new ControllerNovoVeiculo().carregarCombo();
+    	//new ControllerNovaReserva().carregarCombo();
+    	//new ControllerNovoVeiculo().carregarCombo();
     }
 
 	@Override
