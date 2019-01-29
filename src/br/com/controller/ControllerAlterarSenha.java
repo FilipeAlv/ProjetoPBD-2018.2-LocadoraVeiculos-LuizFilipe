@@ -43,7 +43,6 @@ public class ControllerAlterarSenha {
 					DAOPessoa.getInstace().saveOrUpdate(user);
 					alert.setContentText("Senha Alterada com sucesso");
 					alert.show();
-					Main.stageAlterarSenha.close();
 				}else {
 					alert.setContentText("Senha Atual está incorreta");
 					alert.show();

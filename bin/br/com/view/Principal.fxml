@@ -24,12 +24,7 @@
                   <Image url="@../resources/iconCar.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="btnClose" fitHeight="22.0" fitWidth="25.0" layoutX="570.4999961853027" layoutY="14.0" onMouseClicked="#actionClose" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="12.083337783813477" AnchorPane.topAnchor="14.0">
-               <image>
-                  <Image url="@../resources/close_icon.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="btnConfigSis" fitHeight="16.0" fitWidth="25.0" layoutX="514.0" layoutY="17.0" onMouseClicked="#actionConfigSis" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="17.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="17.0">
+            <ImageView fx:id="btnConfigSis" fitHeight="16.0" fitWidth="25.0" layoutX="562.0" layoutY="17.0" onMouseClicked="#actionConfigSis" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="17.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="17.0">
                <image>
                   <Image url="@../resources/config.png" />
                </image>
@@ -43,54 +38,54 @@
       </AnchorPane>
       <MenuBar layoutY="50.0" prefHeight="22.0" prefWidth="600.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="50.0">
          <menus>
-            <Menu mnemonicParsing="false" text="Cadastro">
+            <Menu  mnemonicParsing="false"  text="Cadastro">
                <items>
-                <MenuItem fx:id="menuCadastroCategoria" mnemonicParsing="false" onAction="#actionCadastroCategoria" text="Categoria" />
-                  <MenuItem fx:id="menuCadastroFilial" mnemonicParsing="false" onAction="#actionCadastroFilial" text="Filial" />
-                  <MenuItem fx:id="menuCadastroMotorista" mnemonicParsing="false" onAction="#actionCadastroMotorista" text="Motorista" />
-                  <MenuItem fx:id="menuCadastroCliente" mnemonicParsing="false" onAction="#actionCadastroCliente" text="Cliente" />
+                <MenuItem fx:id="menuCadastroCategoria" mnemonicParsing="false" onAction="#actionMenuCadastro" text="Categoria" />
+                  <MenuItem fx:id="menuCadastroFilial" mnemonicParsing="false" onAction="#actionMenuCadastro" text="Filial" />
+                  <MenuItem fx:id="menuCadastroMotorista" mnemonicParsing="false" onAction="#actionMenuCadastro" text="Motorista" />
+                  <MenuItem fx:id="menuCadastroCliente" mnemonicParsing="false" onAction="#actionMenuCadastro" text="Cliente" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Buscar">
                <items>
-                  <MenuItem fx:id="menuBuscarCategoria" mnemonicParsing="false" onAction="#actionBuscarCategoria" text="Categoria" />
-                  <MenuItem fx:id="menuBuscarFilial" mnemonicParsing="false" onAction="#actionBuscarFilial" text="Filial" />
-                  <MenuItem fx:id="menuBuscarMotorista" mnemonicParsing="false" onAction="#actionBuscarMotorista" text="Motorista" />
-                  <MenuItem fx:id="menuBuscarCliente" mnemonicParsing="false" onAction="#actionBuscarCliente" text="Cliente" />
+                  <MenuItem fx:id="menuBuscarCategoria" mnemonicParsing="false" onAction="#actionMenuBuscar" text="Categoria" />
+                  <MenuItem fx:id="menuBuscarFilial" mnemonicParsing="false" onAction="#actionMenuBuscar" text="Filial" />
+                  <MenuItem fx:id="menuBuscarMotorista" mnemonicParsing="false" onAction="#actionMenuBuscar" text="Motorista" />
+                  <MenuItem fx:id="menuBuscarCliente" mnemonicParsing="false" onAction="#actionMenuBuscar" text="Cliente" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Funcionario">
+            <Menu  mnemonicParsing="false" text="Funcionario">
                <items>
-                  <MenuItem fx:id="menuVerFuncionario" mnemonicParsing="false" onAction="#actionVerFuncionario" text="Ver Funcionarios" />
-                  <MenuItem fx:id="menuNovoFuncionario" mnemonicParsing="false" onAction="#actionNovoFuncionario" text="Novo Funcionario" />
+                  <MenuItem fx:id="menuVerFuncionario" mnemonicParsing="false" onAction="#actionMenuFuncionario" text="Ver Funcionarios" />
+                  <MenuItem fx:id="menuNovoFuncionario" mnemonicParsing="false" onAction="#actionMenuFuncionario" text="Novo Funcionario" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Veiculo">
+            <Menu  mnemonicParsing="false"  text="Veiculo">
               <items>
-                <MenuItem fx:id="menuVerVeiculo" mnemonicParsing="false" onAction="#actionVerVeiculo" text="Ver veículos" />
-                  <MenuItem fx:id="menuNovoVeiculo" mnemonicParsing="false" onAction="#actionNovoVeiculo" text="Adicionar Veículo" />
-                  <MenuItem fx:id="menuNovaMarca" mnemonicParsing="false" onAction="#actionNovaMarca" text="Adicionar Marca" />
-                  <MenuItem fx:id="menuNovoModelo" mnemonicParsing="false" onAction="#actionNovoModelo" text="Adicionar Modelo" />
+                <MenuItem fx:id="menuVerVeiculo" mnemonicParsing="false" onAction="#actionMenuVeiculo" text="Ver veículos" />
+                  <MenuItem fx:id="menuNovoVeiculo" mnemonicParsing="false" onAction="#actionMenuVeiculo" text="Adicionar Veículo" />
+                  <MenuItem fx:id="menuNovaMarca" mnemonicParsing="false" onAction="#actionMenuVeiculo" text="Adicionar Marca" />
+                  <MenuItem fx:id="menuNovoModelo" mnemonicParsing="false" onAction="#actionMenuVeiculo" text="Adicionar Modelo" />
               </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Reserva">
+            <Menu  mnemonicParsing="false" text="Reserva">
               <items>
-                  <MenuItem fx:id="menuVerReservas" mnemonicParsing="false" onAction="#actionVerReserva" text="Ver Reservas" />
-                <MenuItem fx:id="menuNovaReserva" mnemonicParsing="false" onAction="#actionAddReserva" text="Nova Reserva" />
+                  <MenuItem fx:id="menuVerReservas" mnemonicParsing="false" onAction="#actionMenuReserva" text="Ver Reservas" />
+                <MenuItem fx:id="menuNovaReserva" mnemonicParsing="false" onAction="#actionMenuReserva" text="Nova Reserva" />
               </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Locação">
+            <Menu  mnemonicParsing="false"  text="Locação">
                <items>
-                  <MenuItem fx:id="menuVerLocacao" mnemonicParsing="false" onAction="#actionVerLocacao" text="Vizualizar Locações" />
-                  <MenuItem fx:id="menuLocacaoSemReserva" mnemonicParsing="false" onAction="#actionLocacaoSemReserva" text="Locação sem reserva" />
-                  <MenuItem fx:id="menuConfigLocacao" mnemonicParsing="false" onAction="#actionConfigLocacao" text="Configurações" />
+                  <MenuItem fx:id="menuVerLocacao" mnemonicParsing="false" onAction="#actionMenuLocacao" text="Vizualizar Locações" />
+                  <MenuItem fx:id="menuLocacaoSemReserva" mnemonicParsing="false" onAction="#actionMenuLocacao" text="Locação sem reserva" />
+                  <MenuItem fx:id="menuConfigLocacao" mnemonicParsing="false" onAction="#actionMenuLocacao" text="Configurações" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Log">
+            <Menu  mnemonicParsing="false" text="Log">
                <items>
-                  <MenuItem fx:id="menuLogCliente" mnemonicParsing="false" onAction="#actionLogCliente" text="Cliente" />
-                  <MenuItem fx:id="menuLogReserva" mnemonicParsing="false" onAction="#actionLogReserva" text="Reserva" />
-                  <MenuItem fx:id="menuLogLocacao" mnemonicParsing="false" onAction="#actionLogLocacao" text="Locação" />
+                  <MenuItem fx:id="menuLogCliente" mnemonicParsing="false" onAction="#actionMenuLog" text="Cliente" />
+                  <MenuItem fx:id="menuLogReserva" mnemonicParsing="false" onAction="#actionMenuLog" text="Reserva" />
+                  <MenuItem fx:id="menuLogLocacao" mnemonicParsing="false" onAction="#actionMenuLog" text="Locação" />
                </items>
             </Menu>
          </menus>

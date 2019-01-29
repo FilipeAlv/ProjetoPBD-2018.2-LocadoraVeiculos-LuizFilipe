@@ -54,7 +54,6 @@ public class ControllerNovoValor implements Initializable{
 			try {
 				alert.setContentText("Valor Adicionado Com Sucesso");
 				alert.show();
-				Main.stageAddValorLocacao.close();
 				ControllerConfigLocacao.carregarTabela();
 				ControllerConfigLocacao.tb.refresh();
 			} catch (Exception e) {
