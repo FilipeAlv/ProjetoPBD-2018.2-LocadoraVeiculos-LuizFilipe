@@ -234,11 +234,6 @@ public class ControllerNovaReserva implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		carregarCombo();
-
-	}
-	
-	public void carregarCombo() {
 		alert.setTitle("CADASTRO RESERVA");
 		ObservableList<String> ob = FXCollections.observableArrayList();
 		List<Motorista> motoristas = DAOMotorista.getInstace().findAll();
@@ -269,5 +264,6 @@ public class ControllerNovaReserva implements Initializable {
 		cbTipo.setItems(ob);
 
 		ob = FXCollections.observableArrayList();
+
 	}
 }

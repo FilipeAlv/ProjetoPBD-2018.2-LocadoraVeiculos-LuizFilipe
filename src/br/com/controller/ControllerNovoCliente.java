@@ -114,6 +114,8 @@ public class ControllerNovoCliente implements Initializable{
 	@FXML
 	private ComboBox<String> cbTipo;
 
+	private Pessoa pessoa = new Pessoa();
+	
 	@FXML
 	void actionIsMotorista(ActionEvent event) {
 		if(checkMotorista.isSelected()) {
@@ -161,8 +163,6 @@ public class ControllerNovoCliente implements Initializable{
 			Date dataNascimento;
 			String habilitacao;
 			Date validadeHabilitacao;
-
-			Pessoa pessoa;
 
 			codigo = "";
 			bairro = fdBairro.getText().toString();
@@ -236,6 +236,7 @@ public class ControllerNovoCliente implements Initializable{
 	}
 	
 	public void carregarEditar(Pessoa pessoa) {
+		this.pessoa = pessoa;
 		if(pessoa instanceof PessoaFisica || pessoa instanceof Motorista) {
 			panelJuridica.setVisible(false);
 			fdNomeFi.setText(pessoa.getNome());
@@ -257,6 +258,7 @@ public class ControllerNovoCliente implements Initializable{
 			fdHabilitacao.setText(((Motorista) pessoa).getHabilitacao());
 			fdValidadeHabilitacao.setValue(((Motorista) pessoa).getValidadeHabilitacao().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 			checkMotorista.setSelected(true);
+			checkMotorista.setDisable(true);
 			fdHabilitacao.setVisible(true);
 			fdValidadeHabilitacao.setVisible(true);
 		}

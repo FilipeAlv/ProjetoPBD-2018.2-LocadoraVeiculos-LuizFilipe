@@ -13,7 +13,7 @@ import org.hibernate.annotations.CascadeType;
 
 @Entity
 @SequenceGenerator(name="sequencia_pessoa", sequenceName="seq_pessoa", initialValue=1, allocationSize=1)
-public abstract class Pessoa implements EntidadeBase{
+public class Pessoa implements EntidadeBase{
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequencia_pessoa")
 	private Integer id;
