@@ -2,6 +2,7 @@ package br.com.model.dao;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import br.com.model.beans.Pessoa;
 import br.com.model.beans.PessoaFisica;
@@ -31,11 +32,16 @@ public class DAOPessoaFisica extends DaoGenerico<Pessoa>{
 
 
 	public PessoaFisica findByCpf(String cpf) {
-		EntityManager em = ConnectionFactory.getInstance().getConnection();
-		TypedQuery<PessoaFisica> tq = em.createQuery(SQLUtil.PessoaFisica.SELECT_CPF, PessoaFisica.class);
-		tq.setParameter("cpf", cpf);
-		PessoaFisica pessoa = tq.getSingleResult();
-		em.close();
+		PessoaFisica pessoa;
+		try {
+			EntityManager em = ConnectionFactory.getInstance().getConnection();
+			TypedQuery<PessoaFisica> tq = em.createQuery(SQLUtil.PessoaFisica.SELECT_CPF, PessoaFisica.class);
+			tq.setParameter("cpf", cpf);
+			pessoa = tq.getSingleResult();
+			em.close();
+		}catch (NoResultException e) {
+			pessoa = null;
+		}
 		return pessoa;
 	}
 	

@@ -100,6 +100,9 @@ public class ControllerNovoCliente implements Initializable{
 	private DatePicker fdNacimento;
 
 	@FXML
+	private DatePicker fdValidadeHabilitacao;
+
+	@FXML
 	private RadioButton radioMasculino;
 
 	@FXML
@@ -113,12 +116,45 @@ public class ControllerNovoCliente implements Initializable{
 
 	@FXML
 	void actionIsMotorista(ActionEvent event) {
+		if(checkMotorista.isSelected()) {
+			fdValidadeHabilitacao.setVisible(true);
+			fdHabilitacao.setVisible(true);
+		}else {
+			fdValidadeHabilitacao.setVisible(false);
+			fdHabilitacao.setVisible(false);
+		}
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		ObservableList<String> ob = FXCollections.observableArrayList();
+		ob.addAll("AC","AL","AM","AP","BA","CE","DF","ES","GO","MA","MG","MS","MT","PA","PB",
+				"PE","PI","PR","RJ","RN","RO","RR","RS","SC","SE","SP","TO");
+		cbUf.setItems(ob);
+
+		ob = FXCollections.observableArrayList();
+		ob.addAll("Pessoa Física","Pessoa Juridica");
+		cbTipo.setItems(ob);
+		cbTipo.setValue("Pessoa Física");
+
+		panelJuridica.setVisible(false);
+		fdValidadeHabilitacao.setVisible(false);
+		fdHabilitacao.setVisible(false);
+
+		Util.Mascarar.CPF(fdCpf);
+		Util.Mascarar.CNPJ(fdCnpj);
+		Util.Mascarar.InscricaoEstadual(fdInscricao);
+		Util.Mascarar.Habilitacao(fdHabilitacao);
+		Util.Mascarar.Data(fdNacimento);
+		Util.Mascarar.Data(fdValidadeHabilitacao);
+
 
 	}
 
+
 	@FXML
 	void actionSalvar(ActionEvent event) {
-		if(validarCampos()) {
+		if(validarCliente()) {
 			String codigo,nome,login,senha;
 			String rua,numero, bairro, cidade, uf;
 			String cpf, rg,sexo;
@@ -141,14 +177,15 @@ public class ControllerNovoCliente implements Initializable{
 			case "Pessoa Física":
 				nome = fdNomeFi.getText().toString();
 				login = fdLoginFi.getText().toString();
-				senha = fdSenhaFi.getText().toString();
-				cpf = fdCpf.getText().toString();
+				senha = new String( Util.Criptografia.criptografa(fdSenhaFi.getText().toCharArray()));
+				cpf = Util.removerCaracteres(fdCpf.getText().toString());
 				rg= fdRg.getText().toString();
 				sexo = radioMasculino.isSelected()?"Masculino":"Feminino";
 				dataNascimento = Date.from(fdNacimento.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+
 				if(checkMotorista.isSelected()) {
-					habilitacao = fdHabilitacao.getText().toString();
-					validadeHabilitacao = new Date();
+					habilitacao = Util.removerCaracteres(fdHabilitacao.getText().toString());
+					validadeHabilitacao =Date.from(fdValidadeHabilitacao.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
 					pessoa = new Motorista(codigo, nome, login, senha, endereco, cpf, rg, dataNascimento, sexo, habilitacao, validadeHabilitacao);
 					DAOMotorista.getInstace().saveOrUpdate((Motorista)pessoa);
 					DAOPessoa.getInstace().gerarCodigo(Util.subNome(pessoa));
@@ -163,10 +200,10 @@ public class ControllerNovoCliente implements Initializable{
 				String cnpj, inscricao;
 				nome = fdNome.getText().toString();
 				login = fdLoginJu.getText().toString();
-				senha = fdSenhaJu.getText().toString();
+				senha = new String( Util.Criptografia.criptografa(fdSenhaJu.getText().toCharArray()));
 
-				cnpj = fdCnpj.getText().toString();
-				inscricao = fdInscricao.getText().toString();
+				cnpj = Util.removerCaracteres(fdCnpj.getText().toString());
+				inscricao = Util.removerCaracteres(fdInscricao.getText().toString());
 
 				pessoa = new PessoaJuridica(codigo, nome, login, senha, endereco, cnpj, inscricao);
 				pessoa.setCodigo(Util.gerarCodigo(pessoa));
@@ -175,15 +212,11 @@ public class ControllerNovoCliente implements Initializable{
 			}
 
 			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Sucesso" );
+			alert.setTitle("Cadastro de Cliente" );
+			alert.setHeaderText("Sucesso");
 			alert.setContentText("Este cliente foi salvo com successo!");
 			alert.show();
 
-		}else {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Erro ao Salvar Cliente" );
-			alert.setContentText("Preencha todos os campos obrigatorios");
-			alert.show();
 		}
 	}
 
@@ -201,21 +234,40 @@ public class ControllerNovoCliente implements Initializable{
 			break;
 		}
 	}
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		ObservableList<String> ob = FXCollections.observableArrayList();
-		ob.addAll("AC","AL","AM","AP","BA","CE","DF","ES","GO","MA","MG","MS","MT","PA","PB",
-				"PE","PI","PR","RJ","RN","RO","RR","RS","SC","SE","SP","TO");
-		cbUf.setItems(ob);
-
-		ob = FXCollections.observableArrayList();
-		ob.addAll("Pessoa Física","Pessoa Juridica");
-		cbTipo.setItems(ob);
-
-		panelJuridica.setVisible(false);
-
+	
+	public void carregarEditar(Pessoa pessoa) {
+		if(pessoa instanceof PessoaFisica || pessoa instanceof Motorista) {
+			panelJuridica.setVisible(false);
+			fdNomeFi.setText(pessoa.getNome());
+			fdLoginFi.setText(pessoa.getLogin());
+			fdNacimento.setValue(((PessoaFisica) pessoa).getDataNascimento().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+			fdSenhaFi.setText(Util.Criptografia.decriptografa(pessoa.getSenha().toCharArray()));
+			fdCpf.setText(((PessoaFisica) pessoa).getCpf());
+			fdRg.setText(((PessoaFisica) pessoa).getRg());
+		}
+		if(pessoa instanceof PessoaJuridica) {
+			panelFisica.setVisible(false);
+			fdNome.setText(pessoa.getNome());
+			fdLoginJu.setText(pessoa.getLogin());
+			fdSenhaJu.setText(Util.Criptografia.decriptografa(pessoa.getSenha().toCharArray()));
+			fdCnpj.setText(((PessoaJuridica) pessoa).getCnpj());
+			fdInscricao.setText(((PessoaJuridica) pessoa).getInscricaoEstadual());
+		}
+		if(pessoa instanceof Motorista) {
+			fdHabilitacao.setText(((Motorista) pessoa).getHabilitacao());
+			fdValidadeHabilitacao.setValue(((Motorista) pessoa).getValidadeHabilitacao().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+			checkMotorista.setSelected(true);
+			fdHabilitacao.setVisible(true);
+			fdValidadeHabilitacao.setVisible(true);
+		}
+		
+		fdRua.setText(pessoa.getEndereco().getRua());
+		fdBairro.setText(pessoa.getEndereco().getBairro());
+		fdCidade.setText(pessoa.getEndereco().getCidade());
+		fdNumero.setText(pessoa.getEndereco().getNumero());
+		cbUf.getSelectionModel().select(pessoa.getEndereco().getUf());
 	}
+
 
 	private boolean validarCampos() {
 		if(fdBairro.getText().length()==0|| fdCidade.getText().length()==0 ||
@@ -226,9 +278,10 @@ public class ControllerNovoCliente implements Initializable{
 				if(fdNomeFi.getText().length()==0 || fdCpf.getText().length()==0||fdLoginFi.getText().length()==0||
 						fdSenhaFi.getText().length()==0) {
 					return false;
-				}else if(!(fdSenhaFi.getText().length()>=6 || fdSenhaFi.getText().length()<=11)) {
+				}else if(!(fdSenhaFi.getText().length()>=6 && fdSenhaFi.getText().length()<=11)) {
 					Alert alert = new Alert(AlertType.ERROR);
 					alert.setTitle("Erro ao Salvar Cliente" );
+					alert.setHeaderText("Verifique a senha digitada");
 					alert.setContentText("As senhas devem conter entre 6 e 11 caracteres");
 					alert.show();
 					return false;
@@ -237,9 +290,10 @@ public class ControllerNovoCliente implements Initializable{
 				if(fdNome.getText().length()==0 || fdCnpj.getText().length()==0 || fdInscricao.getText().length()==0
 						|| fdLoginJu.getText().length()==0 || fdSenhaJu.getText().length()==0) {
 					return false;
-				}else if(!(fdSenhaFi.getText().length()>=6 || fdSenhaFi.getText().length()<=11)) {
+				}else if(!(fdSenhaFi.getText().length()>=6 && fdSenhaFi.getText().length()<=11)) {
 					Alert alert = new Alert(AlertType.ERROR);
 					alert.setTitle("Erro ao Salvar Cliente" );
+					alert.setHeaderText("Verifique a senha digitada");
 					alert.setContentText("As senhas devem conter entre 6 e 11 caracteres");
 					alert.show();
 					return false;
@@ -247,6 +301,48 @@ public class ControllerNovoCliente implements Initializable{
 			}
 		return true;
 	}
+
+	private boolean validarCliente() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Cadastro de Cliente" );
+		alert.setHeaderText("Erro ao Salvar Cliente" );
+
+		if(!validarCampos()) {
+			alert.setContentText("Preencha todos os campos");
+			alert.show();
+			return false;
+		}else if(cbTipo.getValue()=="Pessoa Física" && 
+				DAOPessoaFisica.getInstace().findByCpf(Util.removerCaracteres(fdCpf.getText().toString()))!=null) {
+			alert.setContentText("CPF Já Cadastrado");
+			alert.show();
+			return false;
+		}else if(cbTipo.getValue()=="Pessoa Juridica" && 
+				DAOPessoaJuridica.getInstace().findByCnpj(Util.removerCaracteres(fdCnpj.getText().toString()))!=null) {
+			alert.setContentText("CNPJ Já Cadastrado");
+			alert.show();
+			return false;
+		}else if((cbTipo.getValue().equals("Pessoa Física")&&DAOPessoa.getInstace().findByLogin(fdLoginFi.getText())!=null) ||
+				(cbTipo.getValue().equals("Pessoa Juridica")&&DAOPessoa.getInstace().findByLogin(fdLoginJu.getText())!=null)) {
+			alert.setContentText("Login Já Cadastrado");
+			alert.show();
+			return false;
+		}else if(checkMotorista.isSelected()&&
+				DAOMotorista.getInstace().findByHabilitacao(fdHabilitacao.getText().toString())!=null) {
+			alert.setContentText("CNH Já Cadastrada");
+			alert.show();
+			return false;
+		}else if(cbTipo.getValue().equals("Pessoa Física") && 
+				Date.from(fdNacimento.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()).after(new Date())) {
+			alert.setContentText("A data de Nascimento não pode ser superior a data atual");
+			alert.show();
+			return false;
+		}else {
+			return true;
+		}
+
+	}
+
+
 
 
 }

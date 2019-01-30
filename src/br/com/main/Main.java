@@ -72,6 +72,8 @@ public class Main extends Application {
 			stage.setHeight(400);
 			stage.setX((d.getWidth()-500)/2);
 			stage.setY((d.getHeight()-400)/2);
+			
+			
 			stage.setScene(sceneLogin);
 			break;
 		}

@@ -1,6 +1,5 @@
 package br.com.controller;
 
-import br.com.main.Main;
 import br.com.model.beans.Pessoa;
 import br.com.model.dao.DAOPessoa;
 import br.com.util.Session;

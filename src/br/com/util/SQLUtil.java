@@ -20,7 +20,7 @@ public class SQLUtil {
 	
 	public class PessoaFisica{
 		public static final String SELECT_ALL = "SELECT p FROM PessoaFisica p";
-		public static final String SELECT_CPF = "SELECT p FROM PessoaFisica p WEHERE p.cpf = :cpf";
+		public static final String SELECT_CPF = "SELECT p FROM PessoaFisica p WHERE p.cpf = :cpf";
 		public static final String SELECT = "SELECT p FROM PessoaFisica p WHERE LOWER(p.nome) LIKE :str or LOWER(p.cpf) LIKE :str";
 	}
 	

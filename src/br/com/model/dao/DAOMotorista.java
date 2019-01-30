@@ -2,6 +2,7 @@ package br.com.model.dao;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import br.com.model.beans.Motorista;
 import br.com.util.ConnectionFactory;
@@ -28,13 +29,18 @@ public class DAOMotorista extends DaoGenerico<Motorista>{
 
 	}
 
-	public List<Motorista> findByHabilitacao(String habilitacao){
+	public Motorista findByHabilitacao(String habilitacao){
+		Motorista motorista;
+		try {
 		EntityManager em = ConnectionFactory.getInstance().getConnection();
 		TypedQuery<Motorista> tp = em.createQuery(SQLUtil.Motorista.SELECT_HABILITACAO, Motorista.class);
 		tp.setParameter("habilitacao", habilitacao);
-		List<Motorista> motoristas = tp.getResultList(); 
+		motorista= tp.getSingleResult(); 
 		em.close();
-		return motoristas;
+	}catch (NoResultException e) {
+		motorista = null;
+	}
+		return motorista;
 	}
 
 	@Override

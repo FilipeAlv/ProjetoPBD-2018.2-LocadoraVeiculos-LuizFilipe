@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 @Entity
 public class PessoaFisica extends Pessoa{
-	@Column(length=15, unique=true)
+	@Column(length=11, unique=true)
 	private String cpf;
 	@Column(length=25)
 	private String rg;

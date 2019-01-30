@@ -67,9 +67,6 @@ public class ControllerNovaFilial implements Initializable{
     		alert.setContentText("Preencha todos os campos obrigatorios");
     		alert.show();
     	}
-    	
-    	//new ControllerNovaReserva().carregarCombo();
-    	//new ControllerNovoVeiculo().carregarCombo();
     }
 
 	@Override

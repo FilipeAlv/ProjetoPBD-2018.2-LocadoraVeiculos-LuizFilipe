@@ -9,6 +9,9 @@ import java.util.ResourceBundle;
 import br.com.model.beans.Endereco;
 import br.com.model.beans.Motorista;
 import br.com.model.dao.DAOMotorista;
+import br.com.model.dao.DAOPessoa;
+import br.com.model.dao.DAOPessoaFisica;
+import br.com.util.Util;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -83,7 +86,7 @@ public class ControllerNovoMotorista implements Initializable{
 
 	@FXML
 	void actionSalvar(ActionEvent event) {
-		if(validarCampos()) {
+		if(validarMotorista()) {
 			String codigo,nome,login,senha;
 			String rua,numero, bairro, cidade, uf;
 			String cpf, rg,sexo;
@@ -114,14 +117,12 @@ public class ControllerNovoMotorista implements Initializable{
 			Motorista motorista = new Motorista(codigo, nome, login, senha, endereco, cpf, rg, 
 					dataNascimento, sexo, habilitacao, validadeHabilitacao);
 			DAOMotorista.getInstace().saveOrUpdate(motorista);
+			DAOPessoa.getInstace().gerarCodigo(Util.subNome(motorista));
 			
 			Alert alert = new Alert(AlertType.INFORMATION);
     		alert.setTitle("Sucesso" );
     		alert.setContentText("Este Motorista foi salvo com successo!");
-    		alert.show();
-    		
-    		new ControllerNovaReserva().carregarCombo();
-    		
+    		alert.show();    		
     	}
 
 	}
@@ -132,6 +133,11 @@ public class ControllerNovoMotorista implements Initializable{
 		ob.addAll("AC","AL","AM","AP","BA","CE","DF","ES","GO","MA","MG","MS","MT","PA","PB",
 				"PE","PI","PR","RJ","RN","RO","RR","RS","SC","SE","SP","TO");
 		cbUf.setItems(ob);
+		
+		Util.Mascarar.CPF(fdCpf);
+		Util.Mascarar.Habilitacao(fdHabilitacao);
+		Util.Mascarar.Data(fdNacimento);
+		Util.Mascarar.Data(fdVencimentoHab);
 
 	}
 
@@ -175,5 +181,34 @@ public class ControllerNovoMotorista implements Initializable{
 		System.out.println(anoAtual-anoNascimento);
 		return anoAtual-anoNascimento;
 		
+	}
+	
+	private boolean validarMotorista() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Cadastro de Cliente" );
+		alert.setHeaderText("Erro ao Salvar Cliente" );
+
+		if(!validarCampos()) {
+			return false;
+		}else if(DAOPessoaFisica.getInstace().findByCpf(Util.removerCaracteres(fdCpf.getText().toString()))!=null) {
+			alert.setContentText("CPF Já Cadastrado");
+			alert.show();
+			return false;
+		}else if(DAOPessoa.getInstace().findByLogin(fdLoginFi.getText())!=null) {
+			alert.setContentText("Login Já Cadastrado");
+			alert.show();
+			return false;
+		}else if(DAOMotorista.getInstace().findByHabilitacao(fdHabilitacao.getText().toString())!=null) {
+			alert.setContentText("CNH Já Cadastrada");
+			alert.show();
+			return false;
+		}else if(Date.from(fdNacimento.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()).after(new Date())) {
+			alert.setContentText("A data de Nascimento não pode ser superior a data atual");
+			alert.show();
+			return false;
+		}else {
+			return true;
+		}
+
 	}
 }

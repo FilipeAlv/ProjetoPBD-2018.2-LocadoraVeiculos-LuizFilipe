@@ -8,18 +8,26 @@ import br.com.model.beans.Pessoa;
 import br.com.model.beans.PessoaFisica;
 import br.com.model.beans.PessoaJuridica;
 import br.com.model.dao.DAOMotorista;
+import br.com.model.dao.DAOPessoa;
 import br.com.model.dao.DAOPessoaFisica;
 import br.com.model.dao.DAOPessoaJuridica;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class ControllerCliente implements Initializable{
 
@@ -72,7 +80,30 @@ public class ControllerCliente implements Initializable{
 
     @FXML
     void actionEditar(ActionEvent event) {
+    	Pessoa cliente = DAOPessoa.getInstace().findById(Pessoa.class, tbCliente.getSelectionModel().getSelectedItem().codigo);
+    	Pane tela = null;
+		Scene scene;
+		Stage stage;
+		ControllerNovoCliente c;
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/NovoCliente.fxml"));
+			tela = loader.load();
+			c = loader.getController();
+			c.carregarEditar(cliente);
+			scene = new Scene(tela);
+			stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setOnCloseRequest(e -> stage.close());
+			stage.setScene(scene);
+			stage.show();
 
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erro de Exibição");
+			alert.setContentText("Não foi possível exibir a tela. Por favor entre em contato com a equipe de desenvolvimento.");
+			alert.setHeaderText("Tela não encontrada");
+			e.printStackTrace();
+		}
     }
     
     @Override
