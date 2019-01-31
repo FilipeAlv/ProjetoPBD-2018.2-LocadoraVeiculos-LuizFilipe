@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-import br.com.model.beans.Reserva2;
 import br.com.model.beans.ReservaAdapter;
 import br.com.model.dao.DAOReservaBackup;
 import javafx.collections.FXCollections;

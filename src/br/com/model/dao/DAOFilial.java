@@ -3,6 +3,7 @@ package br.com.model.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import br.com.model.beans.Filial;
 import br.com.util.ConnectionFactory;
@@ -27,11 +28,16 @@ public class DAOFilial extends DaoGenerico<Filial>{
 	}
 
 	public Filial findByNome(String nome){
-		EntityManager em = ConnectionFactory.getInstance().getConnection();
-		TypedQuery<Filial> tp = em.createQuery(SQLUtil.Filial.SELECT_NOME, Filial.class);
-		tp.setParameter("nome", nome);
-		Filial filial = tp.getSingleResult();
-		em.close();
+		Filial filial;
+		try {
+			EntityManager em = ConnectionFactory.getInstance().getConnection();
+			TypedQuery<Filial> tp = em.createQuery(SQLUtil.Filial.SELECT_NOME, Filial.class);
+			tp.setParameter("nome", nome);
+			filial = tp.getSingleResult();
+			em.close();
+		}catch (NoResultException e) {
+			filial = null;
+		}
 		return filial;
 	}
 

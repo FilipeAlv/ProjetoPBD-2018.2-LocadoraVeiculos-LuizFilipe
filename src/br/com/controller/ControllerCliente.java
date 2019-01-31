@@ -64,7 +64,25 @@ public class ControllerCliente implements Initializable{
 
     @FXML
     void actionAddPessoa(ActionEvent event) {
+    	Pane tela = null;
+		Scene scene;
+		Stage stage;
+		try {
+			tela = FXMLLoader.load(getClass().getResource("../view/NovoCliente.fxml"));
+			scene = new Scene(tela);
+			stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setOnCloseRequest(e -> stage.close());
+			stage.setScene(scene);
+			stage.show();
 
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erro de Exibição");
+			alert.setContentText("Não foi possível exibir a tela. Por favor entre em contato com a equipe de desenvolvimento.");
+			alert.setHeaderText("Tela não encontrada");
+			e.printStackTrace();
+		}
     }
 
     @FXML
@@ -121,7 +139,7 @@ public class ControllerCliente implements Initializable{
 
 	}
 
-	private static void carregarTabela() {
+	public static void carregarTabela() {
 		List<PessoaFisica> clientesFisicos = DAOPessoaFisica.getInstace().findAll();
 		List<PessoaJuridica> clientesJuridicos = DAOPessoaJuridica.getInstace().findAll();
 		List<Motorista> motoristas = DAOMotorista.getInstace().findAll();

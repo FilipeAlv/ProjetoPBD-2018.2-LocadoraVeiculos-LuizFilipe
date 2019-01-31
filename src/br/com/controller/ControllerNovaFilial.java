@@ -39,12 +39,15 @@ public class ControllerNovaFilial implements Initializable{
     @FXML
     private Button btnSalvar;
 
+	private boolean edit;
+	private Filial f = new Filial();
+
     @FXML
     void actionSalvar(ActionEvent event) {
-    	if(validarCampos()) {
+    	if(validarFilial()) {
     		String nome, bairro, cidade, numero, rua, uf;
     		Endereco endereco;
-    		Filial filial;
+    		
     		nome = fdNome.getText();
     		bairro = fdBairro.getText().toString();
     		cidade = fdCidade.getText().toString();
@@ -53,19 +56,18 @@ public class ControllerNovaFilial implements Initializable{
     		uf = cbUf.getValue();
     		
     		endereco = new Endereco(rua, numero, bairro , cidade, uf);
-    		filial = new Filial(nome, endereco);
-    		DAOFilial.getInstance().saveOrUpdate(filial);
+    		f.setNome(nome);
+    		f.setEndereco(endereco);
+    		
+    		DAOFilial.getInstance().saveOrUpdate(f);
     		
     		Alert alert = new Alert(AlertType.INFORMATION);
     		alert.setTitle("Sucesso" );
     		alert.setContentText("Esta Filial foi salva com successo!");
     		alert.show();
     		
-    	}else {
-    		Alert alert = new Alert(AlertType.ERROR);
-    		alert.setTitle("Erro ao Salvar Filial" );
-    		alert.setContentText("Preencha todos os campos obrigatorios");
-    		alert.show();
+    		if(edit)
+    			ControllerFilial.carregarTabela();  		
     	}
     }
 
@@ -84,5 +86,35 @@ public class ControllerNovaFilial implements Initializable{
 				return false;
 		}
 		return true;
+	}
+	
+	private boolean validarFilial() {
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setTitle("Cadastro de Filial" );
+    		alert.setHeaderText("Erro ao Salvar Filial");
+    		if(!validarCampos()) {
+    			alert.setContentText("Preencha todos os campos obrigatorios");
+        		alert.show();
+        		return false;
+    		}else if(DAOFilial.getInstance().findByNome(fdNome.getText().toString())!=null && !edit) {
+    			alert.setContentText("Nome Já Cadastrado");
+        		alert.show();
+        		return false;
+    		}else {
+    			return true;
+    		}
+	}
+
+	public void carregarEditar(Filial filial) {
+		this.f  = filial;
+		edit = true;
+		
+		fdNome.setText(filial.getNome());
+		fdRua.setText(filial.getEndereco().getRua());
+		fdBairro.setText(filial.getEndereco().getBairro());
+		fdCidade.setText(filial.getEndereco().getCidade());
+		fdNumero.setText(filial.getEndereco().getNumero());
+		cbUf.getSelectionModel().select(filial.getEndereco().getUf());
+		
 	}
 }

@@ -8,6 +8,7 @@ import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
 import br.com.model.beans.Endereco;
 import br.com.model.beans.Motorista;
+import br.com.model.beans.PessoaFisica;
 import br.com.model.dao.DAOMotorista;
 import br.com.model.dao.DAOPessoa;
 import br.com.model.dao.DAOPessoaFisica;
@@ -70,10 +71,10 @@ public class ControllerNovoMotorista implements Initializable{
 
 	@FXML
 	private DatePicker fdNacimento;
-	
+
 	@FXML
 	private DatePicker fdVencimentoHab;
-	
+
 	@FXML
 	private RadioButton radioMasculino;
 
@@ -82,6 +83,10 @@ public class ControllerNovoMotorista implements Initializable{
 
 	@FXML
 	private RadioButton radioFeminino;
+
+	private Motorista m = new Motorista();
+
+	private boolean edit;
 
 
 	@FXML
@@ -99,7 +104,7 @@ public class ControllerNovoMotorista implements Initializable{
 			codigo = "";
 			nome = fdNomeFi.getText().toString();
 			login = fdLoginFi.getText().toString();
-			senha = fdSenhaFi.getText().toString();
+			senha = new String(Util.Criptografia.criptografa(fdSenhaFi.getText().toCharArray()));
 			bairro = fdBairro.getText().toString();
 			cidade = fdCidade.getText().toString();
 			numero = fdNumero.getText().toString();
@@ -114,16 +119,27 @@ public class ControllerNovoMotorista implements Initializable{
 
 			Endereco endereco = new Endereco(rua, numero, bairro, cidade, uf);
 
-			Motorista motorista = new Motorista(codigo, nome, login, senha, endereco, cpf, rg, 
-					dataNascimento, sexo, habilitacao, validadeHabilitacao);
-			DAOMotorista.getInstace().saveOrUpdate(motorista);
-			DAOPessoa.getInstace().gerarCodigo(Util.subNome(motorista));
+			m.setCodigo(codigo);
+			m.setNome(nome);
+			m.setLogin(login);
+			m.setSenha(senha);
+			m.setCpf(cpf);
+			m.setRg(rg);
+			m.setSexo(sexo);
+			m.setDataNascimento(dataNascimento);
+			m.setHabilitacao(habilitacao);
+			m.setValidadeHabilitacao(validadeHabilitacao);
+			m.setEndereco(endereco);
 			
+			DAOMotorista.getInstace().saveOrUpdate(m);
+			if(!edit)
+				DAOPessoa.getInstace().gerarCodigo(Util.subNome(m));
+
 			Alert alert = new Alert(AlertType.INFORMATION);
-    		alert.setTitle("Sucesso" );
-    		alert.setContentText("Este Motorista foi salvo com successo!");
-    		alert.show();    		
-    	}
+			alert.setTitle("Sucesso" );
+			alert.setContentText("Este Motorista foi salvo com successo!");
+			alert.show();    		
+		}
 
 	}
 
@@ -133,7 +149,7 @@ public class ControllerNovoMotorista implements Initializable{
 		ob.addAll("AC","AL","AM","AP","BA","CE","DF","ES","GO","MA","MG","MS","MT","PA","PB",
 				"PE","PI","PR","RJ","RN","RO","RR","RS","SC","SE","SP","TO");
 		cbUf.setItems(ob);
-		
+
 		Util.Mascarar.CPF(fdCpf);
 		Util.Mascarar.Habilitacao(fdHabilitacao);
 		Util.Mascarar.Data(fdNacimento);
@@ -147,17 +163,17 @@ public class ControllerNovoMotorista implements Initializable{
 		if(fdBairro.getText().length()==0|| fdCidade.getText().length()==0 ||
 				fdNumero.getText().length()==0 || fdRua.getText().length()==0||fdNomeFi.getText().length()==0 || 
 				fdCpf.getText().length()==0||fdLoginFi.getText().length()==0||fdSenhaFi.getText().length()==0) {
-    		alert.setContentText("Preencha todos os campos obrigatorios");
-    		alert.show();
+			alert.setContentText("Preencha todos os campos obrigatorios");
+			alert.show();
 			return false;
 		}else if(new Date().after(Date.from(fdVencimentoHab.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()))) {
 			alert.setContentText("A Habilitação não pode estar vencida.");
 			alert.show();
 			return false;
 		}else if(calculaIdade()<21) {
-				alert.setContentText("O motorista tem menos de 21 anos.");
-				alert.show();
-				return false;
+			alert.setContentText("O motorista tem menos de 21 anos.");
+			alert.show();
+			return false;
 		}else if(!(fdSenhaFi.getText().toString().length()>=6 && fdSenhaFi.getText().toString().length()<=11)) {
 			alert.setContentText("As senhas devem conter entre 6 e 11 caracteres");
 			alert.show();
@@ -172,17 +188,17 @@ public class ControllerNovoMotorista implements Initializable{
 		Calendar nascimento = new GregorianCalendar();
 		Date dataNascimento = Date.from(fdNacimento.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
 		int anoNascimento, anoAtual;
-		
+
 		atual.setTime(new Date());
 		nascimento.setTime(dataNascimento);
-		
+
 		anoAtual=atual.get(Calendar.YEAR);
 		anoNascimento = nascimento.get(Calendar.YEAR);
 		System.out.println(anoAtual-anoNascimento);
 		return anoAtual-anoNascimento;
-		
+
 	}
-	
+
 	private boolean validarMotorista() {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Cadastro de Cliente" );
@@ -190,15 +206,15 @@ public class ControllerNovoMotorista implements Initializable{
 
 		if(!validarCampos()) {
 			return false;
-		}else if(DAOPessoaFisica.getInstace().findByCpf(Util.removerCaracteres(fdCpf.getText().toString()))!=null) {
+		}else if(DAOPessoaFisica.getInstace().findByCpf(Util.removerCaracteres(fdCpf.getText().toString()))!=null && !edit) {
 			alert.setContentText("CPF Já Cadastrado");
 			alert.show();
 			return false;
-		}else if(DAOPessoa.getInstace().findByLogin(fdLoginFi.getText())!=null) {
+		}else if(DAOPessoa.getInstace().findByLogin(fdLoginFi.getText())!=null && !edit) {
 			alert.setContentText("Login Já Cadastrado");
 			alert.show();
 			return false;
-		}else if(DAOMotorista.getInstace().findByHabilitacao(fdHabilitacao.getText().toString())!=null) {
+		}else if(DAOMotorista.getInstace().findByHabilitacao(fdHabilitacao.getText().toString())!=null && !edit) {
 			alert.setContentText("CNH Já Cadastrada");
 			alert.show();
 			return false;
@@ -209,6 +225,32 @@ public class ControllerNovoMotorista implements Initializable{
 		}else {
 			return true;
 		}
+
+	}
+
+	public void carregarEditar(Motorista motorista) {
+		this.m = motorista;
+		this.edit = true;
+
+		fdNomeFi.setText(motorista.getNome());
+		fdLoginFi.setText(motorista.getLogin());
+		fdNacimento.setValue(((PessoaFisica) motorista).getDataNascimento().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+		fdSenhaFi.setText(Util.Criptografia.decriptografa(motorista.getSenha().toCharArray()));
+		fdCpf.setText(((PessoaFisica) motorista).getCpf());
+		fdRg.setText(((PessoaFisica) motorista).getRg());
+		fdHabilitacao.setText(((Motorista) motorista).getHabilitacao());
+		fdVencimentoHab.setValue(((Motorista) motorista).getValidadeHabilitacao().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+		String sex = ((PessoaFisica)motorista).getSexo();
+		if(sex.equals("Masculino"))
+			sexo.selectToggle(radioMasculino);				
+		else
+			sexo.selectToggle(radioFeminino);
+		
+		fdRua.setText(motorista.getEndereco().getRua());
+		fdBairro.setText(motorista.getEndereco().getBairro());
+		fdCidade.setText(motorista.getEndereco().getCidade());
+		fdNumero.setText(motorista.getEndereco().getNumero());
+		cbUf.getSelectionModel().select(motorista.getEndereco().getUf());
 
 	}
 }

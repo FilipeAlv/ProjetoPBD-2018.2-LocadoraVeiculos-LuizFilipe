@@ -7,8 +7,10 @@ import java.util.ResourceBundle;
 
 import br.com.model.beans.Endereco;
 import br.com.model.beans.Funcionario;
-import br.com.model.beans.Pessoa;
+import br.com.model.beans.PessoaFisica;
 import br.com.model.dao.DAOFuncionario;
+import br.com.model.dao.DAOPessoa;
+import br.com.model.dao.DAOPessoaFisica;
 import br.com.util.Util;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -82,18 +84,20 @@ public class ControllerNovoFuncionario implements Initializable{
 	@FXML
 	private ComboBox<String> cbPermissao;
 
+	private boolean edit;
+
+	private Funcionario f;
+
 	@FXML
 	void actionSalvar(ActionEvent event) {
-		if(validarCampos()) {
+		if(validarFuncionario()) {
 			String codigo,nome,login,senha;
 			String rua,numero, bairro, cidade, uf;
 			String cpf, rg,sexo;
 			Date dataNascimento;
 			String cargo, permissao;
 
-			Pessoa pessoa;
-
-			codigo = "";
+			codigo = " ";
 			bairro = fdBairro.getText().toString();
 			cidade = fdCidade.getText().toString();
 			numero = fdNumero.getText().toString();
@@ -101,29 +105,41 @@ public class ControllerNovoFuncionario implements Initializable{
 			uf = cbUf.getValue();
 			nome = fdNomeFi.getText().toString();
 			login = fdLoginFi.getText().toString();
-			senha = fdSenhaFi.getText().toString();
+			senha = new String(Util.Criptografia.criptografa(fdSenhaFi.getText().toCharArray()));
 			cpf = fdCpf.getText().toString();
 			rg= fdRg.getText().toString();
 			sexo = radioMasculino.isSelected()?"Masculino":"Feminino";
 			dataNascimento = Date.from(fdNacimento.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
 			permissao = cbPermissao.getValue();
 			cargo = fdCargo.getText().toString();
-
+			
 			Endereco endereco = new Endereco(rua, numero, bairro, cidade, uf);
-			pessoa = new Funcionario(codigo, nome, login, senha, endereco, cpf, rg, dataNascimento, sexo, cargo, permissao);
-			pessoa.setCodigo(Util.gerarCodigo(pessoa));
-			DAOFuncionario.getInstace().saveOrUpdate((Funcionario)pessoa);
+			
+			f.setCodigo(codigo);
+			f.setNome(nome);
+			f.setLogin(login);
+			f.setSenha(senha);
+			((PessoaFisica) f).setCpf(cpf);
+			((PessoaFisica) f).setRg(rg);
+			((PessoaFisica) f).setSexo(sexo);
+			((PessoaFisica) f).setDataNascimento(dataNascimento);
+			f.setCargo(cargo);
+			f.setPermissao(permissao);
+			f.setEndereco(endereco);
+			
+			
+			
+			DAOFuncionario.getInstace().saveOrUpdate((Funcionario)f);
+			if(!edit)
+				DAOPessoa.getInstace().gerarCodigo(Util.subNome(f));
 
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Sucesso" );
 			alert.setContentText("Este Funcionario foi salvo com successo!");
 			alert.show();
-
-		}else {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Erro ao Salvar Funcionario" );
-			alert.setContentText("Preencha todos os campos obrigatorios");
-			alert.show();
+			
+			if(edit)
+				ControllerFuncionario.carregarTabela();
 		}
 	}
 
@@ -131,12 +147,6 @@ public class ControllerNovoFuncionario implements Initializable{
 		if(fdBairro.getText().length()==0|| fdCidade.getText().length()==0 ||
 				fdNumero.getText().length()==0 || fdRua.getText().length()==0||fdNomeFi.getText().length()==0 || 
 				fdCpf.getText().length()==0||fdLoginFi.getText().length()==0||fdSenhaFi.getText().length()==0) {
-			return false;
-		}else if(!(fdSenhaFi.getText().length()>=6 || fdSenhaFi.getText().length()<=11)) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Erro ao Salvar Funcionario" );
-			alert.setContentText("As senhas devem conter entre 6 e 11 caracteres");
-			alert.show();
 			return false;
 		}
 		return true;
@@ -154,6 +164,65 @@ public class ControllerNovoFuncionario implements Initializable{
 		cbPermissao.setItems(ob);
 
 	}
+
+	public void carregarEditar(Funcionario f) {
+		this.f = f;
+		this.edit = true;
+
+		fdNomeFi.setText(f.getNome());
+		fdLoginFi.setText(f.getLogin());
+		fdNacimento.setValue(((PessoaFisica) f).getDataNascimento().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+		fdSenhaFi.setText(Util.Criptografia.decriptografa(f.getSenha().toCharArray()));
+		fdCpf.setText(((PessoaFisica) f).getCpf());
+		fdRg.setText(((PessoaFisica) f).getRg());
+		String sex = ((PessoaFisica)f).getSexo();
+		if(sex.equals("Masculino"))
+			sexo.selectToggle(radioMasculino);				
+		else
+			sexo.selectToggle(radioFeminino);
+		fdCargo.setText(f.getCargo());
+		cbPermissao.getSelectionModel().select(f.getPermissao());
+		
+		fdRua.setText(f.getEndereco().getRua());
+		fdBairro.setText(f.getEndereco().getBairro());
+		fdCidade.setText(f.getEndereco().getCidade());
+		fdNumero.setText(f.getEndereco().getNumero());
+		cbUf.getSelectionModel().select(f.getEndereco().getUf());
+
+	}
+	
+	private boolean validarFuncionario() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Cadastro de Cliente" );
+		alert.setHeaderText("Erro ao Salvar Cliente" );
+
+		if(!validarCampos()) {
+			alert.setContentText("Preencha todos os campos");
+			alert.show();
+			return false;
+		}else if(DAOPessoaFisica.getInstace().findByCpf(Util.removerCaracteres(fdCpf.getText().toString()))!=null && !edit) {
+			alert.setContentText("CPF Já Cadastrado");
+			alert.show();
+			return false;
+		}else if(DAOPessoa.getInstace().findByLogin(fdLoginFi.getText())!=null && !edit) {
+			alert.setContentText("Login Já Cadastrado");
+			alert.show();
+			return false;
+		}else if(Date.from(fdNacimento.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()).after(new Date())) {
+			alert.setContentText("A data de Nascimento não pode ser superior a data atual");
+			alert.show();
+			return false;
+		}else if(!(fdSenhaFi.getText().length()>=6 && fdSenhaFi.getText().length()<=11)) {
+			alert.setContentText("As senhas devem conter entre 6 e 11 caracteres");
+			alert.show();
+			return false;
+		}
+		else{
+			return true;
+		}
+
+	}
+
 
 
 }

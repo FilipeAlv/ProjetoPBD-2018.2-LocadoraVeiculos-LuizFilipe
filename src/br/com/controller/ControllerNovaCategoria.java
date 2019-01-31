@@ -97,6 +97,7 @@ public class ControllerNovaCategoria implements Initializable{
 	private Button btnSalvar;
 
 	private Categoria c = new Categoria();
+	private boolean edit;
 
 	@FXML
 	void actionSalvar(ActionEvent event) {
@@ -180,6 +181,9 @@ public class ControllerNovaCategoria implements Initializable{
 				alert.setTitle("Sucesso" );
 				alert.setContentText("Esta categoria foi salva com successo!");
 				alert.show();
+				
+				if(edit)
+					ControllerCategoria.carregarTabela();
 			}
 		}
 	}
@@ -237,6 +241,7 @@ public class ControllerNovaCategoria implements Initializable{
 
 	public void carregarEditar(Categoria categoria) {
 		this.c = categoria;
+		edit = true;
 		cbTipo.setDisable(true);
 		cbTipo.getSelectionModel().select("Comum");
 
@@ -300,7 +305,7 @@ public class ControllerNovaCategoria implements Initializable{
 			alert.setContentText("Preencha todos os campos");
 			alert.show();
 			return false;
-		}else if(DAOCategoria.getInstance().findByNome(fdNome.getText().toString())!=null) {
+		}else if(DAOCategoria.getInstance().findByNome(fdNome.getText().toString())!=null && !edit) {
 			alert.setContentText("Este nome já está usado em outra categoria");
 			alert.show();
 			return false;

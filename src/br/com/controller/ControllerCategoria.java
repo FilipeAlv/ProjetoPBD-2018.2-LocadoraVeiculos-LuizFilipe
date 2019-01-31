@@ -132,7 +132,7 @@ public class ControllerCategoria implements Initializable{
 
 	}
 
-	private static void carregarTabela() {
+	public static void carregarTabela() {
 		List<Categoria> categorias = DAOCategoria.getInstance().findAll();
 		ob = FXCollections.observableArrayList();
 		ob.addAll(categorias);
