@@ -27,7 +27,7 @@
       <Pane layoutX="32.0" layoutY="202.0" prefHeight="375.0" prefWidth="588.0" style="-fx-border-color: #ffffff;" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="31.0">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="-11.0" prefHeight="25.0" prefWidth="122.0" style="-fx-background-color: #9c9c9c;" text="Lista de Veículos" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS" />
-            <TableView fx:id="tbVeiculo" layoutX="14.0" layoutY="15.0" prefHeight="343.0" prefWidth="558.0">
+            <TableView fx:id="tbVeiculo" layoutX="14.0" layoutY="15.0" onMouseClicked="#verificarLimpeza" prefHeight="343.0" prefWidth="558.0">
                <columns>
                   <TableColumn fx:id="modeloCol" prefWidth="121.0" text="Modelo" />
                   <TableColumn fx:id="placaCol" prefWidth="147.0" text="Placa" />
@@ -77,5 +77,6 @@
       <ComboBox fx:id="cbFilial" layoutX="188.0" layoutY="49.0" prefHeight="25.0" prefWidth="83.0" promptText="Filial" />
       <DatePicker fx:id="fdData" layoutX="281.0" layoutY="49.0" prefHeight="25.0" prefWidth="103.0" promptText="Data" />
       <ComboBox fx:id="cbStatus" layoutX="392.0" layoutY="49.0" prefHeight="25.0" prefWidth="83.0" promptText="Status" />
+      <Button fx:id="btnRetornar" layoutX="31.0" layoutY="462.0" mnemonicParsing="false" onAction="#actionRetornar" prefHeight="25.0" prefWidth="549.0" text="Retornar Veiculo da" />
    </children>
 </AnchorPane>

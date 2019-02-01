@@ -26,6 +26,8 @@ public class ControllerAddVeiculoLocacao implements Initializable{
     	String placa = pegarPlacaCombo(cbVeiculo.getValue());
     	Veiculo veiculo = DAOVeiculo.getInstance().findByPlaca(placa);
     	ControllerReserva.addVeiculo(veiculo);
+		
+		btnSalvar.setDisable(true);
     	
     }
 

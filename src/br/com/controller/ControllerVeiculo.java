@@ -5,11 +5,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import br.com.main.Main;
 import br.com.model.beans.Filial;
 import br.com.model.beans.Veiculo;
 import br.com.model.dao.DAOFilial;
@@ -18,7 +17,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -28,109 +29,193 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class ControllerVeiculo implements Initializable{
-	
+
 	public static TableView<VeiculoAdapter> tb;
 	public static ObservableList<VeiculoAdapter> ob;
 
-    @FXML
-    private TableView<VeiculoAdapter> tbVeiculo;
+	@FXML
+	private Button btnRetornar;
 
-    @FXML
-    private TableColumn<VeiculoAdapter, String> modeloCol;
+	@FXML
+	private TableView<VeiculoAdapter> tbVeiculo;
 
-    @FXML
-    private TableColumn<VeiculoAdapter, String> placaCol;
+	@FXML
+	private TableColumn<VeiculoAdapter, String> modeloCol;
 
-    @FXML
-    private TableColumn<VeiculoAdapter, String> categoriaCol;
+	@FXML
+	private TableColumn<VeiculoAdapter, String> placaCol;
 
-    @FXML
-    private TableColumn<VeiculoAdapter, String> statusCol;
+	@FXML
+	private TableColumn<VeiculoAdapter, String> categoriaCol;
 
-    @FXML
-    private Button btnBuscar;
+	@FXML
+	private TableColumn<VeiculoAdapter, String> statusCol;
 
-    @FXML
-    private Button btnAdd;
+	@FXML
+	private Button btnBuscar;
 
-    @FXML
-    private TextField fdBuscar;
+	@FXML
+	private Button btnAdd;
 
-    @FXML
-    private Button btnEditar;
+	@FXML
+	private TextField fdBuscar;
 
-    @FXML
-    private Button btnAtualizar;
+	@FXML
+	private Button btnEditar;
 
-    @FXML
-    private ComboBox<String> cbFilial;
-    @FXML
-    private ComboBox<String> cbStatus;
+	@FXML
+	private Button btnAtualizar;
 
-    @FXML
-    private DatePicker fdData;
+	@FXML
+	private ComboBox<String> cbFilial;
+	@FXML
+	private ComboBox<String> cbStatus;
 
-    @FXML
-    void actionAddVeiculo(ActionEvent event) {
-    	Main.novaTela("NovoVeiculo");
-    }
+	@FXML
+	private DatePicker fdData;
 
-    @FXML
-    void actionAtualizar(ActionEvent event) {
-    	
-    }
+	@FXML
+	void actionAddVeiculo(ActionEvent event) {
+		Pane tela = null;
+		Scene scene;
+		Stage stage;
+		try {
+			tela = FXMLLoader.load(getClass().getResource("../view/NovoVeiculo.fxml"));
+			scene = new Scene(tela);
+			stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setOnCloseRequest(e -> stage.close());
+			stage.setScene(scene);
+			stage.show();
 
-    @FXML
-    void actionBuscar(ActionEvent event) {
-    	List<Veiculo> veiculos;
-    	if(cbFilial.getSelectionModel().getSelectedIndex()==-1||cbFilial.getValue().equals(" ")) {
-    		if(fdBuscar.getText().length()==0) {
-    			Alert alert = new Alert(AlertType.ERROR);
-    	    	alert.setTitle("Erro ao filtrar busca");
-    			alert.setContentText("Preencha o campo de busca");
-    		}else {
-    			veiculos = DAOVeiculo.getInstance().findByFind(fdBuscar.getText().toString());
-    			carregarTabela(veiculos);
-    		}
-    	}else if(cbFilial.getSelectionModel().getSelectedIndex()>0) {
-    		Filial filialId = DAOFilial.getInstance().findByNome(cbFilial.getValue());
-    		Date data = converterData(fdData.getValue());
-    		System.out.println(data);
-    		String status = cbStatus.getValue();
-    		
-    		veiculos = DAOVeiculo.getInstance().findByAllReserva(filialId, data);
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erro de Exibição");
+			alert.setContentText("Não foi possível exibir a tela. Por favor entre em contato com a equipe de desenvolvimento.");
+			alert.setHeaderText("Tela não encontrada");
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	void actionAtualizar(ActionEvent event) {
+
+	}
+
+	@FXML
+	void actionBuscar(ActionEvent event) {
+		boolean vazio = false;
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Ver Veículos");
+		alert.setHeaderText("Busca de veículos");
+		List<Veiculo> veiculos = new ArrayList<>();
+		if(fdData.getValue()==null) {
+			if(fdBuscar.getText().length()!=0 && cbFilial.getSelectionModel().getSelectedIndex()<1
+					&& cbStatus.getSelectionModel().getSelectedIndex()<1) {
+
+				veiculos = DAOVeiculo.getInstance().findByFind(fdBuscar.getText().toString());
+				System.out.println("1");
+
+			}else if(fdBuscar.getText().length()!=0 && cbFilial.getSelectionModel().getSelectedIndex()>0 
+					&& cbStatus.getSelectionModel().getSelectedIndex()<1) {
+
+				veiculos = DAOVeiculo.getInstance().findByFindFilial(fdBuscar.getText().toString(), 
+						DAOFilial.getInstance().findByNome(cbFilial.getValue()));
+
+				System.out.println("2");
+
+			}else if(fdBuscar.getText().length()!=0 && cbFilial.getSelectionModel().getSelectedIndex()<1 
+					&& (cbStatus.getSelectionModel().getSelectedIndex()>0)) {
+
+				veiculos = DAOVeiculo.getInstance().findByFindStatus(fdBuscar.getText().toString(), cbStatus.getValue());
+
+				System.out.println("3");
+			}else if(fdBuscar.getText().length()==0 && cbFilial.getSelectionModel().getSelectedIndex()<1 
+					&& cbStatus.getSelectionModel().getSelectedIndex()>0) {
+
+				veiculos = DAOVeiculo.getInstance().findByStatus(cbStatus.getValue());
+				System.out.println("4");
+
+			}else if(fdBuscar.getText().length()==0 && cbFilial.getSelectionModel().getSelectedIndex()>0 
+					&& cbStatus.getSelectionModel().getSelectedIndex()<1) {
+
+				veiculos = DAOVeiculo.getInstance().findByFilial(DAOFilial.getInstance().findByNome(cbFilial.getValue()));
+				System.out.println("4");
+			}
+		}else {
+			if (cbStatus.getSelectionModel().getSelectedIndex()>0 || fdBuscar.getText().length()>0) {
+				alert.setContentText("Quando houver uma data, os campos buscar e staus não podem estar preenchidos");
+				alert.show();
+				vazio = true;
+			}else {
+				if(cbFilial.getSelectionModel().getSelectedIndex()<1) {
+					veiculos = DAOVeiculo.getInstance().findByData(Date.from(fdData.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+				}else {
+					veiculos = DAOVeiculo.getInstance().findByDataFilial(Date.from(fdData.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
+							DAOFilial.getInstance().findByNome(cbFilial.getValue()));
+				}
+			}
+		}
+
+		if(veiculos.size()==0 && !vazio) {
+			alert.setContentText("Nenhum veículo para esta pesquisa");
+			alert.show();
+		}else {
+			vazio = false;
 			carregarTabela(veiculos);
-    	
-    	}else {
-    		int id = DAOFilial.getInstance().findIdByNome(cbFilial.getValue());
-    		veiculos = DAOVeiculo.getInstance().findByFilial(id);
-			carregarTabela(veiculos);
-    	}
-    }
+		}
+	}
 
-    @FXML
-    void actionEditar(ActionEvent event) {
+	@FXML
+	void actionEditar(ActionEvent event) {
+		Veiculo veiculo = DAOVeiculo.getInstance().findByPlaca(tb.getSelectionModel().getSelectedItem().getPlaca());
+		Pane tela = null;
+		Scene scene;
+		Stage stage;
+		ControllerNovoVeiculo c;
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/NovoVeiculo.fxml"));
+			tela = loader.load();
+			c = loader.getController();
+			c.carregarEditar(veiculo);
+			scene = new Scene(tela);
+			stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setOnCloseRequest(e -> stage.close());
+			stage.setScene(scene);
+			stage.show();
 
-    }
-    
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erro de Exibição");
+			alert.setContentText("Não foi possível exibir a tela. Por favor entre em contato com a equipe de desenvolvimento.");
+			alert.setHeaderText("Tela não encontrada");
+			e.printStackTrace();
+		}
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		categoriaCol.setCellValueFactory(
-                new PropertyValueFactory<>("categoria"));
-        modeloCol.setCellValueFactory(
-                new PropertyValueFactory<>("modelo"));
-        placaCol.setCellValueFactory(
-                new PropertyValueFactory<>("placa"));
+				new PropertyValueFactory<>("categoria"));
+		modeloCol.setCellValueFactory(
+				new PropertyValueFactory<>("modelo"));
+		placaCol.setCellValueFactory(
+				new PropertyValueFactory<>("placa"));
 
-        statusCol.setCellValueFactory(
-                new PropertyValueFactory<>("status"));
+		statusCol.setCellValueFactory(
+				new PropertyValueFactory<>("status"));
 
 		tb=tbVeiculo;
 		List<Veiculo> veiculos = DAOVeiculo.getInstance().findAll();
 		carregarTabela(veiculos);
-		
+
 		ObservableList<String> obCombo;
 		obCombo = FXCollections.observableArrayList();
 		List<Filial> filiais = DAOFilial.getInstance().findAll();
@@ -139,15 +224,15 @@ public class ControllerVeiculo implements Initializable{
 			obCombo.add(filial.getNome());
 		}
 		cbFilial.setItems(obCombo);
-		
+
 		obCombo = FXCollections.observableArrayList();
 		obCombo.addAll(" ","Disponivel", "Locado", "Revisão", "Limpeza");
 		cbStatus.setItems(obCombo);
-		
-		fdData.setValue(LocalDate.now());
-		
+
+		btnRetornar.setVisible(false);
+
 	}
-	
+
 	public Date converterData(LocalDate date) {
 		try {
 			Date date1 = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -163,8 +248,30 @@ public class ControllerVeiculo implements Initializable{
 		}
 		return null;
 	}
+
+
+	@FXML
+	void verificarLimpeza(MouseEvent event) {
+		String status = tbVeiculo.getSelectionModel().getSelectedItem().getStatus();
+		if(status.equals("Limpeza")||status.equals("Revisão")) {
+			btnRetornar.setText(btnRetornar.getText()+" "+status);
+			btnRetornar.setVisible(true);
+		}else {
+			btnRetornar.setVisible(false);	
+		}
+	}
 	
-	private static void carregarTabela(List<Veiculo> veiculos) {
+    @FXML
+    void actionRetornar(ActionEvent event) {
+    	Veiculo veiculo;
+    	veiculo = DAOVeiculo.getInstance().findByPlaca(tbVeiculo.getSelectionModel().getSelectedItem().getPlaca());
+    	veiculo.setStatus("Disponivel");
+    	DAOVeiculo.getInstance().saveOrUpdate(veiculo);
+    	carregarTabela(DAOVeiculo.getInstance().findAll());
+    	btnRetornar.setVisible(false);
+    }
+
+	public static void carregarTabela(List<Veiculo> veiculos) {
 		ob = FXCollections.observableArrayList();
 		for (Veiculo veiculo : veiculos) {
 			ob.add(new VeiculoAdapter(veiculo.getModelo().getNome(), veiculo.getCategoria().getNome(), 
@@ -173,10 +280,10 @@ public class ControllerVeiculo implements Initializable{
 		if (ob.size()>0) 
 			tb.setItems(ob);
 	}
-	
-    
-    public static class VeiculoAdapter{
-    	private String modelo, categoria, placa, status;
+
+
+	public static class VeiculoAdapter{
+		private String modelo, categoria, placa, status;
 
 		public VeiculoAdapter(String modelo, String categoria, String placa, String status) {
 			super();
@@ -217,10 +324,10 @@ public class ControllerVeiculo implements Initializable{
 		public void setStatus(String status) {
 			this.status = status;
 		}
-    	
-    	
-    	
-    }
+
+
+
+	}
 
 
 

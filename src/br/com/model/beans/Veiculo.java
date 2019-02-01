@@ -6,13 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 
 @Entity
 @SequenceGenerator(name="sequencia_veiculo", sequenceName="seq_vei", initialValue=1, allocationSize=1)
-@NamedQueries({@NamedQuery(name=br.com.util.SQLUtil.Veiculo.SELECT_FILIAL, query = "SELECT v.placa FROM Veiculo v WHERE v.filialAtual.id = :filial")})
 public class Veiculo implements EntidadeBase{
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequencia_veiculo")

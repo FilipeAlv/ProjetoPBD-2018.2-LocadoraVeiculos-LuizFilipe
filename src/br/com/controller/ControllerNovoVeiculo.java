@@ -3,8 +3,6 @@ package br.com.controller;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import br.com.main.Main;
 import br.com.model.beans.Categoria;
 import br.com.model.beans.Filial;
 import br.com.model.beans.Modelo;
@@ -13,16 +11,22 @@ import br.com.model.dao.DAOCategoria;
 import br.com.model.dao.DAOFilial;
 import br.com.model.dao.DAOModelo;
 import br.com.model.dao.DAOVeiculo;
+import br.com.util.Util;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class ControllerNovoVeiculo implements Initializable{
 
@@ -62,25 +66,82 @@ public class ControllerNovoVeiculo implements Initializable{
     @FXML
     private Button btnAddFilial;
 
+	private Veiculo v = new Veiculo();
+
+	private boolean edit;
+
     @FXML
     void actionAddCategoria(ActionEvent event) {
-    	Main.novaTela("NovaCategoria");
+    	Pane tela = null;
+		Scene scene;
+		Stage stage;
+		try {
+			tela = FXMLLoader.load(getClass().getResource("../view/NovaCategoria.fxml"));
+			scene = new Scene(tela);
+			stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setOnCloseRequest(e -> stage.close());
+			stage.setScene(scene);
+			stage.show();
+
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erro de Exibição");
+			alert.setContentText("Não foi possível exibir a tela. Por favor entre em contato com a equipe de desenvolvimento.");
+			alert.setHeaderText("Tela não encontrada");
+			e.printStackTrace();
+		}
     }
 
     @FXML
     void actionAddModelo(ActionEvent event) {
-    	Main.novaTela("NovoModelo");
+    	Pane tela = null;
+		Scene scene;
+		Stage stage;
+		try {
+			tela = FXMLLoader.load(getClass().getResource("../view/NovoModelo.fxml"));
+			scene = new Scene(tela);
+			stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setOnCloseRequest(e -> stage.close());
+			stage.setScene(scene);
+			stage.show();
+
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erro de Exibição");
+			alert.setContentText("Não foi possível exibir a tela. Por favor entre em contato com a equipe de desenvolvimento.");
+			alert.setHeaderText("Tela não encontrada");
+			e.printStackTrace();
+		}
     }
     
     @FXML
     void actionAddFilial(ActionEvent event) {
-    	Main.novaTela("NovaFilial");
+    	Pane tela = null;
+		Scene scene;
+		Stage stage;
+		try {
+			tela = FXMLLoader.load(getClass().getResource("../view/NovaFilial.fxml"));
+			scene = new Scene(tela);
+			stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setOnCloseRequest(e -> stage.close());
+			stage.setScene(scene);
+			stage.show();
+
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erro de Exibição");
+			alert.setContentText("Não foi possível exibir a tela. Por favor entre em contato com a equipe de desenvolvimento.");
+			alert.setHeaderText("Tela não encontrada");
+			e.printStackTrace();
+		}
     }
 
     @FXML
     void actionSalvar(ActionEvent event) {
-    	if(validarCampos()) {
-	    	Veiculo veiculo;
+    	if(validarVeiculo()) {
 	    	String placa,chassi, cor;
 	    	double kmAtual;
 	    	int numMotor;
@@ -88,7 +149,7 @@ public class ControllerNovoVeiculo implements Initializable{
 	    	Modelo modelo;
 	    	Filial filial;
 	    	
-	    	placa = fdPlaca.getText().toString();
+	    	placa = Util.removerCaracteres(fdPlaca.getText().toString());
 	    	chassi = fdChassi.getText().toString();
 	    	cor = fdCor.getText().toString();
 	    	kmAtual = Double.parseDouble(fdKmAtual.getText().toString());
@@ -97,28 +158,31 @@ public class ControllerNovoVeiculo implements Initializable{
 	    	modelo = DAOModelo.getInstance().findByNome(pegarModeloCOmbo(cbModelo.getValue()));
 	    	filial = DAOFilial.getInstance().findByNome(cbFilial.getValue());
 	    	
-	    	veiculo = new Veiculo(placa, chassi, kmAtual, numMotor, cor, categoria, modelo, filial, "Disponivel");
-	    	DAOVeiculo.getInstance().saveOrUpdate(veiculo);
+	    	v.setPlaca(placa);
+	    	v.setChassi(chassi);
+	    	v.setCor(cor);
+	    	v.setKmAtual(kmAtual);
+	    	v.setNumMotor(numMotor);
+	    	v.setCategoria(categoria);
+	    	v.setModelo(modelo);
+	    	v.setFilialAtual(filial);
+	    	v.setStatus("Disponivel");
+	    	
+	    	DAOVeiculo.getInstance().saveOrUpdate(v);
 	    	
 	    	Alert alert = new Alert(AlertType.INFORMATION);
     		alert.setTitle("Sucesso" );
     		alert.setContentText("Este veículo foi salvo com successo!");
     		alert.show();
     		
-    	}else {
-    		Alert alert = new Alert(AlertType.ERROR);
-    		alert.setTitle("Erro ao Salvar Veiculo" );
-    		alert.setContentText("Preencha todos os campos obrigatorios");
-    		alert.show();
+    		if(edit)
+    			ControllerVeiculo.carregarTabela(DAOVeiculo.getInstance().findAll());  
+    		
     	}
     }
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		carregarCombo();
-	}
-	
-	public void carregarCombo() {
 		ObservableList<String> ob = FXCollections.observableArrayList();
 		List<Categoria> categorias = DAOCategoria.getInstance().findAll();
 		List<Modelo> modelos = DAOModelo.getInstance().findAll();
@@ -141,8 +205,12 @@ public class ControllerNovoVeiculo implements Initializable{
 			ob.add(filial.getNome());
 		}
 		cbFilial.setItems(ob);	
+		
+		Util.Mascarar.Placa(fdPlaca);
+		Util.Mascarar.somenteNumeroInteiro(fdNumMotor);
+		Util.Mascarar.somenteNumeroInteiro(fdChassi);
+		Util.Mascarar.somenteNumero(fdKmAtual);
 	}
-
 	
 	private String pegarModeloCOmbo(String value) {
 		int i = value.indexOf("-");
@@ -150,6 +218,7 @@ public class ControllerNovoVeiculo implements Initializable{
 		System.out.println(sub);
 		return sub;
 	}
+	
 	
 	private boolean validarCampos() {
 		if(fdPlaca.getText().length()==0 ||
@@ -160,5 +229,38 @@ public class ControllerNovoVeiculo implements Initializable{
 			return false;
 		}
 		return true;
+	}
+	
+	private boolean validarVeiculo() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Cadastro de Veiculo" );
+		alert.setHeaderText("Erro ao Salvar Veiculo");
+		if(!validarCampos()) {
+			alert.setContentText("Preencha todos os campos obrigatorios");
+    		alert.show();
+    		return false;
+		}else if(DAOVeiculo.getInstance().findByPlaca(fdPlaca.getText().toString())!=null && !edit) {
+			alert.setContentText("Placa Já Cadastrada");
+    		alert.show();
+    		return false;
+		}else {
+			return true;
+		}
+}
+
+	public void carregarEditar(Veiculo veiculo) {
+		this.v  = veiculo;
+		edit = true;
+
+    	fdPlaca.setText(veiculo.getPlaca());
+    	fdChassi.setText(veiculo.getChassi());
+    	fdCor.setText(veiculo.getCor());
+    	fdKmAtual.setText(Double.toString(veiculo.getKmAtual()));
+    	fdNumMotor.setText(Integer.toString(veiculo.getNumMotor()));
+    	cbCategoria.getSelectionModel().select(veiculo.getCategoria().getNome());
+    	cbModelo.getSelectionModel().select(veiculo.getModelo().getNome()+"-"
+    			+veiculo.getModelo().getMarca().getNome());
+    	cbFilial.getSelectionModel().select(veiculo.getFilialAtual().getNome());
+	
 	}
 }

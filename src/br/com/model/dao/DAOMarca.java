@@ -3,6 +3,7 @@ package br.com.model.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import br.com.model.beans.Marca;
 import br.com.util.ConnectionFactory;
@@ -27,11 +28,16 @@ public class DAOMarca extends DaoGenerico<Marca>{
 	}
 
 	public Marca findByNome(String nome){
-		EntityManager em = ConnectionFactory.getInstance().getConnection();
-		TypedQuery<Marca> tp = em.createQuery(SQLUtil.Marca.SELECT_NOME, Marca.class);
-		tp.setParameter("nome", nome);
-		Marca marca = tp.getSingleResult();
-		em.close();
+		Marca marca;
+		try {
+			EntityManager em = ConnectionFactory.getInstance().getConnection();
+			TypedQuery<Marca> tp = em.createQuery(SQLUtil.Marca.SELECT_NOME, Marca.class);
+			tp.setParameter("nome", nome);
+			marca = tp.getSingleResult();
+			em.close();
+		}catch (NoResultException e) {
+			marca = null;
+		}
 		return marca;
 	}
 }

@@ -34,7 +34,7 @@
                </graphic>
             </Button>
             <TextField fx:id="fdNome" layoutX="14.0" layoutY="27.0" prefHeight="25.0" prefWidth="205.0" promptText="Nome" />
-            <ComboBox fx:id="cbMarca" layoutX="14.0" layoutY="139.0" prefHeight="25.0" prefWidth="314.0" promptText="Categoria" />
+            <ComboBox fx:id="cbMarca" layoutX="14.0" layoutY="139.0" prefHeight="25.0" prefWidth="314.0" promptText="Marca" />
             <TextField fx:id="fdAnoFab" layoutX="159.0" layoutY="65.0" prefHeight="25.0" prefWidth="101.0" promptText="Ano de Fab" />
             <TextField fx:id="fdAnoModel" layoutX="270.0" layoutY="65.0" prefHeight="25.0" prefWidth="101.0" promptText="Ano do Modelo" />
             <TextField fx:id="fdTorqueMotor" layoutX="14.0" layoutY="65.0" prefHeight="25.0" prefWidth="130.0" promptText="Torque do Motor" />

@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureQuery;
 import javax.persistence.TypedQuery;
@@ -32,32 +33,28 @@ public class DAOVeiculo extends DaoGenerico<Veiculo>{
 	}
 
 	public Veiculo findByPlaca(String placa) {
-		EntityManager em = ConnectionFactory.getInstance().getConnection();
-		TypedQuery<Veiculo> tq = em.createQuery(SQLUtil.Veiculo.SELECT_PLACA, Veiculo.class);
-		tq.setParameter("placa", placa);
-		Veiculo veiculo = tq.getSingleResult();
-		em.close();
+		Veiculo veiculo;
+		try {
+			EntityManager em = ConnectionFactory.getInstance().getConnection();
+			TypedQuery<Veiculo> tq = em.createQuery(SQLUtil.Veiculo.SELECT_PLACA, Veiculo.class);
+			tq.setParameter("placa", placa);
+			veiculo = tq.getSingleResult();
+			em.close();
+		}catch (NoResultException e) {
+			veiculo = null;
+		}
 		return veiculo;
 	}
 
-	public List<Veiculo> findByFilial(Integer filial) {
+	public List<Veiculo> findByFilial(Filial filial) {
 		EntityManager em = ConnectionFactory.getInstance().getConnection();
-		TypedQuery<Veiculo> tq = em.createNamedQuery(SQLUtil.Veiculo.SELECT_FILIAL, Veiculo.class);
+		TypedQuery<Veiculo> tq = em.createQuery(SQLUtil.Veiculo.SELECT_FILIAL, Veiculo.class);
 		tq.setParameter("filial", filial);
 		List<Veiculo> veiculos = tq.getResultList();
 		em.close();
 		return veiculos;
 	}
 
-	public List<Veiculo> findByAllReserva(Filial filial, Date data) {
-		EntityManager em = ConnectionFactory.getInstance().getConnection();
-		TypedQuery<Veiculo> tq = em.createQuery(SQLUtil.Veiculo.SELECT_ALL_RESERVA, Veiculo.class);
-		tq.setParameter("filial", filial);
-		tq.setParameter("data", data);
-		List<Veiculo> veiculos = tq.getResultList();
-		em.close();
-		return veiculos;
-	}
 
 	public List<Veiculo> findByStatus(String status) {
 		EntityManager em = ConnectionFactory.getInstance().getConnection();
@@ -71,8 +68,28 @@ public class DAOVeiculo extends DaoGenerico<Veiculo>{
 
 	public List<Veiculo> findByFind(String str){
 		EntityManager em = ConnectionFactory.getInstance().getConnection();
-		TypedQuery<Veiculo> tq = em.createQuery(SQLUtil.Veiculo.SELECT, Veiculo.class);
+		TypedQuery<Veiculo> tq = em.createQuery(SQLUtil.Veiculo.SELECT_BUSCA, Veiculo.class);
 		tq.setParameter("str", "%" + str + "%");
+		List<Veiculo> veiculos = tq.getResultList();
+		em.close();
+		return veiculos;
+	}
+	
+	public List<Veiculo> findByFindFilial(String str, Filial filial){
+		EntityManager em = ConnectionFactory.getInstance().getConnection();
+		TypedQuery<Veiculo> tq = em.createQuery(SQLUtil.Veiculo.SELECT_BUSCA_FILIAL, Veiculo.class);
+		tq.setParameter("str", "%" + str + "%");
+		tq.setParameter("filial", filial );
+		List<Veiculo> veiculos = tq.getResultList();
+		em.close();
+		return veiculos;
+	}
+	
+	public List<Veiculo> findByFindStatus(String str, String status){
+		EntityManager em = ConnectionFactory.getInstance().getConnection();
+		TypedQuery<Veiculo> tq = em.createQuery(SQLUtil.Veiculo.SELECT_BUSCA_STATUS, Veiculo.class);
+		tq.setParameter("str", "%" + str + "%");
+		tq.setParameter("status", "%" + status + "%");
 		List<Veiculo> veiculos = tq.getResultList();
 		em.close();
 		return veiculos;
@@ -90,6 +107,25 @@ public class DAOVeiculo extends DaoGenerico<Veiculo>{
 		query.execute();
 		em.close();
 		return total;
+	}
+
+	public List<Veiculo> findByData(Date data) {
+		EntityManager em = ConnectionFactory.getInstance().getConnection();
+		TypedQuery<Veiculo> tq = em.createQuery(SQLUtil.Veiculo.SELECT_DATA, Veiculo.class);
+		tq.setParameter("data", data );
+		List<Veiculo> veiculos = tq.getResultList();
+		em.close();
+		return veiculos;
+	}
+
+	public List<Veiculo> findByDataFilial(Date data, Filial filial) {
+		EntityManager em = ConnectionFactory.getInstance().getConnection();
+		TypedQuery<Veiculo> tq = em.createQuery(SQLUtil.Veiculo.SELECT_DATA_FILIAL, Veiculo.class);
+		tq.setParameter("data", data );
+		tq.setParameter("filial", filial);
+		List<Veiculo> veiculos = tq.getResultList();
+		em.close();
+		return veiculos;
 	}
 
 }

@@ -468,18 +468,53 @@ public class Util {
 	            if (event.getCharacter().trim().length() == 0) { // apagando
 
 	                if (textField.getText().length() == 5) {
-	                    textField.setText(textField.getText().substring(0, 4));
+	                    textField.setText(textField.getText().substring(0, 3));
 	                    textField.positionCaret(textField.getText().length());
 	                }
 
 	            } else { // escrevendo
 
-	                if (textField.getText().length() == 9) {
+	                if (textField.getText().length() == 8) {
 	                    event.consume();
 	                }
 
-	                if (textField.getText().length() == 4) {
+	                if (textField.getText().length() == 3) {
 	                    textField.setText(textField.getText() + "-");
+	                    textField.positionCaret(textField.getText().length());
+	                }
+
+	            }
+	        });
+
+	        if (!textField.getText().matches("\\d.-*")) {
+	            textField.setText(textField.getText().replaceAll("[^\\d.-]", ""));
+	            textField.positionCaret(textField.getText().length());
+	        }
+
+	    }
+	    
+	    public static void Hora(TextField textField) {
+
+	        textField.setOnKeyTyped((KeyEvent event) -> {
+	            if ("1234567890:".contains(event.getCharacter()) == false) {
+	                event.consume();
+	            }
+
+	            if (event.getCharacter().trim().length() == 0) { // apagando
+
+	                if (textField.getText().length() == 6) {
+	                    textField.setText(textField.getText().substring(0, 2));
+	                    textField.positionCaret(textField.getText().length());
+	                }
+
+	            } else { // escrevendo
+
+	                if (textField.getText().length() == 5) {
+	                    event.consume();
+	                }
+
+	                if (textField.getText().length() == 2) {
+	                    textField.setText(textField.getText() + ":");
 	                    textField.positionCaret(textField.getText().length());
 	                }
 

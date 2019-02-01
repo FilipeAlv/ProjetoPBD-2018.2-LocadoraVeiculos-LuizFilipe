@@ -110,7 +110,7 @@ public class ControllerNovoMotorista implements Initializable{
 			numero = fdNumero.getText().toString();
 			rua = fdRua.getText().toString();
 			uf = cbUf.getValue();
-			cpf = fdCpf.getText().toString();
+			cpf = Util.removerCaracteres(fdCpf.getText().toString());
 			rg= fdRg.getText().toString();
 			sexo = radioMasculino.isSelected()?"Masculino":"Feminino";
 			dataNascimento = Date.from(fdNacimento.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());

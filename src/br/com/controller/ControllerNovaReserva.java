@@ -10,7 +10,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.ResourceBundle;
-import br.com.main.Main;
 import br.com.model.beans.Categoria;
 import br.com.model.beans.Filial;
 import br.com.model.beans.Motorista;
@@ -26,13 +25,19 @@ import br.com.model.dao.DAOPessoaFisica;
 import br.com.model.dao.DAOPessoaJuridica;
 import br.com.model.dao.DAOReserva;
 import br.com.model.dao.DAOValorLocacao;
+import br.com.util.Util;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -83,34 +88,74 @@ public class ControllerNovaReserva implements Initializable {
 
 	@FXML
 	private Button btnAddValor;
-	
+
 	@FXML
 	private Button btnAddMotorista;
 
+	private Reserva r = new Reserva();
+
+	private boolean edit;
+
 	@FXML
 	void actionAddValor(ActionEvent event) {
-		Main.novaTela("AddValorLocacao");
+		Pane tela = null;
+		Scene scene;
+		Stage stage;
+		try {
+			tela = FXMLLoader.load(getClass().getResource("../view/AddValorLocacao.fxml"));
+			scene = new Scene(tela);
+			stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setOnCloseRequest(e -> stage.close());
+			stage.setScene(scene);
+			stage.show();
+
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erro de Exibição");
+			alert.setContentText("Não foi possível exibir a tela. Por favor entre em contato com a equipe de desenvolvimento.");
+			alert.setHeaderText("Tela não encontrada");
+			e.printStackTrace();
+		}
 	}
-	
+
 	@FXML
 	void actionAddMotorista(ActionEvent event) {
-		Main.novaTela("AddMotorista");
+		Pane tela = null;
+		Scene scene;
+		Stage stage;
+		try {
+			tela = FXMLLoader.load(getClass().getResource("../view/NovoMotorista.fxml"));
+			scene = new Scene(tela);
+			stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setOnCloseRequest(e -> stage.close());
+			stage.setScene(scene);
+			stage.show();
+
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erro de Exibição");
+			alert.setContentText("Não foi possível exibir a tela. Por favor entre em contato com a equipe de desenvolvimento.");
+			alert.setHeaderText("Tela não encontrada");
+			e.printStackTrace();
+		}
 	}
-	
-	
-
-	public ControllerNovaReserva() {
-		super();
-	}
-
-
 
 	@FXML
 	void calcValor(ActionEvent event) {
 		if (cbCategoria.getValue() != null && cbTipo.getValue() != null) {
 			Categoria categoria = DAOCategoria.getInstance().findByNome(cbCategoria.getValue());
+			Calendar dataInicio = Calendar.getInstance();
+			Calendar dataFim = Calendar.getInstance();
+			int dias;
+
 			try {
+				dataInicio.setTime(Date.from(fdData.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+				dataFim.setTime(Date.from(fdDataEntrega.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+				dias = dataFim.get(Calendar.DAY_OF_YEAR)-dataInicio.get(Calendar.DAY_OF_YEAR);
 				Double valor = DAOValorLocacao.getInstance().findByTipoCategoria(cbTipo.getValue(), categoria);
+				valor*=dias;
 				fdValor.setText(valor.toString());
 			} catch (Exception e) {
 				Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -154,16 +199,34 @@ public class ControllerNovaReserva implements Initializable {
 				Filial filialSaida = DAOFilial.getInstance().findByNome(cbFilial.getValue());
 				Filial filialEntrega = DAOFilial.getInstance().findByNome(cbFilialEntrega.getValue());
 				Categoria categoria = DAOCategoria.getInstance().findByNome(cbCategoria.getValue());
+				Date dataReserva = new Date();
+				Date dataInicio = converterData(fdData.getValue(), fdHora.getText());
+				Date dataEntrega = converterData(fdDataEntrega.getValue(), fdHoraEntrega.getText());
+				String tipo = cbTipo.getValue();
+				Double valor = Double.parseDouble(fdValor.getText());
+				String status = "Aguardando";
 
-				Reserva reserva = new Reserva(new Date(), converterData(fdData.getValue(), fdHora.getText()),
-						converterData(fdDataEntrega.getValue(), fdHoraEntrega.getText()), cbTipo.getValue(),
-						Double.parseDouble(fdValor.getText()), cliente, motorista, filialSaida, filialEntrega,
-						categoria, "Aguardando");
+				r.setCliente(cliente);
+				r.setMotorista(motorista);
+				r.setFilial(filialSaida);
+				r.setFilialEntrega(filialEntrega);
+				r.setCategoria(categoria);
+				r.setDataInicial(dataInicio);
+				r.setDataFinalPrevista(dataEntrega);
+				r.setTipoLocacao(tipo);
+				r.setValorPrevisto(valor);
+				if(!edit) {
+					r.setDataReserva(dataReserva);
+					r.setStatus(status);
+				}
+					
 
-				DAOReserva.getInstance().saveOrUpdate(reserva);
+				DAOReserva.getInstance().saveOrUpdate(r);
+				if(edit)
+					ControllerReserva.carregarTabela();
 
 				try {
-					DAOReserva.getInstance().findById(Reserva.class, reserva.getId());
+					DAOReserva.getInstance().findById(Reserva.class, r.getId());
 					alert.setHeaderText("SUCESSO");
 					alert.setContentText("Reserva realizada com sucesso");
 					alert.show();
@@ -264,6 +327,43 @@ public class ControllerNovaReserva implements Initializable {
 		cbTipo.setItems(ob);
 
 		ob = FXCollections.observableArrayList();
+
+		fdValor.setEditable(false);
+		Util.Mascarar.Hora(fdHora);
+		Util.Mascarar.Hora(fdHoraEntrega);
+
+	}
+
+	public String pegarHora(Date date) {
+		SimpleDateFormat fd = new SimpleDateFormat("HH:mm");
+		String data = fd.format(date);
+		return data;
+	}
+
+	public void carregarEditar(Reserva r) {
+		this.r = r;
+		this.edit = true;
+		
+		if(r.getStatus()=="Cancelada")
+			btnSalvar.setDisable(true);
+
+		ObservableList<String> clientes = FXCollections.observableArrayList();
+		if(r.getCliente() instanceof PessoaFisica || r.getCliente() instanceof Motorista ) 
+			clientes.add(r.getCliente().getNome()+"-"+((PessoaFisica)r.getCliente()).getCpf());
+		else
+			clientes.add(r.getCliente().getNome()+"-"+((PessoaJuridica)r.getCliente()).getCnpj());
+		cbCliente.setItems(clientes);
+		cbCliente.getSelectionModel().select(0);
+		cbMotorista.getSelectionModel().select(r.getMotorista().getNome()+"-"+((PessoaFisica)r.getMotorista()).getCpf());
+		cbFilial.getSelectionModel().select(r.getFilial().getNome());
+		cbFilialEntrega.getSelectionModel().select(r.getFilialEntrega().getNome());
+		cbCategoria.getSelectionModel().select(r.getCategoria().getNome());
+		fdData.setValue(r.getDataInicial().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+		fdDataEntrega.setValue(r.getDataFinalPrevista().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+		fdHora.setText(pegarHora(r.getDataInicial()));
+		fdHoraEntrega.setText(pegarHora(r.getDataFinalPrevista()));
+		cbTipo.getSelectionModel().select(r.getTipoLocacao());
+		fdValor.setText(Double.toString(r.getValorPrevisto()));
 
 	}
 }

@@ -86,7 +86,7 @@ public class ControllerNovoFuncionario implements Initializable{
 
 	private boolean edit;
 
-	private Funcionario f;
+	private Funcionario f = new Funcionario();
 
 	@FXML
 	void actionSalvar(ActionEvent event) {
@@ -97,7 +97,7 @@ public class ControllerNovoFuncionario implements Initializable{
 			Date dataNascimento;
 			String cargo, permissao;
 
-			codigo = " ";
+			codigo = "";
 			bairro = fdBairro.getText().toString();
 			cidade = fdCidade.getText().toString();
 			numero = fdNumero.getText().toString();
@@ -106,7 +106,7 @@ public class ControllerNovoFuncionario implements Initializable{
 			nome = fdNomeFi.getText().toString();
 			login = fdLoginFi.getText().toString();
 			senha = new String(Util.Criptografia.criptografa(fdSenhaFi.getText().toCharArray()));
-			cpf = fdCpf.getText().toString();
+			cpf = Util.removerCaracteres(fdCpf.getText().toString());
 			rg= fdRg.getText().toString();
 			sexo = radioMasculino.isSelected()?"Masculino":"Feminino";
 			dataNascimento = Date.from(fdNacimento.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -162,6 +162,9 @@ public class ControllerNovoFuncionario implements Initializable{
 		ob = FXCollections.observableArrayList();
 		ob.addAll("Administrador","Funcionario");
 		cbPermissao.setItems(ob);
+		
+		Util.Mascarar.CPF(fdCpf);
+		Util.Mascarar.Data(fdNacimento);
 
 	}
 

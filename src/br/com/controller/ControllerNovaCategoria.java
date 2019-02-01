@@ -96,7 +96,7 @@ public class ControllerNovaCategoria implements Initializable{
 	@FXML
 	private Button btnSalvar;
 
-	private Categoria c = new Categoria();
+	private Categoria c;
 	private boolean edit;
 
 	@FXML
@@ -110,6 +110,19 @@ public class ControllerNovaCategoria implements Initializable{
 			if(validarCategoria()) {
 				String nome, tipoCambio, tamanho;
 				boolean arCondicionado, direcaoHidraulica, cameraRe, radio,mp3;
+				if(!edit) {
+					switch (cbTipo.getValue()) {
+					case "Comum":
+						c = new Categoria();
+						break;
+					case "Caminhoneta Carga":
+						c = new CaminhonetaCarga();
+						break;
+					case "Caminhoneta Passageiro":
+						c = new CaminhonetaPassageiro();
+						break;
+					}
+				}
 
 				nome = fdNome.getText().toString();
 				tipoCambio = fdTipoCambio.getText().toString();
@@ -119,7 +132,7 @@ public class ControllerNovaCategoria implements Initializable{
 				cameraRe = checkCamRe.isSelected();
 				radio = checkRadio.isSelected();
 				mp3= checkMp3.isSelected();
-
+				
 				c.setNome(nome);
 				c.setTamanho(tamanho);
 				c.setTipoCambio(tipoCambio);
@@ -128,9 +141,7 @@ public class ControllerNovaCategoria implements Initializable{
 				c.setCameraRe(cameraRe);
 				c.setRadio(radio);
 				c.setMp3(mp3);
-
-
-
+				
 				switch (cbTipo.getValue()) {
 				case "Comum":
 					DAOCategoria.getInstance().saveOrUpdate(c);

@@ -107,13 +107,29 @@ public class SQLUtil {
 	public class Veiculo{
 		public static final String SELECT_ALL = "SELECT v FROM Veiculo v";
 		public static final String SELECT_PLACA = "SELECT v FROM Veiculo v WHERE v.placa = :placa";
-		public static final String SELECT = "SELECT v FROM Veiculo v WHERE LOWER(v.placa) LIKE :str";
-		public static final String SELECT_FILIAL =  "SELECT v FROM Veiculo v WHERE v.filialAtual.id = :filial";
+		
+		public static final String SELECT_BUSCA = "SELECT v FROM Veiculo v WHERE LOWER(v.placa) LIKE :str or LOWER(v.modelo.nome) LIKE :str "
+				+ "or LOWER(v.categoria.nome) LIKE :str";
+		
+		public static final String SELECT_BUSCA_FILIAL = "SELECT v FROM Veiculo v WHERE (LOWER(v.placa) LIKE :str or LOWER(v.modelo.nome) LIKE :str "
+				+ "or LOWER(v.categoria.nome) LIKE :str) AND v.filialAtual = :filial";
+		
+		public static final String SELECT_BUSCA_STATUS = "SELECT v FROM Veiculo v WHERE (LOWER(v.placa) LIKE :str or LOWER(v.modelo.nome) LIKE :str "
+				+ "or LOWER(v.categoria.nome) LIKE :str) and (v.status LIKE :status)";
+		
+		public static final String SELECT_FILIAL =  "SELECT v FROM Veiculo v WHERE v.filialAtual = :filial";
+		
 		public static final String SELECT_STATUS =  "SELECT v FROM Veiculo v WHERE v.status = :status";
-		public static final String SELECT_ALL_RESERVA =  "SELECT DISTINCT v FROM Veiculo v, Locacao l, Reserva r WHERE "
-				+ "(v.id = l.veiculo.id and l.reserva.id = r.id and r.dataFinalPrevista <= :data and r.filialEntrega = :filial"
-				+ " and l.status ='Aguardando') or (v.status = 'Disponivel' and v.filialAtual = :filial)";
+		
+		public static final String SELECT_DATA = "SELECT DISTINCT v FROM Veiculo v, Locacao l, Reserva r WHERE "
+				+ "(v.id = l.veiculo.id and l.reserva.id = r.id and r.dataFinalPrevista <= :data and l.status ='Aguardando') or (v.status = 'Disponivel')";
+		
+		public static final String SELECT_DATA_FILIAL = "SELECT DISTINCT v FROM Veiculo v, Locacao l, Reserva r WHERE "
+				+ "(v.id = l.veiculo.id and l.reserva.id = r.id and r.dataFinalPrevista <= :data and l.status ='Aguardando' and r.filialEntrega = :filial) or (v.status = 'Disponivel' and v.filialAtual = :filial)";
+		
 		public static final String PROCEDURE_CONTA_VEICULO = "contaveiculoporcategoria";
+		
+		
 	}
 	
 	public class DaoGenerico{
