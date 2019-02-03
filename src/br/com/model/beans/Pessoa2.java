@@ -26,10 +26,13 @@ public abstract class Pessoa2 implements EntidadeBase{
 	@OneToOne
 	private Endereco endereco;
 	private Date dataModificacao;
+	@OneToOne
+	private Pessoa usuario;
+	private String tipo;
 	public Pessoa2() {		
 	}
-	
-	public Pessoa2(Integer id, String codigo, String nome, String login, String senha, Endereco endereco) {
+	public Pessoa2(Integer id, String codigo, String nome, String login, String senha, Endereco endereco,
+			Date dataModificacao, Pessoa usuario, String tipo) {
 		super();
 		this.id = id;
 		this.codigo = codigo;
@@ -37,73 +40,64 @@ public abstract class Pessoa2 implements EntidadeBase{
 		this.login = login;
 		this.senha = senha;
 		this.endereco = endereco;
+		this.dataModificacao = dataModificacao;
+		this.usuario = usuario;
+		this.tipo = tipo;
 	}
-	
-	public Pessoa2(String codigo, String nome, String login, String senha, Endereco endereco) {
-		super();
-		this.codigo = codigo;
-		this.nome = nome;
-		this.login = login;
-		this.senha = senha;
-		this.endereco = endereco;
-	}
-
 	public Integer getId() {
 		return id;
 	}
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 	public String getCodigo() {
 		return codigo;
 	}
-
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-
 	public String getNome() {
 		return nome;
 	}
-
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
 	public String getLogin() {
 		return login;
 	}
-
 	public void setLogin(String login) {
 		this.login = login;
 	}
-
 	public String getSenha() {
 		return senha;
 	}
-
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-
 	public Endereco getEndereco() {
 		return endereco;
 	}
-
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
-
 	public Date getDataModificacao() {
 		return dataModificacao;
 	}
-
 	public void setDataModificacao(Date dataModificacao) {
 		this.dataModificacao = dataModificacao;
 	}
-
+	public Pessoa getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Pessoa usuario) {
+		this.usuario = usuario;
+	}
+	public String getTipo() {
+		return tipo;
+	}
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -115,9 +109,10 @@ public abstract class Pessoa2 implements EntidadeBase{
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
+		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
+		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -162,11 +157,17 @@ public abstract class Pessoa2 implements EntidadeBase{
 				return false;
 		} else if (!senha.equals(other.senha))
 			return false;
+		if (tipo == null) {
+			if (other.tipo != null)
+				return false;
+		} else if (!tipo.equals(other.tipo))
+			return false;
+		if (usuario == null) {
+			if (other.usuario != null)
+				return false;
+		} else if (!usuario.equals(other.usuario))
+			return false;
 		return true;
 	}
 	
-	
-	
-	
-	
-}
+	}

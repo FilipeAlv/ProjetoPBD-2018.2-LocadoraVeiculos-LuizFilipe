@@ -3,9 +3,10 @@ package br.com.controller;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import br.com.model.beans.Config;
 import br.com.model.beans.Funcionario;
 import br.com.model.dao.DAOFuncionario;
-import br.com.util.Session;
 import br.com.util.Util;
 import br.com.util.Util.Criptografia;
 import javafx.collections.FXCollections;
@@ -154,7 +155,7 @@ public class ControllerFuncionario implements Initializable{
 		if (ob.size()>0) 
 			tb.setItems(ob);
 		
-		if(Session.usuario!=null)
+		if(Config.getInstace().getUsuario()!=null)
 			desativarBotoes();
     }
 

@@ -28,14 +28,16 @@
             <TableView fx:id="tbLog" layoutX="14.0" layoutY="15.0" prefHeight="480.0" prefWidth="937.0">
                <columns>
                   <TableColumn fx:id="codigoCol" prefWidth="68.0" text="Codigo" />
-                  <TableColumn fx:id="clienteCol" prefWidth="130.0" text="Cliente" />
-                  <TableColumn fx:id="filialCol" text="Filial" />
+                  <TableColumn fx:id="clienteCol" prefWidth="115.0" text="Cliente" />
+                  <TableColumn fx:id="filialCol" prefWidth="95.0" text="Filial" />
                   <TableColumn fx:id="filialEntCol" prefWidth="101.0" text="Filial Entrega" />
                   <TableColumn fx:id="motoristaCol" text="Motorista" />
-                  <TableColumn fx:id="dataInicialCol" prefWidth="112.0" text="Data Inicial" />
-                  <TableColumn fx:id="dataFinalCol" prefWidth="131.0" text="Data Final" />
-                  <TableColumn fx:id="statusCol" prefWidth="90.0" text="Status" />
-                  <TableColumn fx:id="dataCol" prefWidth="144.0" text="Data" />
+                  <TableColumn fx:id="dataInicialCol" prefWidth="101.0" text="Data Inicial" />
+                  <TableColumn fx:id="dataFinalCol" prefWidth="126.0" text="Data Final" />
+                  <TableColumn fx:id="statusCol" prefWidth="106.0" text="Status" />
+                  <TableColumn fx:id="dataCol" prefWidth="114.0" text="Data" />
+                  <TableColumn fx:id="usuarioCol" prefWidth="114.0" text="Usuario" />
+                  <TableColumn fx:id="tipoCol" prefWidth="114.0" text="Tipo" />
                </columns>
             </TableView>
          </children>

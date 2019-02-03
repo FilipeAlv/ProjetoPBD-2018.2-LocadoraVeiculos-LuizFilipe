@@ -9,6 +9,7 @@ import br.com.main.Main;
 import br.com.model.beans.CaminhonetaCarga;
 import br.com.model.beans.CaminhonetaPassageiro;
 import br.com.model.beans.Categoria;
+import br.com.model.beans.Config;
 import br.com.model.beans.Endereco;
 import br.com.model.beans.Filial;
 import br.com.model.beans.Funcionario;
@@ -24,6 +25,7 @@ import br.com.model.beans.Veiculo;
 import br.com.model.dao.DAOCaminhonetaCarga;
 import br.com.model.dao.DAOCaminhonetaPassageiro;
 import br.com.model.dao.DAOCategoria;
+import br.com.model.dao.DAOConfig;
 import br.com.model.dao.DAOFilial;
 import br.com.model.dao.DAOFuncionario;
 import br.com.model.dao.DAOLocacao;
@@ -35,7 +37,6 @@ import br.com.model.dao.DAOPessoaFisica;
 import br.com.model.dao.DAOPessoaJuridica;
 import br.com.model.dao.DAOReserva;
 import br.com.model.dao.DAOVeiculo;
-import br.com.util.Session;
 import br.com.util.Util;
 import br.com.util.Util.Criptografia;
 import javafx.event.ActionEvent;
@@ -79,21 +80,21 @@ public class ControllerLogin {
     		senha = Util.SENHA_PADRAO;
     	else
     		senha = new String(senhaField.getText());
-    	try {
-    		Session.usuario = DAOPessoa.getInstace().findByLogin(login);
-    		String senhaDec = Criptografia.decriptografa(Session.usuario.getSenha().toCharArray());
+    		Pessoa usuario = DAOPessoa.getInstace().findByLogin(login);
+    		Config config = Config.getInstace();
+    		config.setUsuario(usuario);
+    		String senhaDec = Criptografia.decriptografa(usuario.getSenha().toCharArray());
     		if(senhaDec.equals(senha)){
     			if(Util.SCRIPT)
     				script();
+    			DAOConfig.getInstance().saveOrUpdate(config);
     			telas();
+        		
     		}else {
     			alert.setContentText("Senha Incorreta!");
     			alert.show();
     		}
-		}catch (Exception e) {
-			alert.setContentText("Usuario Incorreto!");
-			alert.show();
-		}
+		
     	
     }
     

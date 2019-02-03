@@ -51,6 +51,12 @@ public class ControllerLogReservas implements Initializable{
 
     @FXML
     private TableColumn<ReservaAdapter, Date> dataCol;
+    
+    @FXML
+    private TableColumn<ReservaAdapter, String> usuarioCol;
+
+    @FXML
+    private TableColumn<ReservaAdapter, String> tipoCol;
 
     @FXML
     private Button btnBuscar;
@@ -92,6 +98,10 @@ public class ControllerLogReservas implements Initializable{
    				new PropertyValueFactory<>("status"));
    		dataCol.setCellValueFactory(
    				new PropertyValueFactory<>("data"));
+   		usuarioCol.setCellValueFactory(
+   				new PropertyValueFactory<>("usuario"));
+   		tipoCol.setCellValueFactory(
+   				new PropertyValueFactory<>("tipo"));
 
    		tb=tbLog;
    		carregarTabela();

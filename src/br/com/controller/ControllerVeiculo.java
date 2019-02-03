@@ -253,8 +253,8 @@ public class ControllerVeiculo implements Initializable{
 	@FXML
 	void verificarLimpeza(MouseEvent event) {
 		String status = tbVeiculo.getSelectionModel().getSelectedItem().getStatus();
-		if(status.equals("Limpeza")||status.equals("Revisão")) {
-			btnRetornar.setText(btnRetornar.getText()+" "+status);
+		if(status.equals("Limpeza")||status.equals("Revisao")) {
+			btnRetornar.setText("Retornar veiculo da "+status);
 			btnRetornar.setVisible(true);
 		}else {
 			btnRetornar.setVisible(false);	

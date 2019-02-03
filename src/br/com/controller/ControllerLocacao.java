@@ -10,8 +10,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import br.com.main.Main;
 import br.com.model.beans.Locacao;
 import br.com.model.dao.DAOLocacao;
 import br.com.model.dao.DAOVeiculo;
@@ -19,7 +17,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -27,11 +27,15 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class ControllerLocacao implements Initializable{
 
 	public static TableView<LocacaoAdapter> tb;
 	public static ObservableList<LocacaoAdapter> ob;
+	private ControllerFinalizarLocacao c;
 
 	@FXML
 	private TableView<LocacaoAdapter> tbLocacao;
@@ -72,12 +76,30 @@ public class ControllerLocacao implements Initializable{
 
 	@FXML
 	void actionAddLocacao(ActionEvent event) {
-
+		Pane tela = null;
+		Scene scene;
+		Stage stage;
+		try {
+			tela = FXMLLoader.load(getClass().getResource("../view/NovaLocacao.fxml"));
+			scene = new Scene(tela);
+			stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setOnCloseRequest(e -> stage.close());
+			stage.setScene(scene);
+			stage.show();
+			
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erro de Exibição");
+			alert.setContentText("Não foi possível exibir a tela. Por favor entre em contato com a equipe de desenvolvimento.");
+			alert.setHeaderText("Tela não encontrada");
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
 	void actionAtualizar(ActionEvent event) {
-
+		carregarTabela(DAOLocacao.getInstance().findAll());
 	}
 
 	@FXML
@@ -88,8 +110,29 @@ public class ControllerLocacao implements Initializable{
 			alert.setContentText("Esta locação já está finalizada");
 			alert.show();
 		}else {
-			calcularHora(locacao);
-			Main.novaTela("FinalizarLocacao");
+			Pane tela = null;
+			Scene scene;
+			Stage stage;
+			try {
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/FinalizarLocacao.fxml"));
+				tela = loader.load();
+				c = loader.getController();
+				scene = new Scene(tela);
+				stage = new Stage();
+				stage.initModality(Modality.APPLICATION_MODAL);
+				stage.setOnCloseRequest(e -> stage.close());
+				stage.setScene(scene);
+				stage.show();
+				
+
+				calcularHora(locacao);
+				
+			} catch (Exception e) {
+				alert.setTitle("Erro de Exibição");
+				alert.setContentText("Não foi possível exibir a tela. Por favor entre em contato com a equipe de desenvolvimento.");
+				alert.setHeaderText("Tela não encontrada");
+				e.printStackTrace();
+			}
 		}
 
 	}
@@ -113,17 +156,19 @@ public class ControllerLocacao implements Initializable{
 			alert.setContentText("Esta Locação está mais de 4 horas atrazada. Será cobrado Multa de mais uma Diaria");
 			alert.show();
 			Double valor = locacao.getReserva().getValorPrevisto();
-			ControllerFinalizarLocacao.setValor(valor+valor);	
+			c.setValor(valor+valor);	
 		}else if(calendar.after(calendarAux4)) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setContentText("Esta Locação está 4 horas atrazada. Será cobrado Multa de 1/4 da Diaria");
 			alert.show();
 			Double multa = locacao.getReserva().getValorPrevisto()*0.25;
-			ControllerFinalizarLocacao.setValor(locacao.getReserva().getValorPrevisto()+multa);	
+			c.setValor(locacao.getReserva().getValorPrevisto()+multa);	
 		}else if(calendar.after(calendarAux1)) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setContentText("Esta Locação está mais de 1 hora atrazada.");
 			alert.show();
+		}else {
+			c.setValor(locacao.getReserva().getValorPrevisto());
 		}
 	}
 
@@ -134,7 +179,7 @@ public class ControllerLocacao implements Initializable{
 
 	@FXML
 	void actionEditar(ActionEvent event) {
-
+		
 	}
 
 	@Override
@@ -177,7 +222,7 @@ public class ControllerLocacao implements Initializable{
 		return null;
 	}
 
-	private static void carregarTabela(List<Locacao> locacoes) {
+	public static void carregarTabela(List<Locacao> locacoes) {
 		ob = FXCollections.observableArrayList();
 		for (Locacao locacao : locacoes) {
 			ob.add(new LocacaoAdapter(locacao.getId(), locacao.getVeiculo().getModelo().getNome()+" "+locacao.getVeiculo().getPlaca(),
@@ -256,35 +301,27 @@ public class ControllerLocacao implements Initializable{
 		locacao.getVeiculo().setFilialAtual(locacao.getReserva().getFilialEntrega());
 		locacao.getVeiculo().setKmAnterior(locacao.getVeiculo().getKmAtual());
 		locacao.getVeiculo().setKmAtual(Double.parseDouble(km));
+		locacao.setValorFinal(valor);
 		
-		if(locacao.getVeiculo().getCategoria().getTamanho().equals("Pequeno")||
-				locacao.getVeiculo().getCategoria().getTamanho().equals("Grande")&& 
-				locacao.getVeiculo().getKmAtual()-locacao.getVeiculo().getKmAnterior()>=5000) {
+		if((locacao.getVeiculo().getCategoria().getTamanho().equals("Pequeno")||
+				locacao.getVeiculo().getCategoria().getTamanho().equals("Médio"))&& 
+				(locacao.getVeiculo().getKmAtual()-locacao.getVeiculo().getKmAnterior())>=5000) {
 
 			locacao.getVeiculo().setStatus("Revisao");
+			
 		}else if(locacao.getVeiculo().getCategoria().getTamanho().equals("Grande") && 
-				locacao.getVeiculo().getKmAtual()-locacao.getVeiculo().getKmAnterior()>=10000) {
+				(locacao.getVeiculo().getKmAtual()-locacao.getVeiculo().getKmAnterior())>=10000) {
 			locacao.getVeiculo().setStatus("Revisao");
-		}else if(locacao.getStatusVeiculo().equals("Sujo")){
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setContentText("Será cobrado Multa de 2%");
-			alert.show();
-			locacao.setValorFinal(locacao.getValorFinal()*1.02);
+		}else if(status.equals("Sujo")){
 			locacao.getVeiculo().setStatus("Limpeza");
-		}else if(locacao.getStatusVeiculo().equals("Sem Combustivel")) {
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setContentText("Será cobrado Multa de 3%");
-			alert.show();
-			locacao.setValorFinal(locacao.getValorFinal()*1.03);
-			locacao.getVeiculo().setStatus("Disponivel");
 		}else {
 			locacao.getVeiculo().setStatus("Disponivel");
 		}
 		
 		
-		
-		DAOLocacao.getInstance().saveOrUpdate(locacao);
+
 		DAOVeiculo.getInstance().saveOrUpdate(locacao.getVeiculo());
+		DAOLocacao.getInstance().saveOrUpdate(locacao);
 		carregarTabela(DAOLocacao.getInstance().findAll());
 
 

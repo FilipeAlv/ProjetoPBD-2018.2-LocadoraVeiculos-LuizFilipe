@@ -35,18 +35,17 @@ public class Reserva2 implements EntidadeBase{
 	private Categoria categoria;
 	private String status;
 	private Date dataModificacao;
+	@OneToOne
+	private Pessoa usuario;
+	private String tipo;
 	public Reserva2() {
 		super();
 	}
-
-
-
-
-
-
-	public Reserva2(Date dataReserva, Date dataInicial, Date dataFinalPrevista, String tipoLocacao, double valorPrevisto,
-			Pessoa cliente, Pessoa motorista, Filial filial, Filial filialEntrega, Categoria categoria, String status) {
+	public Reserva2(Integer id, Date dataReserva, Date dataInicial, Date dataFinalPrevista, String tipoLocacao,
+			double valorPrevisto, Pessoa cliente, Pessoa motorista, Filial filial, Filial filialEntrega,
+			Categoria categoria, String status, Date dataModificacao, Pessoa usuario, String tipo) {
 		super();
+		this.id = id;
 		this.dataReserva = dataReserva;
 		this.dataInicial = dataInicial;
 		this.dataFinalPrevista = dataFinalPrevista;
@@ -58,232 +57,100 @@ public class Reserva2 implements EntidadeBase{
 		this.filialEntrega = filialEntrega;
 		this.categoria = categoria;
 		this.status = status;
+		this.dataModificacao = dataModificacao;
+		this.usuario = usuario;
+		this.tipo = tipo;
 	}
-
-
-
-
-
-
 	public Integer getId() {
 		return id;
 	}
-
-
-
-
-
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-
-
-
-
-
 	public Date getDataReserva() {
 		return dataReserva;
 	}
-
-
-
-
-
-
 	public void setDataReserva(Date dataReserva) {
 		this.dataReserva = dataReserva;
 	}
-
-
-
-
-
-
 	public Date getDataInicial() {
 		return dataInicial;
 	}
-
-
-
-
-
-
 	public void setDataInicial(Date dataInicial) {
 		this.dataInicial = dataInicial;
 	}
-
-
-
-
-
-
 	public Date getDataFinalPrevista() {
 		return dataFinalPrevista;
 	}
-
-
-
-
-
-
 	public void setDataFinalPrevista(Date dataFinalPrevista) {
 		this.dataFinalPrevista = dataFinalPrevista;
 	}
-
-
-
-
-
-
 	public String getTipoLocacao() {
 		return tipoLocacao;
 	}
-
-
-
-
-
-
 	public void setTipoLocacao(String tipoLocacao) {
 		this.tipoLocacao = tipoLocacao;
 	}
-
-
-
-
-
-
 	public double getValorPrevisto() {
 		return valorPrevisto;
 	}
-
-
-
-
-
-
 	public void setValorPrevisto(double valorPrevisto) {
 		this.valorPrevisto = valorPrevisto;
 	}
-
-
-
-
-
-
 	public Pessoa getCliente() {
 		return cliente;
 	}
-
-
-
-
-
-
 	public void setCliente(Pessoa cliente) {
 		this.cliente = cliente;
 	}
-
-
-
-
-
-
 	public Pessoa getMotorista() {
 		return motorista;
 	}
-
-
-
-
-
-
 	public void setMotorista(Pessoa motorista) {
 		this.motorista = motorista;
 	}
-
-
-
-
-
-
 	public Filial getFilial() {
 		return filial;
 	}
-
-
-
-
-
-
 	public void setFilial(Filial filial) {
 		this.filial = filial;
 	}
-
-
-
-
-
-
 	public Filial getFilialEntrega() {
 		return filialEntrega;
 	}
-
-
-
-
-
-
 	public void setFilialEntrega(Filial filialEntrega) {
 		this.filialEntrega = filialEntrega;
 	}
-
-
-
-
-
-
 	public Categoria getCategoria() {
 		return categoria;
 	}
-
-
-
-
-
-
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-
-
-
-
-
-
 	public String getStatus() {
 		return status;
 	}
-
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
 	public Date getDataModificacao() {
 		return dataModificacao;
 	}
-
 	public void setDataModificacao(Date dataModificacao) {
 		this.dataModificacao = dataModificacao;
 	}
-
-
-
-
-
-
+	public Pessoa getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Pessoa usuario) {
+		this.usuario = usuario;
+	}
+	public String getTipo() {
+		return tipo;
+	}
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -299,18 +166,14 @@ public class Reserva2 implements EntidadeBase{
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((motorista == null) ? 0 : motorista.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
 		result = prime * result + ((tipoLocacao == null) ? 0 : tipoLocacao.hashCode());
+		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(valorPrevisto);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
-
-
-
-
-
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -375,22 +238,25 @@ public class Reserva2 implements EntidadeBase{
 				return false;
 		} else if (!status.equals(other.status))
 			return false;
+		if (tipo == null) {
+			if (other.tipo != null)
+				return false;
+		} else if (!tipo.equals(other.tipo))
+			return false;
 		if (tipoLocacao == null) {
 			if (other.tipoLocacao != null)
 				return false;
 		} else if (!tipoLocacao.equals(other.tipoLocacao))
 			return false;
+		if (usuario == null) {
+			if (other.usuario != null)
+				return false;
+		} else if (!usuario.equals(other.usuario))
+			return false;
 		if (Double.doubleToLongBits(valorPrevisto) != Double.doubleToLongBits(other.valorPrevisto))
 			return false;
 		return true;
 	}
-
-
-
-
-
-
-
-
+	
 
 }

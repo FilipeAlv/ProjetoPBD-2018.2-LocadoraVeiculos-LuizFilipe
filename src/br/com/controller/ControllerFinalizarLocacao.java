@@ -7,9 +7,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 public class ControllerFinalizarLocacao implements Initializable{
 
@@ -17,7 +19,7 @@ public class ControllerFinalizarLocacao implements Initializable{
     private Button btnSalvar;
 
     @FXML
-    private static TextField fdValor;
+    private TextField fdValor;
     
     @FXML
     private TextField fdKm;
@@ -33,6 +35,26 @@ public class ControllerFinalizarLocacao implements Initializable{
     	
     	ControllerLocacao.finalizar(valor, status, km);
     }
+    
+    @FXML
+    void verificarStatus(ActionEvent event) {
+    	float valorLoc = Float.parseFloat(fdValor.getText().toString());
+    	 if(fdStatus.getValue().equals("Sujo")){
+ 			Alert alert = new Alert(AlertType.INFORMATION);
+ 			alert.setContentText("Será cobrado Multa de 2%");
+ 			alert.show();
+ 			float valor = (float) (valorLoc*1.02);
+ 			fdValor.setText(Float.toString(valor));
+ 		}else if(fdStatus.getValue().equals("Sem Combustivel")) {
+ 			Alert alert = new Alert(AlertType.INFORMATION);
+ 			alert.setContentText("Será cobrado Multa de 3%");
+ 			alert.show();
+ 			float valor = (float) (valorLoc*1.03);
+ 			fdValor.setText(Float.toString(valor));
+ 		}else if(fdStatus.getValue().equals("Bom Estado")) {
+ 			fdValor.setText(Float.toString(valorLoc));
+ 		}
+    }
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -43,8 +65,9 @@ public class ControllerFinalizarLocacao implements Initializable{
 		
 	}
 	
-	public static void setValor(Double valor) {
-		fdValor.setText(valor.toString());
+	public void setValor(Double valor) {
+		fdValor.setText(Double.toString(valor));
+		fdValor.setEditable(false);
 	}
 
 }

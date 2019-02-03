@@ -15,7 +15,7 @@ public class SQLUtil {
 	}
 	
 	public class PessoaBackup{
-		public static final String SELECT_ALL = "SELECT p FROM PessoaBackup p";
+		public static final String SELECT_ALL = "SELECT p FROM ClienteAdapter p";
 	}
 	
 	public class PessoaFisica{
@@ -129,6 +129,11 @@ public class SQLUtil {
 		
 		public static final String PROCEDURE_CONTA_VEICULO = "contaveiculoporcategoria";
 		
+		public static final String SELECT_CATEGORIA_FILIAL = "SELECT v FROM Veiculo v WHERE v.filialAtual = :filial and v.categoria = :categoria";
+		
+		public static final String SELECT_CATEGORIA = "SELECT v FROM Veiculo v WHERE v.categoria = :categoria";
+		public static final String SELECT_STATUS_FILIAL = "SELECT v FROM Veiculo v WHERE v.filialAtual = :filial and v.status = :status";
+		
 		
 	}
 	
@@ -149,6 +154,10 @@ public class SQLUtil {
 	public class Modelo{
 		public static final String SELECT_ALL = "SELECT m FROM Modelo m";
 		public static final String SELECT_NOME = "SELECT m FROM Modelo m WHERE m.nome = :nome";
+	}
+
+	public class Config{
+		public static final String SELECT_ALL = "SELECT c FROM Config c";
 	}
 
 }

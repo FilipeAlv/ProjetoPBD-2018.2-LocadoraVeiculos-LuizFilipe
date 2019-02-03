@@ -48,6 +48,11 @@ public class ControllerLogLocacao implements Initializable{
 
 	@FXML
 	private TableColumn<LocacaoAdapter, Date> dataCol;
+    @FXML
+    private TableColumn<LocacaoAdapter, String> usuarioCol;
+
+    @FXML
+    private TableColumn<LocacaoAdapter, String> tipoCol;
 
 	@FXML
 	private Button btnBuscar;
@@ -89,6 +94,10 @@ public class ControllerLogLocacao implements Initializable{
 				new PropertyValueFactory<>("status"));
 		dataCol.setCellValueFactory(
 				new PropertyValueFactory<>("data"));
+		usuarioCol.setCellValueFactory(
+				new PropertyValueFactory<>("usuario"));
+		tipoCol.setCellValueFactory(
+				new PropertyValueFactory<>("tipo"));
 
 		tb=tbLog;
 		carregarTabela();
@@ -99,12 +108,6 @@ public class ControllerLogLocacao implements Initializable{
 	private static void carregarTabela() {
 		List<LocacaoAdapter> locacoes = DAOLocacaoBackup.getInstance().findView();
 		ob = FXCollections.observableArrayList();
-
-//		for (Locacao2 l : locacoes) {
-//			ob.add(new LocacaoAdapter(l.getId(), l.getDataFinal(), l.getReserva().getDataInicial(),
-//					l.getDataModificacao(), l.getValorFinal(), l.getVeiculo().getModelo().getNome()+" "+l.getVeiculo().getPlaca(),
-//					l.getStatusVeiculo(), l.getStatus()));
-//		}
 
 		ob.setAll(locacoes);
 		if (ob.size()>0) 

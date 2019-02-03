@@ -4,6 +4,10 @@ import java.net.URL;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
+
+import br.com.model.beans.CaminhonetaCarga;
+import br.com.model.beans.CaminhonetaPassageiro;
+import br.com.model.beans.Categoria;
 import br.com.model.beans.Endereco;
 import br.com.model.beans.Motorista;
 import br.com.model.beans.Pessoa;
@@ -114,7 +118,7 @@ public class ControllerNovoCliente implements Initializable{
 	@FXML
 	private ComboBox<String> cbTipo;
 
-	private Pessoa pessoa = new Pessoa();
+	private Pessoa pessoa;
 	private boolean edit;
 
 	@FXML
@@ -164,6 +168,16 @@ public class ControllerNovoCliente implements Initializable{
 			Date dataNascimento;
 			String habilitacao;
 			Date validadeHabilitacao;
+			if(!edit) {
+				switch (cbTipo.getValue()) {
+				case "Pessoa Física":
+					pessoa = new PessoaFisica();
+					break;
+				case "Caminhoneta Carga":
+					pessoa = new PessoaJuridica();
+					break;
+				}
+			}
 
 			codigo = "";
 			bairro = fdBairro.getText().toString();
@@ -173,8 +187,8 @@ public class ControllerNovoCliente implements Initializable{
 			uf = cbUf.getValue();
 
 			Endereco endereco = new Endereco(rua, numero, bairro, cidade, uf);
-
-			pessoa.setCodigo(codigo);
+			if(!edit)
+				pessoa.setCodigo(codigo);
 			pessoa.setEndereco(endereco);
 
 			switch (cbTipo.getValue()) {

@@ -14,81 +14,141 @@ import org.hibernate.annotations.Immutable;
 public class ReservaAdapter{
 	 @Id
 	 Integer codigo;
-	 String cliente, filial, filialEnt, motorista, status;
+	 String cliente, filial, filialEntrada, motorista, status, usuario, tipo;
 	 Date dataFinal, data, dataInicial;
 	 
 	
 	public ReservaAdapter() {
 		super();
 	}
-	
-	public ReservaAdapter(Integer codigo, String cliente, String filial, String filialEnt, String motorista,
-			Date dataInicial, String status, Date dataFinal, Date data) {
+
+
+	public ReservaAdapter(Integer codigo, String cliente, String filial, String filialEntrada, String motorista,
+			String status, String usuario, String tipo, Date dataFinal, Date data, Date dataInicial) {
 		super();
 		this.codigo = codigo;
 		this.cliente = cliente;
 		this.filial = filial;
-		this.filialEnt = filialEnt;
+		this.filialEntrada = filialEntrada;
 		this.motorista = motorista;
-		this.dataInicial = dataInicial;
 		this.status = status;
+		this.usuario = usuario;
+		this.tipo = tipo;
 		this.dataFinal = dataFinal;
 		this.data = data;
+		this.dataInicial = dataInicial;
 	}
+
+
 	public Integer getCodigo() {
 		return codigo;
 	}
+
+
 	public void setCodigo(Integer codigo) {
 		this.codigo = codigo;
 	}
+
+
 	public String getCliente() {
 		return cliente;
 	}
+
+
 	public void setCliente(String cliente) {
 		this.cliente = cliente;
 	}
+
+
 	public String getFilial() {
 		return filial;
 	}
+
+
 	public void setFilial(String filial) {
 		this.filial = filial;
 	}
-	public String getFilialEnt() {
-		return filialEnt;
+
+
+	public String getFilialEntrada() {
+		return filialEntrada;
 	}
-	public void setFilialEnt(String filialEnt) {
-		this.filialEnt = filialEnt;
+
+
+	public void setFilialEntrada(String filialEntrada) {
+		this.filialEntrada = filialEntrada;
 	}
+
+
 	public String getMotorista() {
 		return motorista;
 	}
+
+
 	public void setMotorista(String motorista) {
 		this.motorista = motorista;
 	}
-	public Date getDataInicial() {
-		return dataInicial;
-	}
-	public void setDataInicial(Date dataInicial) {
-		this.dataInicial = dataInicial;
-	}
+
+
 	public String getStatus() {
 		return status;
 	}
+
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+
+	public String getTipo() {
+		return tipo;
+	}
+
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+
 	public Date getDataFinal() {
 		return dataFinal;
 	}
+
+
 	public void setDataFinal(Date dataFinal) {
 		this.dataFinal = dataFinal;
 	}
+
+
 	public Date getData() {
 		return data;
 	}
+
+
 	public void setData(Date data) {
 		this.data = data;
 	}
-	 
+
+
+	public Date getDataInicial() {
+		return dataInicial;
+	}
+
+
+	public void setDataInicial(Date dataInicial) {
+		this.dataInicial = dataInicial;
+	}
+	
+	
 	 
 }

@@ -25,6 +25,7 @@ import br.com.model.dao.DAOPessoaFisica;
 import br.com.model.dao.DAOPessoaJuridica;
 import br.com.model.dao.DAOReserva;
 import br.com.model.dao.DAOValorLocacao;
+import br.com.model.dao.DAOVeiculo;
 import br.com.util.Util;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -192,53 +193,74 @@ public class ControllerNovaReserva implements Initializable {
 
 		if (camposPreenchidos()) {
 			if (validarDatas()) {
+				if(existeVeiculo()) {
 
-				String as = pegarCPFCombo(cbCliente.getValue());
-				Pessoa cliente = DAOPessoa.getInstace().findByCPF(as);
-				Pessoa motorista = DAOPessoa.getInstace().findByCPF(pegarCPFCombo(cbMotorista.getValue()));
-				Filial filialSaida = DAOFilial.getInstance().findByNome(cbFilial.getValue());
-				Filial filialEntrega = DAOFilial.getInstance().findByNome(cbFilialEntrega.getValue());
-				Categoria categoria = DAOCategoria.getInstance().findByNome(cbCategoria.getValue());
-				Date dataReserva = new Date();
-				Date dataInicio = converterData(fdData.getValue(), fdHora.getText());
-				Date dataEntrega = converterData(fdDataEntrega.getValue(), fdHoraEntrega.getText());
-				String tipo = cbTipo.getValue();
-				Double valor = Double.parseDouble(fdValor.getText());
-				String status = "Aguardando";
+					String as = pegarCPFCombo(cbCliente.getValue());
+					Pessoa cliente = DAOPessoa.getInstace().findByCPF(as);
+					Pessoa motorista = DAOPessoa.getInstace().findByCPF(pegarCPFCombo(cbMotorista.getValue()));
+					Filial filialSaida = DAOFilial.getInstance().findByNome(cbFilial.getValue());
+					Filial filialEntrega = DAOFilial.getInstance().findByNome(cbFilialEntrega.getValue());
+					Categoria categoria = DAOCategoria.getInstance().findByNome(cbCategoria.getValue());
+					Date dataReserva = new Date();
+					Date dataInicio = converterData(fdData.getValue(), fdHora.getText());
+					Date dataEntrega = converterData(fdDataEntrega.getValue(), fdHoraEntrega.getText());
+					String tipo = cbTipo.getValue();
+					Double valor = Double.parseDouble(fdValor.getText());
+					String status = "Aguardando";
 
-				r.setCliente(cliente);
-				r.setMotorista(motorista);
-				r.setFilial(filialSaida);
-				r.setFilialEntrega(filialEntrega);
-				r.setCategoria(categoria);
-				r.setDataInicial(dataInicio);
-				r.setDataFinalPrevista(dataEntrega);
-				r.setTipoLocacao(tipo);
-				r.setValorPrevisto(valor);
-				if(!edit) {
-					r.setDataReserva(dataReserva);
-					r.setStatus(status);
+					r.setCliente(cliente);
+					r.setMotorista(motorista);
+					r.setFilial(filialSaida);
+					r.setFilialEntrega(filialEntrega);
+					r.setCategoria(categoria);
+					r.setDataInicial(dataInicio);
+					r.setDataFinalPrevista(dataEntrega);
+					r.setTipoLocacao(tipo);
+					r.setValorPrevisto(valor);
+					if(!edit) {
+						r.setDataReserva(dataReserva);
+						r.setStatus(status);
+					}
+
+
+					DAOReserva.getInstance().saveOrUpdate(r);
+					if(edit)
+						ControllerReserva.carregarTabela();
+
+					try {
+						DAOReserva.getInstance().findById(Reserva.class, r.getId());
+						alert.setHeaderText("SUCESSO");
+						alert.setContentText("Reserva realizada com sucesso");
+						alert.show();
+					} catch (Exception e) {
+						alert.setContentText("Reserva não cadastrada");
+						alert.show();
+					}
 				}
-					
-
-				DAOReserva.getInstance().saveOrUpdate(r);
-				if(edit)
-					ControllerReserva.carregarTabela();
-
-				try {
-					DAOReserva.getInstance().findById(Reserva.class, r.getId());
-					alert.setHeaderText("SUCESSO");
-					alert.setContentText("Reserva realizada com sucesso");
-					alert.show();
-				} catch (Exception e) {
-					alert.setContentText("Reserva não cadastrada");
-					alert.show();
-				}
+			} else {
+				alert.setContentText("Preencha todos os campos");
+				alert.show();
 			}
-		} else {
-			alert.setContentText("Preencha todos os campos");
-			alert.show();
 		}
+	}
+
+	private boolean existeVeiculo() {
+		if(DAOVeiculo.getInstance().findByFilial(DAOFilial.getInstance().findByNome(cbFilial.getValue())).size()==0) {
+			alert.setContentText("Esta Filial Não Possui veículos");
+			alert.show();
+			return false;
+		}if(DAOVeiculo.getInstance().findByFilialCategoria(
+				DAOFilial.getInstance().findByNome(cbFilial.getValue()), 
+				DAOCategoria.getInstance().findByNome(cbCategoria.getValue())).size()==0) {
+			alert.setContentText("Esta Filial Não Possui veículos desta categoria");
+			alert.show();
+			return false;
+		}if(DAOVeiculo.getInstance().findByCategoria(DAOCategoria.getInstance().findByNome(cbCategoria.getValue())).size()==0) {
+			alert.setContentText("Esta categoria Não Possui veículos associados");
+			alert.show();
+			return false;
+		}
+		return true;
 	}
 
 	private boolean validarDatas() {
@@ -343,7 +365,7 @@ public class ControllerNovaReserva implements Initializable {
 	public void carregarEditar(Reserva r) {
 		this.r = r;
 		this.edit = true;
-		
+
 		if(r.getStatus()=="Cancelada")
 			btnSalvar.setDisable(true);
 

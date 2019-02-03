@@ -1,8 +1,8 @@
 package br.com.controller;
 
+import br.com.model.beans.Config;
 import br.com.model.beans.Pessoa;
 import br.com.model.dao.DAOPessoa;
-import br.com.util.Session;
 import br.com.util.Util;
 import br.com.util.Util.Criptografia;
 import javafx.event.ActionEvent;
@@ -36,7 +36,7 @@ public class ControllerAlterarSenha {
 				String senhaAtual = fdSenhaAtual.getText();
 				if (senhaAtual.length()==0)
 					senhaAtual=Util.SENHA_PADRAO;
-				Pessoa user = DAOPessoa.getInstace().findByLogin(Session.usuario.getLogin());
+				Pessoa user = DAOPessoa.getInstace().findByLogin(Config.getInstace().getUsuario().getLogin());
 				if(Criptografia.decriptografa(user.getSenha().toCharArray()).equals(senhaAtual)) {
 					user.setSenha(new String(Criptografia.criptografa(novaSenha.toCharArray())));
 					DAOPessoa.getInstace().saveOrUpdate(user);

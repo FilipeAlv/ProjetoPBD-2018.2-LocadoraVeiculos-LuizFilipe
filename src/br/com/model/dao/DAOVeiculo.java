@@ -9,6 +9,7 @@ import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureQuery;
 import javax.persistence.TypedQuery;
 
+import br.com.model.beans.Categoria;
 import br.com.model.beans.Filial;
 import br.com.model.beans.Veiculo;
 import br.com.util.ConnectionFactory;
@@ -47,34 +48,49 @@ public class DAOVeiculo extends DaoGenerico<Veiculo>{
 	}
 
 	public List<Veiculo> findByFilial(Filial filial) {
-		EntityManager em = ConnectionFactory.getInstance().getConnection();
-		TypedQuery<Veiculo> tq = em.createQuery(SQLUtil.Veiculo.SELECT_FILIAL, Veiculo.class);
-		tq.setParameter("filial", filial);
-		List<Veiculo> veiculos = tq.getResultList();
-		em.close();
+		List<Veiculo> veiculos;
+		try {
+			EntityManager em = ConnectionFactory.getInstance().getConnection();
+			TypedQuery<Veiculo> tq = em.createQuery(SQLUtil.Veiculo.SELECT_FILIAL, Veiculo.class);
+			tq.setParameter("filial", filial);
+			veiculos = tq.getResultList();
+			em.close();
+		}catch (NoResultException e) {
+			veiculos = null;
+		}
 		return veiculos;
 	}
 
 
 	public List<Veiculo> findByStatus(String status) {
-		EntityManager em = ConnectionFactory.getInstance().getConnection();
-		TypedQuery<Veiculo> tq = em.createQuery(SQLUtil.Veiculo.SELECT_STATUS, Veiculo.class);
-		tq.setParameter("status", status);	
-		List<Veiculo> veiculos = tq.getResultList();
-		em.close();
+		List<Veiculo> veiculos ;
+		try {
+			EntityManager em = ConnectionFactory.getInstance().getConnection();
+			TypedQuery<Veiculo> tq = em.createQuery(SQLUtil.Veiculo.SELECT_STATUS, Veiculo.class);
+			tq.setParameter("status", status);	
+			veiculos = tq.getResultList();
+			em.close();
+		}catch (NoResultException e) {
+			veiculos = null;
+		}
 		return veiculos;
 	}
 
 
 	public List<Veiculo> findByFind(String str){
-		EntityManager em = ConnectionFactory.getInstance().getConnection();
-		TypedQuery<Veiculo> tq = em.createQuery(SQLUtil.Veiculo.SELECT_BUSCA, Veiculo.class);
-		tq.setParameter("str", "%" + str + "%");
-		List<Veiculo> veiculos = tq.getResultList();
-		em.close();
+		List<Veiculo> veiculos;
+		try {
+			EntityManager em = ConnectionFactory.getInstance().getConnection();
+			TypedQuery<Veiculo> tq = em.createQuery(SQLUtil.Veiculo.SELECT_BUSCA, Veiculo.class);
+			tq.setParameter("str", "%" + str + "%");
+			veiculos= tq.getResultList();
+			em.close();
+		}catch (NoResultException e) {
+			veiculos = null;
+		}
 		return veiculos;
 	}
-	
+
 	public List<Veiculo> findByFindFilial(String str, Filial filial){
 		EntityManager em = ConnectionFactory.getInstance().getConnection();
 		TypedQuery<Veiculo> tq = em.createQuery(SQLUtil.Veiculo.SELECT_BUSCA_FILIAL, Veiculo.class);
@@ -84,7 +100,7 @@ public class DAOVeiculo extends DaoGenerico<Veiculo>{
 		em.close();
 		return veiculos;
 	}
-	
+
 	public List<Veiculo> findByFindStatus(String str, String status){
 		EntityManager em = ConnectionFactory.getInstance().getConnection();
 		TypedQuery<Veiculo> tq = em.createQuery(SQLUtil.Veiculo.SELECT_BUSCA_STATUS, Veiculo.class);
@@ -125,6 +141,50 @@ public class DAOVeiculo extends DaoGenerico<Veiculo>{
 		tq.setParameter("filial", filial);
 		List<Veiculo> veiculos = tq.getResultList();
 		em.close();
+		return veiculos;
+	}
+
+	public List<Veiculo> findByFilialCategoria(Filial filial, Categoria categoria) {
+		List<Veiculo> veiculos ;
+		try {
+			EntityManager em = ConnectionFactory.getInstance().getConnection();
+			TypedQuery<Veiculo> tq = em.createQuery(SQLUtil.Veiculo.SELECT_CATEGORIA_FILIAL, Veiculo.class);
+			tq.setParameter("categoria", categoria );
+			tq.setParameter("filial", filial);
+			veiculos= tq.getResultList();
+			em.close();
+		}catch (NoResultException e) {
+			veiculos = null;
+		}
+		return veiculos;
+	}
+	public List<Veiculo> findByCategoria(Categoria categoria) {
+		List<Veiculo> veiculos;
+		try {
+			EntityManager em = ConnectionFactory.getInstance().getConnection();
+			TypedQuery<Veiculo> tq = em.createQuery(SQLUtil.Veiculo.SELECT_CATEGORIA, Veiculo.class);
+			tq.setParameter("categoria", categoria);
+			veiculos = tq.getResultList();
+			em.close();
+		}catch (NoResultException e) {
+			veiculos = null;
+		}
+		return veiculos;
+	
+	}
+
+	public List<Veiculo> findByFilialStatus(Filial filial, String status) {
+		List<Veiculo> veiculos;
+		try {
+			EntityManager em = ConnectionFactory.getInstance().getConnection();
+			TypedQuery<Veiculo> tq = em.createQuery(SQLUtil.Veiculo.SELECT_STATUS_FILIAL, Veiculo.class);
+			tq.setParameter("status", status);
+			tq.setParameter("filial", filial);
+			veiculos = tq.getResultList();
+			em.close();
+		}catch (NoResultException e) {
+			veiculos = null;
+		}
 		return veiculos;
 	}
 

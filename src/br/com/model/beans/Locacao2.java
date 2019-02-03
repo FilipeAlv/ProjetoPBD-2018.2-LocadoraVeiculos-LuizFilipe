@@ -25,6 +25,9 @@ public class Locacao2 implements EntidadeBase{
 	private Reserva reserva;
 	private String status;
 	private Date dataModificacao;
+	@OneToOne
+	private Pessoa usuario;
+	private String tipo;
 	public Locacao2() {
 		super();
 	}
@@ -36,15 +39,21 @@ public class Locacao2 implements EntidadeBase{
 		this.status = status;
 	}
 	
-	public Locacao2(Date dataFinal, double valorFinal, String statusVeiculo, Veiculo veiculo, Reserva reserva, String status) {
+	public Locacao2(Integer id, Date dataFinal, double valorFinal, String statusVeiculo, Veiculo veiculo,
+			Reserva reserva, String status, Date dataModificacao, Pessoa usuario, String tipo) {
 		super();
+		this.id = id;
 		this.dataFinal = dataFinal;
 		this.valorFinal = valorFinal;
 		this.statusVeiculo = statusVeiculo;
 		this.veiculo = veiculo;
 		this.reserva = reserva;
 		this.status = status;
+		this.dataModificacao = dataModificacao;
+		this.usuario = usuario;
+		this.tipo = tipo;
 	}
+
 
 	@Override
 	public Integer getId() {
@@ -110,6 +119,24 @@ public class Locacao2 implements EntidadeBase{
 	public void setDataModificacao(Date dataModificacao) {
 		this.dataModificacao = dataModificacao;
 	}
+	
+	
+
+	public Pessoa getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Pessoa usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
 
 	@Override
 	public int hashCode() {
@@ -121,6 +148,8 @@ public class Locacao2 implements EntidadeBase{
 		result = prime * result + ((reserva == null) ? 0 : reserva.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((statusVeiculo == null) ? 0 : statusVeiculo.hashCode());
+		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
+		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(valorFinal);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -166,6 +195,16 @@ public class Locacao2 implements EntidadeBase{
 			if (other.statusVeiculo != null)
 				return false;
 		} else if (!statusVeiculo.equals(other.statusVeiculo))
+			return false;
+		if (tipo == null) {
+			if (other.tipo != null)
+				return false;
+		} else if (!tipo.equals(other.tipo))
+			return false;
+		if (usuario == null) {
+			if (other.usuario != null)
+				return false;
+		} else if (!usuario.equals(other.usuario))
 			return false;
 		if (Double.doubleToLongBits(valorFinal) != Double.doubleToLongBits(other.valorFinal))
 			return false;

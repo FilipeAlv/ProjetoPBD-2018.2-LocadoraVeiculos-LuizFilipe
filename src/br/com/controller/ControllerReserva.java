@@ -34,46 +34,46 @@ import javafx.stage.Stage;
 public class ControllerReserva implements Initializable{
 	public static TableView<ReservaAux> tb;
 	public static ObservableList<ReservaAux> ob;
-	
+
 	@FXML
 	private TableView<ReservaAux> tbReserva;
-	
+
 	@FXML
 	private TableColumn<ReservaAux, Integer> codigoCol;
-	
+
 	@FXML
 	private TableColumn<ReservaAux, String> clienteCol;
-	
+
 	@FXML
 	private TableColumn<ReservaAux, String> categoriaCol;
-	
+
 	@FXML
 	private TableColumn<ReservaAux, String> valorCol;
-	
+
 	@FXML
 	private TableColumn<ReservaAux, String> dataCol;
-	
+
 	@FXML
 	private TableColumn<ReservaAux, String> statusCol;
-	
+
 	@FXML
 	private Button btnBuscarReserva;
-	
+
 	@FXML
 	private Button btnAdd;
-	
+
 	@FXML
 	private Button btnEfetivar;
-	
+
 	@FXML
 	private Button btnAtualizar;
-	
+
 	@FXML
 	private TextField fdBuscar;
-	
+
 	@FXML
 	private Button btnEditar;
-	
+
 	@FXML
 	void actionAddReserva(ActionEvent event) {
 		Pane tela = null;
@@ -87,7 +87,7 @@ public class ControllerReserva implements Initializable{
 			stage.setOnCloseRequest(e -> stage.close());
 			stage.setScene(scene);
 			stage.show();
-			
+
 		} catch (Exception e) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Erro de Exibição");
@@ -96,12 +96,12 @@ public class ControllerReserva implements Initializable{
 			e.printStackTrace();
 		}
 	}
-	
+
 	@FXML
 	void actionBuscarReserva(ActionEvent event) {
-		
+
 	}
-	
+
 	@FXML
 	void actionEfetivar(ActionEvent event) {
 		Reserva reserva = DAOReserva.getInstance().findById(Reserva.class,tb.getSelectionModel().getSelectedItem().codigo);
@@ -127,7 +127,7 @@ public class ControllerReserva implements Initializable{
 				stage.setOnCloseRequest(e -> stage.close());
 				stage.setScene(scene);
 				stage.show();
-				
+
 			} catch (Exception e) {
 				alert.setTitle("Erro de Exibição");
 				alert.setContentText("Não foi possível exibir a tela. Por favor entre em contato com a equipe de desenvolvimento.");
@@ -136,9 +136,9 @@ public class ControllerReserva implements Initializable{
 			}
 		}
 	}
-	
-	
-	
+
+
+
 	private boolean calcularHora() {
 		Calendar calendar = new GregorianCalendar();
 		Calendar dataReserva = new GregorianCalendar();
@@ -146,12 +146,12 @@ public class ControllerReserva implements Initializable{
 		calendar.setTime(new Date());
 		dataReserva.setTime(data);
 		dataReserva.set(Calendar.HOUR, (dataReserva.get(Calendar.HOUR)+1));
-		
+
 		if(calendar.after(dataReserva))
 			return true;
 		return false;
 	}
-	
+
 	@FXML
 	void actionEditar(ActionEvent event) {
 		Reserva reserva = DAOReserva.getInstance().findById(Reserva.class, tbReserva.getSelectionModel().getSelectedItem().getCodigo());
@@ -170,7 +170,7 @@ public class ControllerReserva implements Initializable{
 			stage.setOnCloseRequest(e -> stage.close());
 			stage.setScene(scene);
 			stage.show();
-			
+
 		} catch (Exception e) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Erro de Exibição");
@@ -179,13 +179,13 @@ public class ControllerReserva implements Initializable{
 			e.printStackTrace();
 		}
 	}
-	
+
 	@FXML
 	void actionAtualizar(ActionEvent event) {
 		carregarTabela();
 		tbReserva.refresh();
 	}
-	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		codigoCol.setCellValueFactory(
@@ -200,25 +200,27 @@ public class ControllerReserva implements Initializable{
 				new PropertyValueFactory<>("data"));
 		statusCol.setCellValueFactory(
 				new PropertyValueFactory<>("status"));
-		
+
 		tb=tbReserva;
 		carregarTabela();
-		
-		
+
+
 	}
-	
+
 	public static void carregarTabela() {
 		List<Reserva> reservas = DAOReserva.getInstance().findAll();
 		ob = FXCollections.observableArrayList();
 		for (Reserva reserva : reservas) {
-			ob.add(new ReservaAux(reserva.getId(), reserva.getCliente().getNome(), reserva.getValorPrevisto(), reserva.getCategoria().getNome(),
-					reserva.getDataInicial(), reserva.getStatus()) );
+			if(!reserva.getStatus().equals("Locacao")) {
+				ob.add(new ReservaAux(reserva.getId(), reserva.getCliente().getNome(), reserva.getValorPrevisto(), reserva.getCategoria().getNome(),
+						reserva.getDataInicial(), reserva.getStatus()) );
+			}
 		}
 		if (ob.size()>0) 
 			tb.setItems(ob);
 	}
-	
-	
+
+
 	public static class ReservaAux{
 		private Integer codigo;
 		private String cliente;
@@ -226,7 +228,7 @@ public class ControllerReserva implements Initializable{
 		private Double valor;
 		private Date data;
 		private String status;
-		
+
 		public ReservaAux(Integer codigo, String cliente,Double valor,String categoria, Date data, String status) {
 			this.codigo = codigo;
 			this.cliente = cliente;
@@ -235,77 +237,77 @@ public class ControllerReserva implements Initializable{
 			this.data = data;
 			this.status = status;
 		}
-		
+
 		public String getCliente() {
 			return cliente;
 		}
-		
+
 		public void setCliente(String cliente) {
 			this.cliente = cliente;
 		}
-		
+
 		public String getCategoria() {
 			return categoria;
 		}
-		
+
 		public void setCategoria(String categoria) {
 			this.categoria = categoria;
 		}
-		
+
 		public Double getValor() {
 			return valor;
 		}
-		
+
 		public void setValor(Double valor) {
 			this.valor = valor;
 		}
-		
+
 		public Date getData() {
 			return data;
 		}
-		
+
 		public void setData(Date data) {
 			this.data = data;
 		}
-		
+
 		public Integer getCodigo() {
 			return codigo;
 		}
-		
+
 		public void setCodigo(Integer codigo) {
 			this.codigo = codigo;
 		}
-		
+
 		public String getStatus() {
 			return status;
 		}
-		
+
 		public void setStatus(String status) {
 			this.status = status;
 		}
-		
-		
-		
+
+
+
 	}
 	public static void addVeiculo(Veiculo veiculo) {
-		
+
 		Reserva reserva = DAOReserva.getInstance().findById(Reserva.class,tb.getSelectionModel().getSelectedItem().codigo);
-		
+
 		Locacao locacao = new Locacao(veiculo, reserva, "Aguardando");
 		DAOLocacao.getInstance().saveOrUpdate(locacao);
 		reserva.setStatus("Ok");
 		veiculo.setStatus("Locado");
 		DAOVeiculo.getInstance().saveOrUpdate(veiculo);
 		DAOReserva.getInstance().saveOrUpdate(reserva);
-		
+
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Efetivar Locação" );
 		alert.setHeaderText("Sucesso");
 		alert.setContentText("Locação Efetivada!\n Deve ser cobrado o valor de R$"+reserva.getValorPrevisto()/2+" do cliente.");
 		alert.show();
-		
+
 		carregarTabela();
-		
+
 	}
-	
+
 }

@@ -20,7 +20,7 @@
       </AnchorPane>
       <Button fx:id="btnSalvar" layoutX="266.0" layoutY="94.0" mnemonicParsing="false" onAction="#actionSalvar" text="Salvar" />
       <TextField fx:id="fdValor" layoutX="24.0" layoutY="44.0" prefHeight="25.0" prefWidth="123.0" promptText="Valor Final" />
-      <ComboBox fx:id="fdStatus" layoutX="164.0" layoutY="44.0" prefWidth="150.0" promptText="Status do Veículo" />
+      <ComboBox fx:id="fdStatus" layoutX="164.0" layoutY="44.0" onAction="#verificarStatus" prefWidth="150.0" promptText="Status do Veículo" />
       <TextField fx:id="fdKm" layoutX="24.0" layoutY="88.0" prefHeight="25.0" prefWidth="123.0" promptText="Km Atual" />
    </children>
 </AnchorPane>

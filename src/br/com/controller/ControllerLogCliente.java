@@ -4,11 +4,12 @@ import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-
+import br.com.model.beans.ClienteAdapter;
 import br.com.model.beans.Motorista2;
 import br.com.model.beans.PessoaFisica2;
 import br.com.model.beans.PessoaJuridica2;
 import br.com.model.dao.DAOMotoristaBackup;
+import br.com.model.dao.DAOPessoaBackup;
 import br.com.model.dao.DAOPessoaFisicaBackup;
 import br.com.model.dao.DAOPessoaJuridicaBackup;
 import javafx.collections.FXCollections;
@@ -110,26 +111,14 @@ public class ControllerLogCliente implements Initializable{
 	}
 
 	private static void carregarTabela() {
-		List<PessoaFisica2> clienteFisico = DAOPessoaFisicaBackup.getInstace().findAll();
-		List<PessoaJuridica2> clienteJuridico = DAOPessoaJuridicaBackup.getInstace().findAll();
-		List<Motorista2> motoristas = DAOMotoristaBackup.getInstace().findAll();
+		List<ClienteAdapter> clientes = DAOPessoaBackup.getInstace().findAll();
 		
-		System.out.println(clienteFisico.size());
+		System.out.println(clientes.size());
 		ob = FXCollections.observableArrayList();
 		
-		for (PessoaFisica2 p : clienteFisico) {
+		for (ClienteAdapter p : clientes) {
 			ob.add(new ClienteAdapter(p.getCodigo(), p.getNome(), p.getLogin(), p.getCpf(), p.getRg(), p.getSexo(),
-					p.getDataNascimento(), p.getDataModificacao()));
-		}
-		
-		for (Motorista2 p : motoristas) {
-			ob.add(new ClienteAdapter(p.getCodigo(), p.getNome(), p.getLogin(), p.getCpf(), p.getRg(), p.getSexo(),
-					p.getDataNascimento(), p.getDataModificacao()));
-		}
-		
-		for (PessoaJuridica2 p : clienteJuridico) {
-			ob.add(new ClienteAdapter(p.getCodigo(), p.getNome(), p.getLogin(), p.getCnpj(), p.getInscricaoEstadual(),
-					p.getDataModificacao()));
+					p.getNasc(), p.getData()));
 		}
 	
 		if (ob.size()>0) 
@@ -139,106 +128,6 @@ public class ControllerLogCliente implements Initializable{
 
     
     
-    public static class ClienteAdapter{
-    	private String nome, login ,cpf, rg, sexo, cnpj, insc, codigo;
-    	private Date nasc, data;
-    	
-    	
-		public ClienteAdapter(String codigo, String nome, String login, String cpf, String rg, String sexo, Date nasc,
-				Date data) {
-			super();
-			this.codigo = codigo;
-			this.nome = nome;
-			this.login = login;
-			this.cpf = cpf;
-			this.rg = rg;
-			this.sexo = sexo;
-			this.nasc = nasc;
-			this.data = data;
-		}
-		
-		
-		public ClienteAdapter(String codigo, String nome, String login, String cnpj, String insc, Date data) {
-			super();
-			this.codigo = codigo;
-			this.nome = nome;
-			this.login = login;
-			this.cnpj = cnpj;
-			this.insc = insc;
-			this.data = data;
-		}
-
-
-		
-		public String getCodigo() {
-			return codigo;
-		}
-
-
-		public void setCodigo(String codigo) {
-			this.codigo = codigo;
-		}
-
-
-		public String getNome() {
-			return nome;
-		}
-		public void setNome(String nome) {
-			this.nome = nome;
-		}
-		public String getLogin() {
-			return login;
-		}
-		public void setLogin(String login) {
-			this.login = login;
-		}
-		public String getCpf() {
-			return cpf;
-		}
-		public void setCpf(String cpf) {
-			this.cpf = cpf;
-		}
-		public String getRg() {
-			return rg;
-		}
-		public void setRg(String rg) {
-			this.rg = rg;
-		}
-		public String getSexo() {
-			return sexo;
-		}
-		public void setSexo(String sexo) {
-			this.sexo = sexo;
-		}
-		public String getCnpj() {
-			return cnpj;
-		}
-		public void setCnpj(String cnpj) {
-			this.cnpj = cnpj;
-		}
-		public String getInsc() {
-			return insc;
-		}
-		public void setInsc(String insc) {
-			this.insc = insc;
-		}
-		public Date getNasc() {
-			return nasc;
-		}
-		public void setNasc(Date nasc) {
-			this.nasc = nasc;
-		}
-		public Date getData() {
-			return data;
-		}
-		public void setData(Date data) {
-			this.data = data;
-		}
-    	
-    	
-
-    	
-    	
-    }
+   
 
 }

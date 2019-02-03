@@ -35,6 +35,8 @@
                   <TableColumn fx:id="dataInicialCol" prefWidth="112.0" text="Data Inicial" />
                   <TableColumn fx:id="statusCol" prefWidth="116.0" text="Status" />
                   <TableColumn fx:id="dataCol" prefWidth="146.0" text="Data" />
+                  <TableColumn fx:id="usuarioCol" prefWidth="146.0" text="Usuario" />
+                  <TableColumn fx:id="tipoCol" prefWidth="146.0" text="Tipo" />
                </columns>
             </TableView>
          </children>

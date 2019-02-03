@@ -20,7 +20,7 @@ public class Main extends Application {
 	private Pane telaLogin, telaPrincipal;
 	private static Scene sceneLogin;
 	private static Scene scenePrincipal;
-	private static Stage stage;
+	private static Stage stage, stagePrincipal;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -28,6 +28,7 @@ public class Main extends Application {
 			telaLogin = FXMLLoader.load(getClass().getResource("../view/Login.fxml"));
 			telaPrincipal = FXMLLoader.load(getClass().getResource("../view/Principal.fxml"));
 			
+			stagePrincipal = new Stage();
 
 			sceneLogin = new Scene(telaLogin);
 			scenePrincipal = new Scene(telaPrincipal);
@@ -60,21 +61,19 @@ public class Main extends Application {
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 		switch(tela) {
 		case "Principal":
-			stage.setWidth(d.getWidth());
-			stage.setHeight(d.getHeight());
-			stage.setX(0);
-			stage.setY(0);
-			stage.setScene(scenePrincipal);
+			stagePrincipal.setWidth(d.getWidth());
+			stagePrincipal.setHeight(d.getHeight());
+			stagePrincipal.setX(0);
+			stagePrincipal.setY(0);
+			stagePrincipal.setScene(scenePrincipal);
+			stage.close();
+			stagePrincipal.show();
 			break;
 
 		case "Login":
-			stage.setWidth(500);
-			stage.setHeight(400);
-			stage.setX((d.getWidth()-500)/2);
-			stage.setY((d.getHeight()-400)/2);
-			
-			
 			stage.setScene(sceneLogin);
+			stagePrincipal.close();
+			stage.show();
 			break;
 		}
 	}

@@ -186,7 +186,7 @@ public class ControllerPrincipal{
 			if (event.getSource() == menuVerLocacao) {
 				tela = FXMLLoader.load(getClass().getResource("../view/Locacao.fxml"));
 			}else if (event.getSource() == menuLocacaoSemReserva) {
-
+				tela = FXMLLoader.load(getClass().getResource("../view/LocacaoSemReserva.fxml"));
 			}else if (event.getSource() == menuConfigLocacao) {
 				tela = FXMLLoader.load(getClass().getResource("../view/ConfigLocacao.fxml"));
 			}
@@ -217,7 +217,7 @@ public class ControllerPrincipal{
 			}else if (event.getSource() == menuLogLocacao) {
 				tela = FXMLLoader.load(getClass().getResource("../view/LogLocacao.fxml"));
 			}else if (event.getSource() == menuLogReserva) {
-				tela = FXMLLoader.load(getClass().getResource("../view/LogReserva.fxml"));
+				tela = FXMLLoader.load(getClass().getResource("../view/LogReservas.fxml"));
 			}
 			scene = new Scene(tela);
 			stage = new Stage();
@@ -328,7 +328,7 @@ public class ControllerPrincipal{
 		Scene scene;
 		Stage stage;
 		try {
-			tela = FXMLLoader.load(getClass().getResource("../view/AlterarSenha.fxml"));
+			tela = FXMLLoader.load(getClass().getResource("../view/Configuracao.fxml"));
 			scene = new Scene(tela);
 			stage = new Stage();
 			stage.initModality(Modality.APPLICATION_MODAL);

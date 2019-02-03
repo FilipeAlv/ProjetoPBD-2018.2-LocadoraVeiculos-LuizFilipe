@@ -13,30 +13,14 @@ public class Motorista2 extends PessoaFisica2{
 		super();
 	}
 	
-	public Motorista2(Integer id, String codigo, String nome, String login, String senha, Endereco endereco, String cpf,
-			String rg, Date dataNascimento, String sexo) {
-		super(id, codigo, nome, login, senha, endereco, cpf, rg, dataNascimento, sexo);
-
-	}
-	public Motorista2(Integer id, String codigo, String nome, String login, String senha, Endereco endereco) {
-		super(id, codigo, nome, login, senha, endereco);
 
 
-	}
-
-	public Motorista2(Integer id, String codigo, String nome, String login, String senha, Endereco endereco, String cpf,
-			String rg, Date dataNascimento, String sexo, String habilitacao, Date validadeHabilitacao) {
-		super(id, codigo, nome, login, senha, endereco, cpf, rg, dataNascimento, sexo);
+	public Motorista2(String habilitacao, Date validadeHabilitacao) {
+		super();
 		this.habilitacao = habilitacao;
 		this.validadeHabilitacao = validadeHabilitacao;
 	}
-	
-	public Motorista2(String codigo, String nome, String login, String senha, Endereco endereco, String cpf,
-			String rg, Date dataNascimento, String sexo, String habilitacao, Date validadeHabilitacao) {
-		super(codigo, nome, login, senha, endereco, cpf, rg, dataNascimento, sexo);
-		this.habilitacao = habilitacao;
-		this.validadeHabilitacao = validadeHabilitacao;
-	}
+
 
 
 	public String getHabilitacao() {
