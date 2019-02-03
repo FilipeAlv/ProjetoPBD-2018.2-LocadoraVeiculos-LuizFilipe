@@ -24,29 +24,16 @@ public class Categoria implements EntidadeBase{
 	private boolean cameraRe;
 	private boolean radio;
 	private boolean mp3;
+	private boolean statusOb = true;
 	
 	
 	public Categoria() {
 		super();
 		
 	}
-	
-	
-	public Categoria(Integer id, String nome, String tamanho, String tipoCambio, boolean arCondicionado,
-			boolean direcaoHidraulica, boolean cameraRe, boolean radio, boolean mp3) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.tamanho = tamanho;
-		this.tipoCambio = tipoCambio;
-		this.arCondicionado = arCondicionado;
-		this.direcaoHidraulica = direcaoHidraulica;
-		this.cameraRe = cameraRe;
-		this.radio = radio;
-		this.mp3 = mp3;
-	}
-	
-	public Categoria(String nome, String tamanho, String tipoCambio, boolean arCondicionado,
+
+
+	public Categoria( String nome, String tamanho, String tipoCambio, boolean arCondicionado,
 			boolean direcaoHidraulica, boolean cameraRe, boolean radio, boolean mp3) {
 		super();
 		this.nome = nome;
@@ -63,58 +50,100 @@ public class Categoria implements EntidadeBase{
 	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+
+
+	public void setId(Integer id) {
 		this.id = id;
 	}
+
+
 	public String getNome() {
 		return nome;
 	}
+
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+
 	public String getTamanho() {
 		return tamanho;
 	}
+
+
 	public void setTamanho(String tamanho) {
 		this.tamanho = tamanho;
 	}
+
+
 	public String getTipoCambio() {
 		return tipoCambio;
 	}
+
+
 	public void setTipoCambio(String tipoCambio) {
 		this.tipoCambio = tipoCambio;
 	}
-	
-	
+
+
 	public boolean isArCondicionado() {
 		return arCondicionado;
 	}
+
+
 	public void setArCondicionado(boolean arCondicionado) {
 		this.arCondicionado = arCondicionado;
 	}
+
+
 	public boolean isDirecaoHidraulica() {
 		return direcaoHidraulica;
 	}
+
+
 	public void setDirecaoHidraulica(boolean direcaoHidraulica) {
 		this.direcaoHidraulica = direcaoHidraulica;
 	}
+
+
 	public boolean isCameraRe() {
 		return cameraRe;
 	}
+
+
 	public void setCameraRe(boolean cameraRe) {
 		this.cameraRe = cameraRe;
 	}
+
+
 	public boolean isRadio() {
 		return radio;
 	}
+
+
 	public void setRadio(boolean radio) {
 		this.radio = radio;
 	}
+
+
 	public boolean isMp3() {
 		return mp3;
 	}
+
+
 	public void setMp3(boolean mp3) {
 		this.mp3 = mp3;
+	}
+
+
+	public boolean isStatusOb() {
+		return statusOb;
+	}
+
+
+	public void setStatusOb(boolean statusOb) {
+		this.statusOb = statusOb;
 	}
 
 
@@ -129,6 +158,7 @@ public class Categoria implements EntidadeBase{
 		result = prime * result + (mp3 ? 1231 : 1237);
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + (radio ? 1231 : 1237);
+		result = prime * result + (statusOb ? 1231 : 1237);
 		result = prime * result + ((tamanho == null) ? 0 : tamanho.hashCode());
 		result = prime * result + ((tipoCambio == null) ? 0 : tipoCambio.hashCode());
 		return result;
@@ -164,6 +194,8 @@ public class Categoria implements EntidadeBase{
 			return false;
 		if (radio != other.radio)
 			return false;
+		if (statusOb != other.statusOb)
+			return false;
 		if (tamanho == null) {
 			if (other.tamanho != null)
 				return false;
@@ -176,5 +208,9 @@ public class Categoria implements EntidadeBase{
 			return false;
 		return true;
 	}
+	
+	
+	
+
 	
 }

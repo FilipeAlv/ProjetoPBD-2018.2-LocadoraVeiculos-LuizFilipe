@@ -31,40 +31,53 @@ import javafx.stage.Stage;
 
 public class ControllerCliente implements Initializable{
 
-	
+
 	public static TableView<ClienteAdapter> tb;
 	public static ObservableList<ClienteAdapter> ob;
-	
-    @FXML
-    private TableView<ClienteAdapter> tbCliente;
 
-    @FXML
-    private TableColumn<ClienteAdapter, Integer> codigoCol;
+	@FXML
+	private TableView<ClienteAdapter> tbCliente;
 
-    @FXML
-    private TableColumn<ClienteAdapter, String> nomeCol;
+	@FXML
+	private TableColumn<ClienteAdapter, Integer> codigoCol;
 
-    @FXML
-    private TableColumn<ClienteAdapter, String> tipoCol;
+	@FXML
+	private TableColumn<ClienteAdapter, String> nomeCol;
 
-    @FXML
-    private Button btnBuscar;
+	@FXML
+	private TableColumn<ClienteAdapter, String> tipoCol;
 
-    @FXML
-    private Button btnAdd;
+	@FXML
+	private Button btnBuscar;
 
-    @FXML
-    private TextField fdBuscar;
+	@FXML
+	private Button btnAdd;
 
-    @FXML
-    private Button btnEditar;
+	@FXML
+	private TextField fdBuscar;
 
-    @FXML
-    private Button btnAtualizar;
+	@FXML
+	private Button btnEditar;
 
-    @FXML
-    void actionAddPessoa(ActionEvent event) {
-    	Pane tela = null;
+	@FXML
+	private Button btnAtualizar;
+
+	@FXML
+	private Button btnDeletar;
+
+	@FXML
+	void actionDeletar(ActionEvent event) {
+		Pessoa cliente = DAOPessoa.getInstace().findById(Pessoa.class, tbCliente.getSelectionModel().getSelectedItem().getCodigo());
+		cliente.setStatusOb(false);
+		DAOPessoa.getInstace().saveOrUpdate(cliente);
+
+		carregarTabela();
+	}
+
+
+	@FXML
+	void actionAddPessoa(ActionEvent event) {
+		Pane tela = null;
 		Scene scene;
 		Stage stage;
 		try {
@@ -83,23 +96,23 @@ public class ControllerCliente implements Initializable{
 			alert.setHeaderText("Tela não encontrada");
 			e.printStackTrace();
 		}
-    }
+	}
 
-    @FXML
-    void actionAtualizar(ActionEvent event) {
-    	carregarTabela();
+	@FXML
+	void actionAtualizar(ActionEvent event) {
+		carregarTabela();
 		tbCliente.refresh();
-    }
+	}
 
-    @FXML
-    void actionBuscar(ActionEvent event) {
+	@FXML
+	void actionBuscar(ActionEvent event) {
 
-    }
+	}
 
-    @FXML
-    void actionEditar(ActionEvent event) {
-    	Pessoa cliente = DAOPessoa.getInstace().findById(Pessoa.class, tbCliente.getSelectionModel().getSelectedItem().codigo);
-    	Pane tela = null;
+	@FXML
+	void actionEditar(ActionEvent event) {
+		Pessoa cliente = DAOPessoa.getInstace().findById(Pessoa.class, tbCliente.getSelectionModel().getSelectedItem().codigo);
+		Pane tela = null;
 		Scene scene;
 		Stage stage;
 		ControllerNovoCliente c;
@@ -122,9 +135,9 @@ public class ControllerCliente implements Initializable{
 			alert.setHeaderText("Tela não encontrada");
 			e.printStackTrace();
 		}
-    }
-    
-    @Override
+	}
+
+	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		codigoCol.setCellValueFactory(
 				new PropertyValueFactory<>("codigo"));
@@ -144,7 +157,7 @@ public class ControllerCliente implements Initializable{
 		List<PessoaJuridica> clientesJuridicos = DAOPessoaJuridica.getInstace().findAll();
 		List<Motorista> motoristas = DAOMotorista.getInstace().findAll();
 		ob = FXCollections.observableArrayList();
-		
+
 		for (Pessoa pessoa : clientesFisicos) {
 			ob.add(new ClienteAdapter(pessoa.getId(), pessoa.getNome(), "Pessoa Fisica"));
 		}
@@ -159,20 +172,20 @@ public class ControllerCliente implements Initializable{
 	}
 
 
-    
-    public static class ClienteAdapter {
-    	Integer codigo;
-    	String nome;
-    	String tipo;
-    	
-    	
+
+	public static class ClienteAdapter {
+		Integer codigo;
+		String nome;
+		String tipo;
+
+
 		public ClienteAdapter(Integer codigo, String nome, String tipo) {
 			super();
 			this.codigo = codigo;
 			this.nome = nome;
 			this.tipo = tipo;
 		}
-		
+
 		public Integer getCodigo() {
 			return codigo;
 		}
@@ -191,8 +204,8 @@ public class ControllerCliente implements Initializable{
 		public void setTipo(String tipo) {
 			this.tipo = tipo;
 		}
-    	
-    	
-    }
+
+
+	}
 
 }

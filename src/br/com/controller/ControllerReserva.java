@@ -6,9 +6,11 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.ResourceBundle;
+import br.com.model.beans.Financeiro;
 import br.com.model.beans.Locacao;
 import br.com.model.beans.Reserva;
 import br.com.model.beans.Veiculo;
+import br.com.model.dao.DAOFinanceiro;
 import br.com.model.dao.DAOLocacao;
 import br.com.model.dao.DAOReserva;
 import br.com.model.dao.DAOVeiculo;
@@ -305,6 +307,14 @@ public class ControllerReserva implements Initializable{
 		alert.setHeaderText("Sucesso");
 		alert.setContentText("Locação Efetivada!\n Deve ser cobrado o valor de R$"+reserva.getValorPrevisto()/2+" do cliente.");
 		alert.show();
+		
+		Financeiro financeiro = new Financeiro();
+		financeiro.setDia(new Date());
+		financeiro.setDescricao("Metade da Locação de "+reserva.getCliente().getCodigo()+" - "+reserva.getCliente().getNome());
+		financeiro.setTipo("Entrada");
+		financeiro.setValor(reserva.getValorPrevisto()/2);
+		
+		DAOFinanceiro.getInstance().saveOrUpdate(financeiro);
 
 		carregarTabela();
 

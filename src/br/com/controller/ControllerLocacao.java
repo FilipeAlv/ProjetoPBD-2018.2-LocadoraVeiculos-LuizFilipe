@@ -10,7 +10,10 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import br.com.model.beans.Financeiro;
 import br.com.model.beans.Locacao;
+import br.com.model.dao.DAOFinanceiro;
 import br.com.model.dao.DAOLocacao;
 import br.com.model.dao.DAOVeiculo;
 import javafx.collections.FXCollections;
@@ -323,6 +326,18 @@ public class ControllerLocacao implements Initializable{
 		DAOVeiculo.getInstance().saveOrUpdate(locacao.getVeiculo());
 		DAOLocacao.getInstance().saveOrUpdate(locacao);
 		carregarTabela(DAOLocacao.getInstance().findAll());
+		
+		Financeiro f = new Financeiro();
+		f.setDia(new Date());
+		f.setDescricao("Restante da locação de: "+locacao.getReserva().getCliente().getCodigo()+" - "+
+				locacao.getReserva().getCliente().getNome());
+		f.setTipo("Entrada");
+		Double valorRestante = Double.parseDouble(String.valueOf(valor));
+		valorRestante-=(locacao.getReserva().getValorPrevisto()/2);
+		f.setValor(valorRestante);
+		
+		DAOFinanceiro.getInstance().saveOrUpdate(f);
+		
 
 
 	}

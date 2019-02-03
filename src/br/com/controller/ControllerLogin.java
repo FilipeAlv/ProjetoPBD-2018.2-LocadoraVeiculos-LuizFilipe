@@ -89,6 +89,7 @@ public class ControllerLogin {
     				script();
     			DAOConfig.getInstance().saveOrUpdate(config);
     			telas();
+    			Main.c.desativar();
         		
     		}else {
     			alert.setContentText("Senha Incorreta!");

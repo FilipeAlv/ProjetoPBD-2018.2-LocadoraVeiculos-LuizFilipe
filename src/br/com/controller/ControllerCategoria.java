@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import br.com.model.beans.Categoria;
 import br.com.model.dao.DAOCategoria;
+import br.com.model.dao.DAOVeiculo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -47,6 +48,9 @@ public class ControllerCategoria implements Initializable{
     private Button btnAdd;
 
     @FXML
+    private Button btnDeletar;
+    
+    @FXML
     private TextField fdBuscar;
 
     @FXML
@@ -82,6 +86,18 @@ public class ControllerCategoria implements Initializable{
     void actionAtualizar(ActionEvent event) {
     	carregarTabela();
 		tbCategoria.refresh();
+    }
+    
+    @FXML
+    void actionDeletar(ActionEvent event) {
+    	Categoria categoria = DAOCategoria.getInstance().findByNome(tbCategoria.getSelectionModel().getSelectedItem().getNome());
+    	if(DAOVeiculo.getInstance().findByCategoria(categoria)!=null) {
+    		categoria.setStatusOb(false);
+    		DAOCategoria.getInstance().saveOrUpdate(categoria);
+    	}else {
+    		DAOCategoria.getInstance().remove(Categoria.class, categoria.getId());
+    	}
+    	carregarTabela();
     }
 
     @FXML

@@ -40,6 +40,7 @@ public class ControllerAlterarSenha {
 				if(Criptografia.decriptografa(user.getSenha().toCharArray()).equals(senhaAtual)) {
 					user.setSenha(new String(Criptografia.criptografa(novaSenha.toCharArray())));
 					DAOPessoa.getInstace().saveOrUpdate(user);
+					alert.setAlertType(AlertType.INFORMATION);
 					alert.setContentText("Senha Alterada com sucesso");
 					alert.show();
 				}else {
@@ -64,7 +65,7 @@ public class ControllerAlterarSenha {
 			alert.show();
 			return false;
 
-		}else if(!(fdNovaSenha.getText().length()>=6 || fdNovaSenha.getText().length()<=11)) {
+		}else if(!(fdNovaSenha.getText().length()>=6 && fdNovaSenha.getText().length()<=11)) {
 			alert.setContentText("Sua senha deve conter entre 6 e 11 caracteres");
 			alert.show();
 			return false;

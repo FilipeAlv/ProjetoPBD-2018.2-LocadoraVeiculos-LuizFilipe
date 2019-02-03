@@ -19,7 +19,7 @@ public class SQLUtil {
 	}
 	
 	public class PessoaFisica{
-		public static final String SELECT_ALL = "SELECT p FROM PessoaFisica p";
+		public static final String SELECT_ALL = "SELECT p FROM PessoaFisica p WHERE statusOb = 'true'";
 		public static final String SELECT_CPF = "SELECT p FROM PessoaFisica p WHERE p.cpf = :cpf";
 		public static final String SELECT = "SELECT p FROM PessoaFisica p WHERE LOWER(p.nome) LIKE :str or LOWER(p.cpf) LIKE :str";
 	}
@@ -39,7 +39,7 @@ public class SQLUtil {
 	}
 	
 	public class Categoria{
-		public static final String SELECT_ALL = "SELECT c FROM Categoria c";
+		public static final String SELECT_ALL = "SELECT c FROM Categoria c WHERE c.statusOb = 'true'";
 		public static final String SELECT_MAX_ID = "SELECT MAX(id) FROM Categoria";
 		public static final String SELECT_TAMANHO = "SELECT c FROM Categoria c WHERE c.tamanho = :tamanho";
 		public static final String SELECT_NOME = "SELECT c FROM Categoria c WHERE c.nome = :nome";
@@ -65,11 +65,11 @@ public class SQLUtil {
 		public static final String SELECT_NOME = "SELECT fl FROM Filial fl WHERE fl.nome = :nome";
 		public static final String SELECT_ID_NOME = "SELECT fl.id FROM Filial fl WHERE fl.nome = :nome";
 		public static final String SELECT_MAX_ID = "SELECT MAX(id) FROM Filial";
-		public static final String SELECT_ALL = "SELECT f FROM Filial f";
+		public static final String SELECT_ALL = "SELECT f FROM Filial f WHERE f.statusOb = 'true'";
 	}
 	
 	public class Funcionario{
-		public static final String SELECT_ALL = "SELECT f FROM Funcionario f";
+		public static final String SELECT_ALL = "SELECT f FROM Funcionario f WHERE f.statusOb = 'true'";
 		public static final String SELECT_CARGO = "SELECT f FROM Funcionario f WHERE f.cargo = :cargo";
 	}
 	
@@ -84,7 +84,7 @@ public class SQLUtil {
 	}
 	
 	public class Motorista{
-		public static final String SELECT_ALL = "SELECT m FROM Motorista m";
+		public static final String SELECT_ALL = "SELECT m FROM Motorista m WHERE m.statusOb = 'true'";
 		public static final String SELECT_HABILITACAO = "SELECT m FROM Motorista m WHERE m.habilitacao = :habilitacao";
 	}
 	
@@ -105,7 +105,7 @@ public class SQLUtil {
 	
 	
 	public class Veiculo{
-		public static final String SELECT_ALL = "SELECT v FROM Veiculo v";
+		public static final String SELECT_ALL = "SELECT v FROM Veiculo v WHERE v.statusOb = 'true'";
 		public static final String SELECT_PLACA = "SELECT v FROM Veiculo v WHERE v.placa = :placa";
 		
 		public static final String SELECT_BUSCA = "SELECT v FROM Veiculo v WHERE LOWER(v.placa) LIKE :str or LOWER(v.modelo.nome) LIKE :str "
@@ -158,6 +158,13 @@ public class SQLUtil {
 
 	public class Config{
 		public static final String SELECT_ALL = "SELECT c FROM Config c";
+	}
+
+	public class Financeiro{
+
+		public static final String SELECT_ALL = "SELECT f FROM Financeiro f";
+		public static final String SELECT_DATA = "SELECT f FROM Financeiro f WHERE f.dia BETWEEN :de and :ate";
+		
 	}
 
 }

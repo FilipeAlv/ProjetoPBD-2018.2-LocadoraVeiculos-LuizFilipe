@@ -1,5 +1,9 @@
 package br.com.controller;
+
 import br.com.main.Main;
+import br.com.model.beans.Config;
+import br.com.model.beans.Funcionario;
+import br.com.model.beans.Pessoa;
 import br.com.util.Util;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -15,6 +20,19 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ControllerPrincipal{
+
+	@FXML
+	private MenuItem menuFinanceiroMov;
+	
+	@FXML
+    private MenuItem itemLogout;
+
+    @FXML
+    private MenuItem itemAterarSenha;
+	
+	@FXML
+	private Label labelUser;
+
 
 	@FXML
 	private ImageView btnConfigSis;
@@ -346,9 +364,82 @@ public class ControllerPrincipal{
 	}
 
 	@FXML
-	void actionLogout(MouseEvent event) {
-		Main.alterarTela("Login");
-		Util.SCRIPT=false;
+	void actionFinanceiro(ActionEvent event) {
+		Pane tela = null;
+		Scene scene;
+		Stage stage;
+		try {
+			tela = FXMLLoader.load(getClass().getResource("../view/Movimentacao.fxml"));
+			scene = new Scene(tela);
+			stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setOnCloseRequest(e -> stage.close());
+			stage.setScene(scene);
+			stage.show();
+
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erro de Exibição");
+			alert.setContentText("Não foi possível exibir a tela. Por favor entre em contato com a equipe de desenvolvimento.");
+			alert.setHeaderText("Tela não encontrada");
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	void actionLogout(ActionEvent event) {
+			Main.alterarTela("Login");
+			Util.SCRIPT=false;
+
+	}
+	
+	@FXML
+	void actionAlterSenha(ActionEvent event) {
+		Pane tela = null;
+		Scene scene;
+		Stage stage;
+		try {
+			tela = FXMLLoader.load(getClass().getResource("../view/AlterarSenha.fxml"));
+			scene = new Scene(tela);
+			stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setOnCloseRequest(e -> stage.close());
+			stage.setScene(scene);
+			stage.show();
+
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Erro de Exibição");
+			alert.setContentText("Não foi possível exibir a tela. Por favor entre em contato com a equipe de desenvolvimento.");
+			alert.setHeaderText("Tela não encontrada");
+			e.printStackTrace();
+		}
+	}
+
+	public  void desativar() {
+		Pessoa user = Config.getInstace().getUsuario();
+		if(user instanceof Funcionario) {
+			if(((Funcionario) user).getPermissao().equals("Administrador")) {
+				menuFinanceiroMov.setDisable(false);
+				menuNovoFuncionario.setDisable(false);
+				menuLogCliente.setDisable(false);
+				menuLogLocacao.setDisable(false);
+				menuLogReserva.setDisable(false);	
+				labelUser.setText("- Administrador");
+				return;
+			}
+
+			labelUser.setText("- Funcionario");
+		}else {
+			labelUser.setText("- Padrão");
+		}
+
+		menuFinanceiroMov.setDisable(true);
+		menuNovoFuncionario.setDisable(true);
+		menuLogCliente.setDisable(true);
+		menuLogLocacao.setDisable(true);
+		menuLogReserva.setDisable(true);
+		
 	}
 
 }

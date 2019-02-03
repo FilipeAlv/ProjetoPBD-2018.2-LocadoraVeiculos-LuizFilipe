@@ -12,11 +12,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javax.swing.JOptionPane;
-
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 
 public class Backup implements Initializable {
 

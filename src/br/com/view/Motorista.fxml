@@ -71,5 +71,14 @@
             </ImageView>
          </graphic>
       </Button>
+      <Button fx:id="btnDeletar" layoutX="547.0" layoutY="461.0" mnemonicParsing="false" onAction="#actionDeletar" prefHeight="26.0" prefWidth="34.0">
+         <graphic>
+            <ImageView fitHeight="15.0" fitWidth="17.0">
+               <image>
+                  <Image url="@../resources/icon_dell.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

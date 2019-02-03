@@ -13,6 +13,15 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="650.0" style="-fx-background-color: #9c9c9c; -fx-border-color: #000000;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.controller.ControllerCliente">
    <children>
+      <Button fx:id="btnDeletar" layoutX="547.0" layoutY="461.0" mnemonicParsing="false" onAction="#actionDeletar" prefHeight="26.0" prefWidth="34.0">
+         <graphic>
+            <ImageView fitHeight="15.0" fitWidth="17.0">
+               <image>
+                  <Image url="@../resources/icon_dell.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
       <AnchorPane layoutX="1.0" prefHeight="39.0" prefWidth="600.0" style="-fx-background-color: #333333;" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label layoutX="292.0" layoutY="7.0" text="Cliente" textFill="WHITE">

@@ -3,8 +3,12 @@ package br.com.controller;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import br.com.model.beans.Categoria;
 import br.com.model.beans.Motorista;
+import br.com.model.dao.DAOCategoria;
 import br.com.model.dao.DAOMotorista;
+import br.com.model.dao.DAOVeiculo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,40 +28,43 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ControllerMotorista implements Initializable{
-	
+
 	public static TableView<Motorista> tb;
 	public static ObservableList<Motorista> ob;
 
-    @FXML
-    private TableView<Motorista> tbMotorista;
+	@FXML
+	private TableView<Motorista> tbMotorista;
 
-    @FXML
-    private TableColumn<Motorista, Integer> codigoCol;
+	@FXML
+	private TableColumn<Motorista, Integer> codigoCol;
 
-    @FXML
-    private TableColumn<Motorista, String> nomeCol;
+	@FXML
+	private TableColumn<Motorista, String> nomeCol;
 
-    @FXML
-    private TableColumn<Motorista, String> habilitacaoCol;
+	@FXML
+	private TableColumn<Motorista, String> habilitacaoCol;
 
-    @FXML
-    private Button btnBuscar;
+	@FXML
+	private Button btnBuscar;
 
-    @FXML
-    private Button btnAdd;
+	@FXML
+	private Button btnDeletar;
 
-    @FXML
-    private TextField fdBuscar;
+	@FXML
+	private Button btnAdd;
 
-    @FXML
-    private Button btnEditar;
+	@FXML
+	private TextField fdBuscar;
 
-    @FXML
-    private Button btnAtualizar;
+	@FXML
+	private Button btnEditar;
 
-    @FXML
-    void actionAddMotorista(ActionEvent event) {
-    	Pane tela = null;
+	@FXML
+	private Button btnAtualizar;
+
+	@FXML
+	void actionAddMotorista(ActionEvent event) {
+		Pane tela = null;
 		Scene scene;
 		Stage stage;
 		try {
@@ -76,18 +83,25 @@ public class ControllerMotorista implements Initializable{
 			alert.setHeaderText("Tela não encontrada");
 			e.printStackTrace();
 		}
-    }
+	}
 
+	@FXML
+	void actionDeletar(ActionEvent event) {
+		Motorista motorista = DAOMotorista.getInstace().findById(Motorista.class, tbMotorista.getSelectionModel().getSelectedItem().getId());
+		motorista.setStatusOb(false);
+		DAOMotorista.getInstace().saveOrUpdate(motorista);
+		carregarTabela();
+	}
 
-    @FXML
-    void actionBuscar(ActionEvent event) {
+	@FXML
+	void actionBuscar(ActionEvent event) {
 
-    }
+	}
 
-    @FXML
-    void actionEditar(ActionEvent event) {
-    	Motorista motorista = DAOMotorista.getInstace().findById(Motorista.class, tbMotorista.getSelectionModel().getSelectedItem().getId());
-    	Pane tela = null;
+	@FXML
+	void actionEditar(ActionEvent event) {
+		Motorista motorista = DAOMotorista.getInstace().findById(Motorista.class, tbMotorista.getSelectionModel().getSelectedItem().getId());
+		Pane tela = null;
 		Scene scene;
 		Stage stage;
 		ControllerNovoMotorista c;
@@ -110,9 +124,9 @@ public class ControllerMotorista implements Initializable{
 			alert.setHeaderText("Tela não encontrada");
 			e.printStackTrace();
 		}
-    }
-    
-    @FXML
+	}
+
+	@FXML
 	void actionAtualizar(ActionEvent event) {
 		carregarTabela();
 		tbMotorista.refresh();

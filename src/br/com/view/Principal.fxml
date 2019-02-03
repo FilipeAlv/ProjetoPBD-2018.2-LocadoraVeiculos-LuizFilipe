@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,6 +15,12 @@
       <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #9c9c9c;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <AnchorPane prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #333333;" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="3.0">
          <children>
+            <SplitMenuButton layoutX="516.0" layoutY="13.0" mnemonicParsing="false" opacity="0.0" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="13.0">
+              <items>
+                <MenuItem fx:id="itemLogout" mnemonicParsing="false" onAction="#actionLogout" text="Logout" />
+                <MenuItem fx:id="itemAterarSenha" mnemonicParsing="false" onAction="#actionAlterSenha" text="Alterar Senha" />
+              </items>
+            </SplitMenuButton>
             <Label layoutX="47.0" layoutY="10.0" text="Veículos Pajeú" textFill="WHITE" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="11.0">
                <font>
                   <Font name="System Bold" size="19.0" />
@@ -29,16 +36,21 @@
                   <Image url="@../resources/config.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="16.0" fitWidth="25.0" layoutX="544.0" layoutY="17.0" onMouseClicked="#actionLogout" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="17.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="17.0">
+            <ImageView disable="true" fitHeight="16.0" fitWidth="25.0" layoutX="544.0" layoutY="17.0" onMouseClicked="#actionLogout" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="17.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="17.0">
                <image>
                   <Image url="@../resources/logout.png" />
                </image>
             </ImageView>
+            <Label fx:id="labelUser" layoutX="183.0" layoutY="13.0" prefHeight="25.0" prefWidth="115.0" text="- Padrão" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
       <MenuBar layoutY="50.0" prefHeight="22.0" prefWidth="600.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="50.0">
          <menus>
-            <Menu  mnemonicParsing="false"  text="Cadastro">
+            <Menu mnemonicParsing="false" text="Cadastro">
                <items>
                 <MenuItem fx:id="menuCadastroCategoria" mnemonicParsing="false" onAction="#actionMenuCadastro" text="Categoria" />
                   <MenuItem fx:id="menuCadastroFilial" mnemonicParsing="false" onAction="#actionMenuCadastro" text="Filial" />
@@ -54,13 +66,13 @@
                   <MenuItem fx:id="menuBuscarCliente" mnemonicParsing="false" onAction="#actionMenuBuscar" text="Cliente" />
                </items>
             </Menu>
-            <Menu  mnemonicParsing="false" text="Funcionario">
+            <Menu mnemonicParsing="false" text="Funcionario">
                <items>
                   <MenuItem fx:id="menuVerFuncionario" mnemonicParsing="false" onAction="#actionMenuFuncionario" text="Ver Funcionarios" />
                   <MenuItem fx:id="menuNovoFuncionario" mnemonicParsing="false" onAction="#actionMenuFuncionario" text="Novo Funcionario" />
                </items>
             </Menu>
-            <Menu  mnemonicParsing="false"  text="Veiculo">
+            <Menu mnemonicParsing="false" text="Veiculo">
               <items>
                 <MenuItem fx:id="menuVerVeiculo" mnemonicParsing="false" onAction="#actionMenuVeiculo" text="Ver veículos" />
                   <MenuItem fx:id="menuNovoVeiculo" mnemonicParsing="false" onAction="#actionMenuVeiculo" text="Adicionar Veículo" />
@@ -68,20 +80,25 @@
                   <MenuItem fx:id="menuNovoModelo" mnemonicParsing="false" onAction="#actionMenuVeiculo" text="Adicionar Modelo" />
               </items>
             </Menu>
-            <Menu  mnemonicParsing="false" text="Reserva">
+            <Menu mnemonicParsing="false" text="Reserva">
               <items>
                   <MenuItem fx:id="menuVerReservas" mnemonicParsing="false" onAction="#actionMenuReserva" text="Ver Reservas" />
                 <MenuItem fx:id="menuNovaReserva" mnemonicParsing="false" onAction="#actionMenuReserva" text="Nova Reserva" />
               </items>
             </Menu>
-            <Menu  mnemonicParsing="false"  text="Locação">
+            <Menu mnemonicParsing="false" text="Locação">
                <items>
                   <MenuItem fx:id="menuVerLocacao" mnemonicParsing="false" onAction="#actionMenuLocacao" text="Vizualizar Locações" />
                   <MenuItem fx:id="menuLocacaoSemReserva" mnemonicParsing="false" onAction="#actionMenuLocacao" text="Locação sem reserva" />
                   <MenuItem fx:id="menuConfigLocacao" mnemonicParsing="false" onAction="#actionMenuLocacao" text="Configurações" />
                </items>
             </Menu>
-            <Menu  mnemonicParsing="false" text="Log">
+            <Menu mnemonicParsing="false" text="Financeiro">
+               <items>
+                  <MenuItem fx:id="menuFinanceiroMov" mnemonicParsing="false" onAction="#actionFinanceiro" text="Movimentações" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Log">
                <items>
                   <MenuItem fx:id="menuLogCliente" mnemonicParsing="false" onAction="#actionMenuLog" text="Cliente" />
                   <MenuItem fx:id="menuLogReserva" mnemonicParsing="false" onAction="#actionMenuLog" text="Reserva" />

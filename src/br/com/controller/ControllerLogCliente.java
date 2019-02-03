@@ -5,13 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import br.com.model.beans.ClienteAdapter;
-import br.com.model.beans.Motorista2;
-import br.com.model.beans.PessoaFisica2;
-import br.com.model.beans.PessoaJuridica2;
-import br.com.model.dao.DAOMotoristaBackup;
 import br.com.model.dao.DAOPessoaBackup;
-import br.com.model.dao.DAOPessoaFisicaBackup;
-import br.com.model.dao.DAOPessoaJuridicaBackup;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,6 +20,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class ControllerLogCliente implements Initializable{
 	public static TableView<ClienteAdapter> tb;
 	public static ObservableList<ClienteAdapter> ob;
+	
+	
 	
     @FXML
     private TableView<ClienteAdapter> tbLog;

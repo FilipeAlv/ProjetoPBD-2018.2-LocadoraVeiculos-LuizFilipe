@@ -25,40 +25,43 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ControllerFilial implements Initializable{
-	
+
 	public static TableView<FilialAdapter> tb;
 	public static ObservableList<FilialAdapter> ob;
-	
-    @FXML
-    private Label filial;
 
-    @FXML
-    private TableView<FilialAdapter> tbFilial;
+	@FXML
+	private Label filial;
 
-    @FXML
-    private TableColumn<FilialAdapter, String> nomeCol;
+	@FXML
+	private TableView<FilialAdapter> tbFilial;
 
-    @FXML
-    private TableColumn<FilialAdapter, String> ufCol;
+	@FXML
+	private TableColumn<FilialAdapter, String> nomeCol;
 
-    @FXML
-    private Button btnBuscar;
+	@FXML
+	private TableColumn<FilialAdapter, String> ufCol;
 
-    @FXML
-    private Button btnAdd;
+	@FXML
+	private Button btnBuscar;
 
-    @FXML
-    private TextField fdBuscar;
+	@FXML
+	private Button btnDeletar;
 
-    @FXML
-    private Button btnEditar;
+	@FXML
+	private Button btnAdd;
 
-    @FXML
-    private Button btnAtualizar;
+	@FXML
+	private TextField fdBuscar;
 
-    @FXML
-    void actionAddFilial(ActionEvent event) {
-    	Pane tela = null;
+	@FXML
+	private Button btnEditar;
+
+	@FXML
+	private Button btnAtualizar;
+
+	@FXML
+	void actionAddFilial(ActionEvent event) {
+		Pane tela = null;
 		Scene scene;
 		Stage stage;
 		try {
@@ -77,23 +80,32 @@ public class ControllerFilial implements Initializable{
 			alert.setHeaderText("Tela não encontrada");
 			e.printStackTrace();
 		}
-    }
+	}
 
-    @FXML
-    void actionAtualizar(ActionEvent event) {
-    	carregarTabela();
+	@FXML
+	void actionAtualizar(ActionEvent event) {
+		carregarTabela();
 		tbFilial.refresh();
-    }
+	}
 
-    @FXML
-    void actionBuscar(ActionEvent event) {
+	@FXML
+	void actionBuscar(ActionEvent event) {
 
-    }
+	}
 
-    @FXML
-    void actionEditar(ActionEvent event) {
-    	Filial filial = DAOFilial.getInstance().findByNome(tb.getSelectionModel().getSelectedItem().getNome());
-    	Pane tela = null;
+	@FXML
+	void actionDeletar(ActionEvent event) {
+		Filial filial = DAOFilial.getInstance().findByNome(tbFilial.getSelectionModel().getSelectedItem().getNome());
+		filial.setStatusOb(false);
+		DAOFilial.getInstance().saveOrUpdate(filial);
+
+		carregarTabela();
+	}
+
+	@FXML
+	void actionEditar(ActionEvent event) {
+		Filial filial = DAOFilial.getInstance().findByNome(tb.getSelectionModel().getSelectedItem().getNome());
+		Pane tela = null;
 		Scene scene;
 		Stage stage;
 		ControllerNovaFilial c;
@@ -116,8 +128,8 @@ public class ControllerFilial implements Initializable{
 			alert.setHeaderText("Tela não encontrada");
 			e.printStackTrace();
 		}
-    }
-    
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		nomeCol.setCellValueFactory(
@@ -142,11 +154,11 @@ public class ControllerFilial implements Initializable{
 	}
 
 
-    
-    
-    public static class FilialAdapter{
-    	private String nome, uf;
-    	
+
+
+	public static class FilialAdapter{
+		private String nome, uf;
+
 
 		public FilialAdapter(String nome, String uf) {
 			super();
@@ -169,7 +181,7 @@ public class ControllerFilial implements Initializable{
 		public void setUf(String uf) {
 			this.uf = uf;
 		}
-    	
-    }
+
+	}
 
 }

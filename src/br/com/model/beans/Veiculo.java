@@ -31,6 +31,7 @@ public class Veiculo implements EntidadeBase{
 	private Filial filialAtual;
 	@Column(length=10)
 	private String status;
+	private boolean statusOb = true;
 	
 	public Veiculo() {
 		super();
@@ -50,6 +51,19 @@ public class Veiculo implements EntidadeBase{
 		this.modelo = modelo;
 		this.status = status;
 		this.filialAtual = filial;
+	}
+
+	
+
+
+	public boolean isStatusOb() {
+		return statusOb;
+	}
+
+
+
+	public void setStatusOb(boolean statusOb) {
+		this.statusOb = statusOb;
 	}
 
 

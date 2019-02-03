@@ -9,8 +9,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import br.com.model.beans.Categoria;
 import br.com.model.beans.Filial;
 import br.com.model.beans.Veiculo;
+import br.com.model.dao.DAOCategoria;
 import br.com.model.dao.DAOFilial;
 import br.com.model.dao.DAOVeiculo;
 import javafx.collections.FXCollections;
@@ -41,6 +44,9 @@ public class ControllerVeiculo implements Initializable{
 
 	@FXML
 	private Button btnRetornar;
+	
+	@FXML
+	private Button btnDeletar;
 
 	@FXML
 	private TableView<VeiculoAdapter> tbVeiculo;
@@ -104,8 +110,16 @@ public class ControllerVeiculo implements Initializable{
 	}
 
 	@FXML
+    void actionDeletar(ActionEvent event) {
+    	Veiculo veiculo = DAOVeiculo.getInstance().findByPlaca(tbVeiculo.getSelectionModel().getSelectedItem().getPlaca());
+    	veiculo.setStatusOb(false);
+    	DAOVeiculo.getInstance().saveOrUpdate(veiculo);
+    	carregarTabela(DAOVeiculo.getInstance().findAll());
+    }
+	
+	@FXML
 	void actionAtualizar(ActionEvent event) {
-
+		carregarTabela(DAOVeiculo.getInstance().findAll());
 	}
 
 	@FXML

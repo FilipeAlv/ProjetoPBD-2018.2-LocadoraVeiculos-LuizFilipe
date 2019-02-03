@@ -4,10 +4,6 @@ import java.net.URL;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
-
-import br.com.model.beans.CaminhonetaCarga;
-import br.com.model.beans.CaminhonetaPassageiro;
-import br.com.model.beans.Categoria;
 import br.com.model.beans.Endereco;
 import br.com.model.beans.Motorista;
 import br.com.model.beans.Pessoa;

@@ -16,24 +16,28 @@ public class ThreadBackup extends Task<Integer> {
     @Override
     protected Integer call() {
     	Calendar hora = new GregorianCalendar();
-        Calendar calHoraAtual = Calendar.getInstance();
-        Calendar calHoraBack = Calendar.getInstance();
+        Calendar HoraAtual = Calendar.getInstance();
+        Calendar HoraBack = Calendar.getInstance();
         
-        hora.set(Calendar.HOUR, 7);
-        hora.set(Calendar.MINUTE, 22);
-        calHoraBack.setTime(hora.getTime());
+        if(Config.getInstace().getHoraBackup()!=null) {
+        	HoraBack.setTime(Config.getInstace().getHoraBackup());
+        }else {
+	        hora.set(Calendar.HOUR, 7);
+	        hora.set(Calendar.MINUTE, 22);
+	        HoraBack.setTime(hora.getTime());
+        }
 
-        int horaBack = calHoraBack.get(Calendar.HOUR_OF_DAY);
-        int minutoBack = calHoraBack.get(Calendar.MINUTE);
+        int horaBack = HoraBack.get(Calendar.HOUR_OF_DAY);
+        int minutoBack = HoraBack.get(Calendar.MINUTE);
 
         try {
             while (true) {
 
                 Date dataAtual = new Date();
-                calHoraAtual.setTime(dataAtual);
+                HoraAtual.setTime(dataAtual);
 
-                int horaAtual = calHoraAtual.get(Calendar.HOUR_OF_DAY);
-                int minutoAtual = calHoraAtual.get(Calendar.MINUTE);
+                int horaAtual = HoraAtual.get(Calendar.HOUR_OF_DAY);
+                int minutoAtual = HoraAtual.get(Calendar.MINUTE);
 
                 if (horaBack >= horaAtual && minutoBack >= minutoAtual) {
                     Backup.realizaBackup();

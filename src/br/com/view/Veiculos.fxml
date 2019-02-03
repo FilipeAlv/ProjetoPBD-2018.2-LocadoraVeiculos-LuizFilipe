@@ -77,6 +77,15 @@
       <ComboBox fx:id="cbFilial" layoutX="188.0" layoutY="49.0" prefHeight="25.0" prefWidth="83.0" promptText="Filial" />
       <DatePicker fx:id="fdData" layoutX="281.0" layoutY="49.0" prefHeight="25.0" prefWidth="103.0" promptText="Data" />
       <ComboBox fx:id="cbStatus" layoutX="392.0" layoutY="49.0" prefHeight="25.0" prefWidth="83.0" promptText="Status" />
-      <Button fx:id="btnRetornar" layoutX="31.0" layoutY="462.0" mnemonicParsing="false" onAction="#actionRetornar" prefHeight="25.0" prefWidth="549.0" text="Retornar Veiculo da" />
+      <Button fx:id="btnRetornar" layoutX="31.0" layoutY="462.0" mnemonicParsing="false" onAction="#actionRetornar" prefHeight="25.0" prefWidth="482.0" text="Retornar Veiculo da" />
+      <Button fx:id="btnDeletar" layoutX="547.0" layoutY="461.0" mnemonicParsing="false" onAction="#actionDeletar" prefHeight="26.0" prefWidth="34.0">
+         <graphic>
+            <ImageView fitHeight="15.0" fitWidth="17.0">
+               <image>
+                  <Image url="@../resources/icon_dell.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

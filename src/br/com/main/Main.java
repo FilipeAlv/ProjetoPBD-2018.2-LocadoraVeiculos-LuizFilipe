@@ -2,6 +2,8 @@ package br.com.main;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+
+import br.com.controller.ControllerPrincipal;
 import br.com.model.beans.Pessoa;
 import br.com.model.beans.PessoaFisica;
 import br.com.model.beans.ThreadBackup;
@@ -21,12 +23,16 @@ public class Main extends Application {
 	private static Scene sceneLogin;
 	private static Scene scenePrincipal;
 	private static Stage stage, stagePrincipal;
+	public static ControllerPrincipal c;
 
 	@Override
 	public void start(Stage primaryStage) {
 		try {
 			telaLogin = FXMLLoader.load(getClass().getResource("../view/Login.fxml"));
-			telaPrincipal = FXMLLoader.load(getClass().getResource("../view/Principal.fxml"));
+			
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Principal.fxml"));
+			telaPrincipal = loader.load();
+			c=loader.getController();
 			
 			stagePrincipal = new Stage();
 

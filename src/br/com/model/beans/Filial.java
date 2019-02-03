@@ -21,6 +21,7 @@ public class Filial implements EntidadeBase{
 	@ManyToOne
 	@Cascade(CascadeType.ALL)
 	private Endereco endereco;
+	private boolean statusOb = true;
 	public Filial() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -38,6 +39,23 @@ public class Filial implements EntidadeBase{
 		super();
 		this.nome = nome;
 		this.endereco = endereco;
+	}
+	
+	
+
+
+	public boolean isStatusOb() {
+		return statusOb;
+	}
+
+
+	public void setStatusOb(boolean statusOb) {
+		this.statusOb = statusOb;
+	}
+
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 
@@ -68,6 +86,7 @@ public class Filial implements EntidadeBase{
 		result = prime * result + ((endereco == null) ? 0 : endereco.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + (statusOb ? 1231 : 1237);
 		return result;
 	}
 
@@ -95,6 +114,8 @@ public class Filial implements EntidadeBase{
 			if (other.nome != null)
 				return false;
 		} else if (!nome.equals(other.nome))
+			return false;
+		if (statusOb != other.statusOb)
 			return false;
 		return true;
 	}

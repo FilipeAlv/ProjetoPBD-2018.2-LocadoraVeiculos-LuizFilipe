@@ -3,9 +3,9 @@ package br.com.controller;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import br.com.model.beans.Config;
 import br.com.model.beans.Funcionario;
+import br.com.model.beans.Pessoa;
 import br.com.model.dao.DAOFuncionario;
 import br.com.util.Util;
 import br.com.util.Util.Criptografia;
@@ -29,41 +29,44 @@ import javafx.stage.Stage;
 
 public class ControllerFuncionario implements Initializable{
 
-    @FXML
-    private TableView<Funcionario> tbFuncionario;
+	@FXML
+	private TableView<Funcionario> tbFuncionario;
 
-    @FXML
-    private TableColumn<Funcionario, String> codigoCol;
+	@FXML
+	private TableColumn<Funcionario, String> codigoCol;
 
-    @FXML
-    private TableColumn<Funcionario, String> nomeCol;
+	@FXML
+	private TableColumn<Funcionario, String> nomeCol;
 
-    @FXML
-    private TableColumn<Funcionario, String> cargoCol;
+	@FXML
+	private TableColumn<Funcionario, String> cargoCol;
 
-    @FXML
-    private TableColumn<Funcionario, String> PermissaoCol;
+	@FXML
+	private TableColumn<Funcionario, String> PermissaoCol;
 
-    @FXML
-    private Button btnBuscarCliente;
+	@FXML
+	private Button btnBuscarCliente;
 
-    @FXML
-    private static Button btnResetSenha;
+	@FXML
+	private Button btnResetSenha;
 
-    @FXML
-    private Button btnAdd;
+	@FXML
+	private Button btnAdd;
 
-    @FXML
-    private TextField fdBuscar;
+	@FXML
+	private Button btnDelete;
 
-    @FXML
-    private Button btnEditar;
+	@FXML
+	private TextField fdBuscar;
+
+	@FXML
+	private Button btnEditar;
 
 	private static TableView<Funcionario> tb;
 
-    @FXML
-    void actionAddFuncionario(ActionEvent event) {
-    	Pane tela = null;
+	@FXML
+	void actionAddFuncionario(ActionEvent event) {
+		Pane tela = null;
 		Scene scene;
 		Stage stage;
 		try {
@@ -82,18 +85,27 @@ public class ControllerFuncionario implements Initializable{
 			alert.setHeaderText("Tela não encontrada");
 			e.printStackTrace();
 		}
-    }
+	}
 
-    @FXML
-    void actionBuscarCliente(ActionEvent event) {
+	@FXML
+	void actionBuscarCliente(ActionEvent event) {
 
-    }
+	}
 
+	@FXML
+	void actionDeletar(ActionEvent event) {
+		Funcionario funcionario = DAOFuncionario.getInstace().findById(Funcionario.class, tbFuncionario.getSelectionModel().getSelectedItem().getId());
 
-    @FXML
-    void actionEditar(ActionEvent event) {
-    	Funcionario funcionario = DAOFuncionario.getInstace().findById(Funcionario.class, tbFuncionario.getSelectionModel().getSelectedItem().getId());
-    	Pane tela = null;
+		funcionario.setStatusOb(false);
+		DAOFuncionario.getInstace().saveOrUpdate(funcionario);
+
+		carregarTabela();
+	}
+
+	@FXML
+	void actionEditar(ActionEvent event) {
+		Funcionario funcionario = DAOFuncionario.getInstace().findById(Funcionario.class, tbFuncionario.getSelectionModel().getSelectedItem().getId());
+		Pane tela = null;
 		Scene scene;
 		Stage stage;
 		ControllerNovoFuncionario c;
@@ -116,57 +128,73 @@ public class ControllerFuncionario implements Initializable{
 			alert.setHeaderText("Tela não encontrada");
 			e.printStackTrace();
 		}
-    }
-
-    @FXML
-    void actionResetSenha(ActionEvent event) {
-		Alert alert = new Alert(AlertType.ERROR);
-    	Funcionario f = tbFuncionario.getSelectionModel().getSelectedItem();
-    	if(f!=null) {
-	    	f.setSenha(new String(Criptografia.criptografa(Util.SENHA_PADRAO.toCharArray())));
-	    	DAOFuncionario.getInstace().saveOrUpdate(f);
-    		alert.setContentText("A senha deste Funcionario foi resetada com sucesso");
-    		alert.show();
-    	}else {
-    		alert.setContentText("Selecione um item");
-    		alert.show();
-    	}
-    }
-    
-    @Override
-	public void initialize(URL location, ResourceBundle resources) {
-    	codigoCol.setCellValueFactory(new PropertyValueFactory<>("codigo"));
-        nomeCol.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        cargoCol.setCellValueFactory(new PropertyValueFactory<>("cargo"));
-        PermissaoCol.setCellValueFactory(new PropertyValueFactory<>("permissao"));
-        tb=tbFuncionario;
-		carregarTabela();
-		
 	}
-    
-    public static void carregarTabela() {
-        
+
+	@FXML
+	void actionResetSenha(ActionEvent event) {
+		Alert alert = new Alert(AlertType.ERROR);
+		Funcionario f = tbFuncionario.getSelectionModel().getSelectedItem();
+		if(f!=null) {
+			f.setSenha(new String(Criptografia.criptografa(Util.SENHA_PADRAO.toCharArray())));
+			DAOFuncionario.getInstace().saveOrUpdate(f);
+			alert.setContentText("A senha deste Funcionario foi resetada com sucesso");
+			alert.show();
+		}else {
+			alert.setContentText("Selecione um item");
+			alert.show();
+		}
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		codigoCol.setCellValueFactory(new PropertyValueFactory<>("codigo"));
+		nomeCol.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		cargoCol.setCellValueFactory(new PropertyValueFactory<>("cargo"));
+		PermissaoCol.setCellValueFactory(new PropertyValueFactory<>("permissao"));
+		tb=tbFuncionario;
+		carregarTabela();
+
+		desativar();
+
+
+	}
+
+	private void desativar() {
+		Pessoa user = Config.getInstace().getUsuario();
+		if((user instanceof Funcionario)) {
+			if(((Funcionario) user).getPermissao().equals("Administrador")) {
+				btnAdd.setDisable(false);
+				btnResetSenha.setDisable(false);
+				return;
+			}
+		}
+		btnAdd.setDisable(true);
+		btnResetSenha.setDisable(true);
+	}
+
+	public static void carregarTabela() {
+
 		List<Funcionario> funcionarios = DAOFuncionario.getInstace().findAll();
 		ObservableList<Funcionario> ob = FXCollections.observableArrayList();
-	
+
 		for (Funcionario funcionario : funcionarios) {
 			ob.add(funcionario);
 		}
 		if (ob.size()>0) 
 			tb.setItems(ob);
-		
+
 		if(Config.getInstace().getUsuario()!=null)
 			desativarBotoes();
-    }
-
-    public static void desativarBotoes() {
-//		if(!((Funcionario)Session.usuario).getPermissao().equals("full")) {
-//			btnResetSenha.setDisable(true);
-//		}else {
-//			btnResetSenha.setDisable(false);
-//		}
-		
 	}
-    
-   
+
+	public static void desativarBotoes() {
+		//		if(!((Funcionario)Session.usuario).getPermissao().equals("full")) {
+		//			btnResetSenha.setDisable(true);
+		//		}else {
+		//			btnResetSenha.setDisable(false);
+		//		}
+
+	}
+
+
 }

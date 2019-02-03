@@ -24,10 +24,7 @@ public class CaminhonetaCarga extends Categoria{
 		this.potenciaMotor = potenciaMotor;
 		this.tipoEmbreagem = tipoEmbreagem;
 	}
-	public CaminhonetaCarga(Integer id, String nome, String tamanho, String tipoCambio, boolean arCondicionado,
-			boolean direcaoHidraulica, boolean cameraRe, boolean radio, boolean mp3) {
-		super(id, nome, tamanho, tipoCambio, arCondicionado, direcaoHidraulica, cameraRe, radio, mp3);
-	}
+
 	
 	
 	public CaminhonetaCarga(String nome, String tamanho, String tipoCambio, boolean arCondicionado,
