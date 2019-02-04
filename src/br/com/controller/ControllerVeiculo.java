@@ -9,11 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import br.com.model.beans.Categoria;
 import br.com.model.beans.Filial;
 import br.com.model.beans.Veiculo;
-import br.com.model.dao.DAOCategoria;
 import br.com.model.dao.DAOFilial;
 import br.com.model.dao.DAOVeiculo;
 import javafx.collections.FXCollections;

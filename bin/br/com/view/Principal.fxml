@@ -93,6 +93,14 @@
                   <MenuItem fx:id="menuConfigLocacao" mnemonicParsing="false" onAction="#actionMenuLocacao" text="Configurações" />
                </items>
             </Menu>
+            <Menu mnemonicParsing="false" text="Relatório">
+               <items>
+                  <MenuItem fx:id="menuRelatorioCliente" mnemonicParsing="false" onAction="#actionRelatorio" text="Clientes" />
+                  <MenuItem fx:id="menuRelatorioLocacao" mnemonicParsing="false" onAction="#actionRelatorio" text="Locações" />
+                  <MenuItem fx:id="menuRelatorioFinanceiro" mnemonicParsing="false" onAction="#actionRelatorio" text="Financeiro" />
+                  <MenuItem fx:id="menuRelatorioReserva" mnemonicParsing="false" onAction="#actionRelatorio" text="Reserva" />
+               </items>
+            </Menu>
             <Menu mnemonicParsing="false" text="Financeiro">
                <items>
                   <MenuItem fx:id="menuFinanceiroMov" mnemonicParsing="false" onAction="#actionFinanceiro" text="Movimentações" />

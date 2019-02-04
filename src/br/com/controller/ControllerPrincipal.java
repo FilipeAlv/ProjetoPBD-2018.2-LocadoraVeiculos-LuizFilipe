@@ -88,6 +88,16 @@ public class ControllerPrincipal{
 	@FXML
 	private MenuItem menuVerLocacao;
 
+    @FXML
+    private MenuItem menuRelatorioLocacao;
+
+
+    @FXML
+    private MenuItem menuRelatorioFinanceiro;
+    
+    @FXML
+    private MenuItem menuRelatorioReserva;
+
 	@FXML
 	private MenuItem menuLocacaoSemReserva;
 
@@ -102,6 +112,9 @@ public class ControllerPrincipal{
 
 	@FXML
 	private MenuItem menuLogLocacao;
+	
+	@FXML
+	private MenuItem menuRelatorioCliente;
 
 	@FXML
 	void actionMenuBuscar(ActionEvent event) {
@@ -134,6 +147,38 @@ public class ControllerPrincipal{
 			e.printStackTrace();
 		}
 	}
+	
+
+    @FXML
+    void actionRelatorio(ActionEvent event) {
+    		Pane tela = null;
+    		Scene scene;
+    		Stage stage;
+    		try {
+    			if (event.getSource() == menuRelatorioLocacao) {
+    				tela = FXMLLoader.load(getClass().getResource("../view/RelatorioLocacao.fxml"));
+    			}else if(event.getSource() == menuRelatorioReserva) {
+    				tela = FXMLLoader.load(getClass().getResource("../view/RelatorioReserva.fxml"));
+
+    			}else if(event.getSource() == menuRelatorioCliente) {
+    				tela = FXMLLoader.load(getClass().getResource("../view/RelatorioCliente.fxml"));
+    			}
+
+    			scene = new Scene(tela);
+    			stage = new Stage();
+    			stage.setOnCloseRequest(e -> stage.close());
+    			stage.initModality(Modality.APPLICATION_MODAL);
+    			stage.setScene(scene);
+    			stage.show();
+
+    		} catch (Exception e) {
+    			Alert alert = new Alert(AlertType.ERROR);
+    			alert.setTitle("Erro de Exibição");
+    			alert.setContentText("Não foi possível exibir a tela. Por favor entre em contato com a equipe de desenvolvimento.");
+    			alert.setHeaderText("Tela não encontrada");
+    			e.printStackTrace();
+    		}
+    }
 
 	@FXML
 	void actionMenuCadastro(ActionEvent event) {

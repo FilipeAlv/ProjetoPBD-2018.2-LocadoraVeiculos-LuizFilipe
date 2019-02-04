@@ -246,6 +246,13 @@ public class ClienteAdapter{
 		}
 
 
+		@Override
+		public String toString() {
+			return "nome=" + nome + ", login=" + login + ", cpf=" + cpf + ", rg=" + rg
+					+ ", sexo=" + sexo + ", cnpj=" + cnpj + ", insc=" + insc + ", codigo=" + codigo + ", nasc=" + nasc;
+		}
+
+
 
     	
     	

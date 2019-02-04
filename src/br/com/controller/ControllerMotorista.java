@@ -3,12 +3,8 @@ package br.com.controller;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import br.com.model.beans.Categoria;
 import br.com.model.beans.Motorista;
-import br.com.model.dao.DAOCategoria;
 import br.com.model.dao.DAOMotorista;
-import br.com.model.dao.DAOVeiculo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

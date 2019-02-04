@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorio" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="79ac0c0d-0aa8-4088-b607-53af2b4695e9">
+	<property name="ireport.zoom" value="1.1000000000000005"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="id" class="java.lang.String"/>
+	<field name="dataFinal" class="java.lang.String"/>
+	<field name="valorFinal" class="java.lang.String"/>
+	<field name="statusVeiculo" class="java.lang.String"/>
+	<field name="veiculo" class="java.lang.String"/>
+	<field name="status" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="79" backcolor="#000000" uuid="5a0575b7-d836-4035-9935-cd8df9323a36"/>
+			</rectangle>
+			<image>
+				<reportElement x="12" y="16" width="60" height="37" backcolor="#000000" uuid="9c0139e5-dbc2-460f-9925-f932915f2782"/>
+				<imageExpression><![CDATA["E:\\Documents\\FACULDADE\\DISCIPLINAS\\5 PERIODO\\PBD\\PROJETO\\ProjetoPBD-2018.2-LocadoraVeiculos-LuizFilipeAlves\\src\\br\\com\\resources\\iconCar.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Transparent" x="56" y="32" width="125" height="21" forecolor="#FFFFFF" uuid="eea17604-bad0-4f50-bc24-dd19fcfbff5d"/>
+				<textElement>
+					<font fontName="Arial Black" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Veículos Pajeú]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement x="128" y="0" width="308" height="35" uuid="2b6d1c59-1e12-442a-a06f-0e7991d5286c"/>
+				<textElement>
+					<font fontName="Arial Black" size="24"/>
+				</textElement>
+				<text><![CDATA[Relátorio de Locações]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="47" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="37" height="20" uuid="e4fc6178-70a7-48b9-8c2f-2a0a4b925005"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="36" y="0" width="92" height="20" uuid="cf70597a-97e2-4cc3-80db-15505b4d5896"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Final]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="0" width="92" height="20" uuid="4ba9dc18-aaec-4e08-8a29-6907f0df35bc"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Final]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="234" y="0" width="100" height="20" uuid="2ca7f9b6-cfd6-4f2f-8e07-146d065cbb77"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status do Veiculo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="334" y="0" width="112" height="20" uuid="1598ae25-d5ce-4793-b1ea-88a2352319e6"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Veiculo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="463" y="0" width="92" height="20" uuid="7a002eae-7b65-4828-85b3-25409b90c596"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status da Locacao]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="37" height="20" uuid="76390341-4f21-4099-a505-183c385852df"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="36" y="0" width="92" height="20" uuid="ef95bacc-88f8-42f3-99d7-3c6772083897"/>
+				<textFieldExpression><![CDATA[$F{dataFinal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="128" y="0" width="92" height="20" uuid="7188bb12-fc0d-4dc6-9520-242a826bcad3"/>
+				<textFieldExpression><![CDATA[$F{valorFinal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="234" y="0" width="100" height="20" uuid="ee1c2150-1e03-4117-a8e1-950bd45f45b7"/>
+				<textFieldExpression><![CDATA[$F{statusVeiculo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="334" y="0" width="112" height="20" uuid="50fa17c9-8d01-484e-a577-90c27ac2065b"/>
+				<textFieldExpression><![CDATA[$F{veiculo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="463" y="0" width="92" height="20" uuid="c20bc549-1398-4dc1-b73e-0bef7cfa0ecf"/>
+				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="26" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="26" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="28" splitType="Stretch"/>
+	</summary>
+</jasperReport>

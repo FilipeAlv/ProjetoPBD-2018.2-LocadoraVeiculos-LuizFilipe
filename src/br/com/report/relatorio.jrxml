@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorio" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="79ac0c0d-0aa8-4088-b607-53af2b4695e9">
+	<property name="ireport.zoom" value="1.1000000000000005"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="cpf" class="java.lang.String"/>
+	<field name="rg" class="java.lang.String"/>
+	<field name="codigo" class="java.lang.String"/>
+	<field name="sexo" class="java.lang.String"/>
+	<field name="login" class="java.lang.String"/>
+	<field name="dataNascimento" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="79" backcolor="#000000" uuid="5a0575b7-d836-4035-9935-cd8df9323a36"/>
+			</rectangle>
+			<image>
+				<reportElement x="12" y="16" width="60" height="37" backcolor="#000000" uuid="9c0139e5-dbc2-460f-9925-f932915f2782"/>
+				<imageExpression><![CDATA["E:\\Documents\\FACULDADE\\DISCIPLINAS\\5 PERIODO\\PBD\\PROJETO\\ProjetoPBD-2018.2-LocadoraVeiculos-LuizFilipeAlves\\src\\br\\com\\resources\\iconCar.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Transparent" x="56" y="32" width="125" height="21" forecolor="#FFFFFF" uuid="eea17604-bad0-4f50-bc24-dd19fcfbff5d"/>
+				<textElement>
+					<font fontName="Arial Black" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Veículos Pajeú]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement x="140" y="0" width="290" height="35" uuid="2b6d1c59-1e12-442a-a06f-0e7991d5286c"/>
+				<textElement>
+					<font fontName="Arial Black" size="24"/>
+				</textElement>
+				<text><![CDATA[Relátorio de Clientes]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="47" splitType="Stretch">
+			<staticText>
+				<reportElement x="56" y="0" width="97" height="20" uuid="e98cb0ed-ed62-4c79-8ca2-820016c850d9"/>
+				<textElement>
+					<font fontName="Arial Black" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="153" y="0" width="84" height="20" uuid="d5393751-6a11-42d8-8c4d-d36922c846fb"/>
+				<textElement>
+					<font fontName="Arial Black" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CPF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="237" y="0" width="83" height="20" uuid="7bfc05c9-6ef4-409a-a55e-0f71cc9bc1b3"/>
+				<textElement>
+					<font fontName="Arial Black" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="52" height="20" uuid="bb46249a-9fec-439d-97ab-2301aac85120"/>
+				<textElement>
+					<font fontName="Arial Black" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="316" y="0" width="68" height="20" uuid="a1f2c396-9abb-4453-932f-56434eb33f1e"/>
+				<textElement>
+					<font fontName="Arial Black" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sexo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="384" y="0" width="92" height="20" uuid="b9af5700-b447-49f0-a7b8-81144e4a42f1"/>
+				<textElement>
+					<font fontName="Arial Black" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Login]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="476" y="0" width="77" height="30" uuid="88dee06d-1f69-4795-8526-cf9c5a646247"/>
+				<textElement>
+					<font fontName="Arial Black" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data de Nascimento]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="56" y="0" width="97" height="20" uuid="7fc47d6e-55b8-4cf7-ba2f-b071011d921f"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="153" y="0" width="84" height="20" uuid="4ee72394-2392-4468-aed3-8b5ba0f86214"/>
+				<textFieldExpression><![CDATA[$F{cpf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="237" y="0" width="79" height="20" uuid="7db26274-d762-43b2-9b88-affbe43e8e06"/>
+				<textFieldExpression><![CDATA[$F{rg}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="52" height="20" uuid="76456b92-07c0-4db9-8411-a6d75eace4fb"/>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="316" y="0" width="57" height="20" uuid="1a8f4317-d6b0-454e-914c-3eeac2bf5e06"/>
+				<textFieldExpression><![CDATA[$F{sexo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="373" y="0" width="89" height="20" uuid="e502abc3-5398-45d6-9ffb-4d04d474ccfa"/>
+				<textFieldExpression><![CDATA[$F{login}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="462" y="0" width="91" height="20" uuid="3c29a802-b3a8-4134-aff2-85103f266159"/>
+				<textFieldExpression><![CDATA[$F{dataNascimento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="26" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="26" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="28" splitType="Stretch"/>
+	</summary>
+</jasperReport>

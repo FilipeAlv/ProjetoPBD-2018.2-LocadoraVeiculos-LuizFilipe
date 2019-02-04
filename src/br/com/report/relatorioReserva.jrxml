@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorio" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="79ac0c0d-0aa8-4088-b607-53af2b4695e9">
+	<property name="ireport.zoom" value="1.1000000000000005"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="id" class="java.lang.String"/>
+	<field name="dataReserva" class="java.lang.String"/>
+	<field name="dataInicial" class="java.lang.String"/>
+	<field name="dataFinalPrevista" class="java.lang.String"/>
+	<field name="tipoLocacao" class="java.lang.String"/>
+	<field name="cliente" class="java.lang.String"/>
+	<field name="motorista" class="java.lang.String"/>
+	<field name="filial" class="java.lang.String"/>
+	<field name="status" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="79" backcolor="#000000" uuid="5a0575b7-d836-4035-9935-cd8df9323a36"/>
+			</rectangle>
+			<image>
+				<reportElement x="12" y="16" width="60" height="37" backcolor="#000000" uuid="9c0139e5-dbc2-460f-9925-f932915f2782"/>
+				<imageExpression><![CDATA["E:\\Documents\\FACULDADE\\DISCIPLINAS\\5 PERIODO\\PBD\\PROJETO\\ProjetoPBD-2018.2-LocadoraVeiculos-LuizFilipeAlves\\src\\br\\com\\resources\\iconCar.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Transparent" x="56" y="32" width="125" height="21" forecolor="#FFFFFF" uuid="eea17604-bad0-4f50-bc24-dd19fcfbff5d"/>
+				<textElement>
+					<font fontName="Arial Black" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Veículos Pajeú]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement x="140" y="0" width="290" height="35" uuid="2b6d1c59-1e12-442a-a06f-0e7991d5286c"/>
+				<textElement>
+					<font fontName="Arial Black" size="24"/>
+				</textElement>
+				<text><![CDATA[Relátorio de Reservas]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="47" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="29" height="20" uuid="a152b2fa-589f-4c67-9792-57c8dff7f1c5"/>
+				<text><![CDATA[id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="0" width="61" height="20" uuid="e9662843-77d9-4646-930a-9c268ad3e6da"/>
+				<text><![CDATA[dataReserva]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="86" y="0" width="61" height="20" uuid="6b2d2afa-b44c-4a3f-888b-651777ae3a29"/>
+				<text><![CDATA[dataInicial]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="147" y="0" width="61" height="20" uuid="9ca686ab-33e6-4f44-a74e-258d41e4c0c5"/>
+				<text><![CDATA[dataFinalPrevista]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="208" y="0" width="61" height="20" uuid="a90f049d-8cc4-4308-a640-9a98e63bf371"/>
+				<text><![CDATA[tipoLocacao]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="269" y="0" width="71" height="20" uuid="2c3ff90c-e5b9-4fa3-852a-c9f2085281a5"/>
+				<text><![CDATA[cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="0" width="90" height="20" uuid="c289b58f-28f6-4ef1-9f58-20b678082964"/>
+				<text><![CDATA[motorista]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="430" y="0" width="64" height="20" uuid="fea06a76-7cb7-40a9-bff1-db2c6119d9d8"/>
+				<text><![CDATA[filial]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="494" y="0" width="61" height="20" uuid="cf101d8a-11bb-4faf-b729-2e6a64ba2220"/>
+				<text><![CDATA[status]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="29" height="20" uuid="fce45ffc-a9c0-45bf-b975-bc8dfed4482d"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="35" y="2" width="61" height="20" uuid="c3e6773e-7fe5-4ab5-9a8d-8359d067bf3f"/>
+				<textFieldExpression><![CDATA[$F{dataReserva}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="96" y="2" width="61" height="20" uuid="41affb4e-f34c-4a5f-a85b-010062a07b95"/>
+				<textFieldExpression><![CDATA[$F{dataInicial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="157" y="2" width="61" height="20" uuid="a23c5b2b-519d-4d7b-aa57-f6cdb5c3b57a"/>
+				<textFieldExpression><![CDATA[$F{dataFinalPrevista}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="218" y="2" width="61" height="20" uuid="9e1bb0af-f03a-41c7-bf0f-86d852f2ee2c"/>
+				<textFieldExpression><![CDATA[$F{tipoLocacao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="269" y="2" width="71" height="20" uuid="46859007-d74c-4172-b3e6-6d3e126f2895"/>
+				<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="2" width="90" height="20" uuid="6296c25f-c0d2-478e-ac70-72cb90c81fe9"/>
+				<textFieldExpression><![CDATA[$F{motorista}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="2" width="61" height="20" uuid="2e0e422d-4c2b-4a97-b1db-075bf0ab1aac"/>
+				<textFieldExpression><![CDATA[$F{filial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="494" y="2" width="61" height="20" uuid="d5c3744e-8a00-476c-9e48-453e37ccfc07"/>
+				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="26" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="26" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="28" splitType="Stretch"/>
+	</summary>
+</jasperReport>

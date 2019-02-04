@@ -43,6 +43,17 @@ public class DAOReserva extends DaoGenerico<Reserva>{
 		em.close();
 		return reservas;
 	}
+
+	public List<Reserva> findByDataData(Date de, Date ate) {
+		EntityManager em = ConnectionFactory.getInstance().getConnection();
+		TypedQuery<Reserva> tp = em.createQuery(SQLUtil.Reserva.SELECT_DATA_DATA, Reserva.class);
+		tp.setParameter("de", de);
+		tp.setParameter("ate", ate);
+		List<Reserva> reservas = tp.getResultList();
+		em.close();
+		return reservas;
+		
+	}
 	
 
 }

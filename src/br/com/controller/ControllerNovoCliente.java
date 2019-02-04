@@ -169,13 +169,13 @@ public class ControllerNovoCliente implements Initializable{
 				case "Pessoa Física":
 					pessoa = new PessoaFisica();
 					break;
-				case "Caminhoneta Carga":
+				case "Pessoa Juridica":
 					pessoa = new PessoaJuridica();
 					break;
 				}
 			}
 
-			codigo = "";
+			codigo = " ";
 			bairro = fdBairro.getText().toString();
 			cidade = fdCidade.getText().toString();
 			numero = fdNumero.getText().toString();

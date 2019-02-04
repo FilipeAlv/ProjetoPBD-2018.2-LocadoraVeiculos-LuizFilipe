@@ -30,7 +30,7 @@ public class SQLUtil {
 	
 	public class PessoaJuridica{
 		public static final String SELECT_ALL = "SELECT p FROM PessoaJuridica p";
-		public static final String SELECT_CNPJ = "SELECT p FROM PessoaJuridica p WEHERE p.cnpj = :cnpj";
+		public static final String SELECT_CNPJ = "SELECT p FROM PessoaJuridica p WHERE p.cnpj = :cnpj";
 		public static final String SELECT = "SELECT p FROM PessoaJuridica p WHERE LOWER(p.nome) LIKE :str or LOWER(p.cnpj) LIKE :str";
 	}
 	
@@ -76,6 +76,13 @@ public class SQLUtil {
 	public class Locacao{
 		public static final String SELECT_ALL = "SELECT l FROM Locacao l";
 		public static final String SELECT_DATA = "SELECT l FROM Locacao l WHERE l.dataFinal = :dataFinal";
+		public static final String SELECT_MOTORISTA = "SELECT l FROM Locacao l, Reserva r WHERE l.reserva = r and r.motorista = :motorista ";
+		public static final String SELECT_CLIENTE = "SELECT l FROM Locacao l, Reserva r WHERE l.reserva = r and r.cliente = :pessoa ";
+		public static final String SELECT_DATA_DATA = "SELECT l FROM Locacao l, Reserva r WHERE l.reserva = r and r.dataInicial BETWEEN :de and :ate";
+		public static final String SELECT_DATA_CLIENTE = "SELECT l FROM Locacao l, Reserva r WHERE l.reserva = r and r.cliente = :pessoa and r.dataInicial BETWEEN :de and :ate";
+		public static final String SELECT_DATA_MOTORISTA = "SELECT l FROM Locacao l, Reserva r WHERE l.reserva = r and r.motorista = :pessoa and r.dataInicial BETWEEN :de and :ate";
+		public static final String SELECT_DATA_CLIENTE_MOTORISTA = "SELECT l FROM Locacao l, Reserva r WHERE l.reserva = r and r.motorista = :motorista and r.cliente = :pessoa and r.dataInicial BETWEEN :de and :ate";
+		public static final String SELECT_CLIENTE_MOTORISTA = "SELECT l FROM Locacao l, Reserva r WHERE l.reserva = r and r.motorista = :motorista and r.cliente = :pessoa";
 	}
 	
 	public class LocacaoBackup{
@@ -96,6 +103,7 @@ public class SQLUtil {
 		public static final String SELECT_ALL = "SELECT r FROM Reserva r";
 		public static final String SELECT_DATA = "SELECT r FROM Reserva r WHERE r.dataInicial = :dataInicial";
 		public static final String SELECT_TIPO = "SELECT r FROM Reserva r WHERE e.tipoLocacao = :tipo";
+		public static final String SELECT_DATA_DATA = "SELECT r FROM Reserva r WHERE r.dataReserva BETWEEN :de and :ate";
 	}
 	
 	public class ReservaBackup{
