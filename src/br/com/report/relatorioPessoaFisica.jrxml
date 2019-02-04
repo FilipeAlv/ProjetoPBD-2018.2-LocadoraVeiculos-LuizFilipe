@@ -18,10 +18,6 @@
 			<rectangle>
 				<reportElement x="0" y="0" width="555" height="79" backcolor="#000000" uuid="5a0575b7-d836-4035-9935-cd8df9323a36"/>
 			</rectangle>
-			<image>
-				<reportElement x="12" y="16" width="60" height="37" backcolor="#000000" uuid="9c0139e5-dbc2-460f-9925-f932915f2782"/>
-				<imageExpression><![CDATA["E:\\Documents\\FACULDADE\\DISCIPLINAS\\5 PERIODO\\PBD\\PROJETO\\ProjetoPBD-2018.2-LocadoraVeiculos-LuizFilipeAlves\\src\\br\\com\\resources\\iconCar.png"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement mode="Transparent" x="56" y="32" width="125" height="21" forecolor="#FFFFFF" uuid="eea17604-bad0-4f50-bc24-dd19fcfbff5d"/>
 				<textElement>
